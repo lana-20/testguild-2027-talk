@@ -98,7 +98,7 @@ Both are ticked on the form. Both need honoring.
 - [ ] **Mobium is private.** The submission promises attendees "the repo, the slides, and the
       exact commands." That repo has to be public by February, and a citable repo is worth more
       on a ballot that opens Oct 9.
-- [ ] **`deck/slides/close.html` contains a `[repo link]` placeholder.** Replace before recording.
+- [x] ~~`deck/slides/close.html` placeholder~~ **done** — the closing slide now points at the published deck. Add the Mobium repo URL beside it once that repo is public.
 - [ ] Confirm the LinkedIn slug, X handle and website fields in `FORM-ANSWERS.md`.
 - [ ] Time a read-through before recording. The run of show is deliberately long; the slack and
       the two droppable beats are named in `RUN-OF-SHOW.md`.
