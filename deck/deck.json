@@ -1,0 +1,26 @@
+{
+  "v": 4,
+  "createdOnFiles": { "v": 1, "at": "2026-09-22T20:10:00Z" },
+  "title": "It Passed, and It Passed Too Easily",
+  "order": [
+    "cover","open-green","open-reveal","premise","bridge",
+    "act1","a1-question","a1-result","a1-tell","a1-rule","a1-echo",
+    "act2","a2-table","a2-silent","a2-devnull","a2-agent",
+    "act3","a3-test","a3-reveal","a3-witness","a3-counter",
+    "act4","a4-arc","a4-password",
+    "habits","close"
+  ],
+  "sections": {
+    "s0": { "description": "A test that passed in 0.31 seconds because nothing ran", "start": "cover" },
+    "s1": { "description": "Act I — the probe that never ran, and why every zero needs a positive control", "start": "act1" },
+    "s2": { "description": "Act II — exit code 0 is not evidence; read the state back", "start": "act2" },
+    "s3": { "description": "Act III — the test that could not fail, and four lying witnesses", "start": "act3" },
+    "s4": { "description": "Act IV — fixtures, three real apps, and the password", "start": "act4" },
+    "s5": { "description": "Four habits to take home", "start": "habits" }
+  },
+  "faces": {
+    "rubik": { "family": "Rubik", "href": "https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" },
+    "fira-code": { "family": "Fira Code", "href": "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" }
+  },
+  "designSystems": []
+}

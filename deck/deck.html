@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>It Passed, and It Passed Too Easily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap">
+<style>
+  html, body { margin:0; height:100%; background:#0B0E11; overflow:hidden; }
+  body { font-family: Rubik, Arial, sans-serif; }
+  #stage { position:fixed; inset:0; display:grid; place-items:center; }
+  .slide { position:absolute; inset:0; display:grid; place-items:center; visibility:hidden; }
+  .slide.is-active { visibility:visible; }
+  .slide > section {
+    position:relative; width:1920px; height:1080px; flex:none;
+    transform-origin:center center; box-shadow:0 24px 80px rgba(0,0,0,.55);
+  }
+  .slide > section > aside { display:none; }
+  #bar {
+    position:fixed; left:0; right:0; bottom:0; height:3px; background:rgba(255,255,255,.08);
+  }
+  #bar > i { display:block; height:100%; background:#E0A526; width:0; transition:width .18s ease; }
+  #hud {
+    position:fixed; right:18px; bottom:16px; font-family:'Fira Code', ui-monospace, monospace;
+    font-size:13px; color:#7C8890; letter-spacing:1px; user-select:none;
+  }
+  #help {
+    position:fixed; left:18px; bottom:16px; font-family:'Fira Code', ui-monospace, monospace;
+    font-size:12px; color:#4A545B; letter-spacing:.5px; user-select:none;
+  }
+  #notes {
+    position:fixed; left:0; right:0; bottom:0; max-height:38vh; overflow:auto;
+    background:#12181E; color:#C7D0D8; border-top:1px solid #26313A;
+    padding:20px 26px 26px; font-size:16px; line-height:1.55; display:none;
+  }
+  #notes.on { display:block; }
+  #notes b { display:block; color:#E0A526; font-family:'Fira Code', ui-monospace, monospace;
+    font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding-bottom:6px; }
+  @media print {
+    html, body { background:#fff; overflow:visible; height:auto; }
+    #stage { position:static; display:block; }
+    #bar, #hud, #help, #notes { display:none !important; }
+    .slide { position:static; visibility:visible !important; page-break-after:always;
+              display:block; width:1920px; height:1080px; }
+    .slide > section { box-shadow:none; transform:none !important; }
+    @page { size:1920px 1080px; margin:0; }
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+<div class="slide" data-id="cover"><section id="cover" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">Automation Guild '27 &nbsp;·&nbsp; Automation Enlightenment</p>
+  <h1 style="font-size:112px; font-weight:600; line-height:1.03; letter-spacing:-2px">It Passed, and<br>It Passed Too Easily</h1>
+  <div style="width:180px; height:5px; background:#C4452F"></div>
+  <p style="font-size:38px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1200px">70 defects from building a mobile automation tool for AI agents &mdash; and the tests that agreed with every one of them.</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Lana Begunova &nbsp;·&nbsp; SDET &mdash; AI | UI | API &nbsp;·&nbsp; Seattle</p>
+  <aside>Do not introduce yourself yet. Go straight to the terminal on the next slide. The introduction comes after the cold open, in one line.</aside>
+</section></div>
+<div class="slide" data-id="open-green"><section id="open-green" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:56px">
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:56px 64px; display:flex; flex-direction:column; gap:18px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#94A0AB">$ go test ./internal/ios/ -run TestSimulatorLifecycle</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:44px; font-weight:600; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;mobium/internal/ios&nbsp;&nbsp;&nbsp;&nbsp;0.31s</p>
+  </div>
+  <p style="font-size:44px; font-weight:300; line-height:1.35; color:#BDC6CE; width:1500px">It creates a simulator, boots it, runs against it, and deletes it.<br>It passed in <b style="font-weight:600; color:#EDEAE3">three hundred and ten milliseconds</b>.</p>
+  <aside>Let the green sit on screen for a beat before you say anything. Read the timing aloud slowly. Do not explain yet — the next slide is the reveal.</aside>
+</section></div>
+<div class="slide" data-id="open-reveal"><section id="open-reveal" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:44px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">What actually ran</p>
+  <div style="display:flex; gap:28px">
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; font-weight:500; color:#C4452F">create</h3>
+      <p style="font-size:28px; color:#94A0AB; line-height:1.35">never ran</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; font-weight:500; color:#C4452F">boot</h3>
+      <p style="font-size:28px; color:#94A0AB; line-height:1.35">never ran</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; font-weight:500; color:#C4452F">delete</h3>
+      <p style="font-size:28px; color:#94A0AB; line-height:1.35">never ran</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #4C8C6A; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; font-weight:500; color:#4C8C6A">assertions</h3>
+      <p style="font-size:28px; color:#BDC6CE; line-height:1.35">ran, and passed</p>
+    </div>
+  </div>
+  <p style="font-size:42px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">The simulator it asked for was <b style="font-weight:600; color:#EDEAE3">already booted</b>, so every setup step short-circuited and the assertions ran against a device I never built.</p>
+  <p style="font-size:46px; font-weight:500; color:#E0A526">It passed. And it passed too easily.</p>
+  <aside>This is the thesis of the whole talk, stated in eleven words. Pause after it. Then give your one-line introduction and move on.</aside>
+</section></div>
+<div class="slide" data-id="premise"><section id="premise" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:52px">
+  <h2 style="font-size:68px; font-weight:600; line-height:1.1; letter-spacing:-1px; width:1500px">Five months. One tool. Every defect written down as it happened.</h2>
+  <div style="display:flex; gap:32px; align-items:stretch">
+    <div style="width:520px; background:#141A21; border-radius:16px; padding:48px; display:flex; flex-direction:column; gap:10px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:132px; font-weight:600; line-height:1; color:#EDEAE3">70</p>
+      <p style="font-size:30px; color:#BDC6CE; line-height:1.35">substantive defects</p>
+    </div>
+    <div style="flex:1; background:#C4452F; border-radius:16px; padding:48px; display:flex; flex-direction:column; gap:10px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:132px; font-weight:600; line-height:1; color:#FFF6F1">54</p>
+      <p style="font-size:30px; color:#FFE3D8; line-height:1.35">found <b style="font-weight:600">only</b> by running against a real device</p>
+    </div>
+  </div>
+  <p style="font-size:38px; font-weight:300; line-height:1.45; color:#5A6169; width:1560px">Not the compiler. Not code review. Not the test suite &mdash; several defects <b style="font-weight:500; color:#141A21">survived tests written from the same wrong assumption as the code they checked.</b></p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#5A6169">Source: the project's own defect log, docs/STATE.md</p>
+  <aside>Say the ratio out loud. Fifty-four of seventy. Then note the ratio did not improve as the project matured — a real phone made it worse, not better.</aside>
+</section></div>
+<div class="slide" data-id="bridge"><section id="bridge" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:46px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F; letter-spacing:2px; text-transform:uppercase">You are not here for mobile</p>
+  <h2 style="font-size:76px; font-weight:600; line-height:1.12; letter-spacing:-1px; width:1580px">You are here because your model now writes the test and the implementation.</h2>
+  <div style="width:1560px; background:#FAF8F3; border-left:6px solid #E0A526; border-radius:4px; padding:44px 48px; display:flex; flex-direction:column; gap:18px">
+    <p style="font-size:40px; font-weight:400; line-height:1.4; color:#141A21">When the same author writes the assumption, the code, and the check, all three agree.</p>
+    <p style="font-size:34px; font-weight:300; line-height:1.4; color:#5A6169">A green suite is then the implementation asserting itself. AI did not create this failure mode. It industrialized it.</p>
+  </div>
+  <p style="font-size:34px; font-weight:300; line-height:1.45; color:#5A6169; width:1500px">Mobile is just where I happened to get caught. Everything after this is a shape you already have in your pipeline.</p>
+  <aside>This is the bridge slide. Half the room switches off at the word mobile — this is where you keep them. Keep it to ninety seconds.</aside>
+</section></div>
+<div class="slide" data-id="act1"><section id="act1" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:150px; font-weight:600; line-height:1; color:#2A343E">01</p>
+  <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">The probe that never ran</h2>
+  <div style="width:180px; height:5px; background:#E0A526"></div>
+  <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1300px">Four clean results. All of them true. None of them meaning anything.</p>
+  <aside>Section divider. Two seconds on screen. Do not read it aloud.</aside>
+</section></div>
+<div class="slide" data-id="a1-question"><section id="a1-question" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:48px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">The question</p>
+  <h2 style="font-size:72px; font-weight:500; line-height:1.15; width:1560px">Does Android ever report a UI node as hidden?</h2>
+  <p style="font-size:38px; font-weight:300; line-height:1.45; color:#BDC6CE; width:1500px">It matters, because if it does, the tool has to filter those nodes out of the map it hands an agent. If it never does, that is code I do not have to write.</p>
+  <div style="background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:40px 48px; display:flex; flex-direction:column; gap:12px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#94A0AB">The method: launch four apps, dump the hierarchy, count hidden nodes.</p>
+  </div>
+  <aside>Keep this quick. The audience should feel the method is completely reasonable — because it is.</aside>
+</section></div>
+<div class="slide" data-id="a1-result"><section id="a1-result" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:46px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">The result</p>
+  <div style="display:flex; gap:24px">
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:38px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Settings</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:76px; font-weight:600; line-height:1; color:#4C8C6A">0</p>
+      <p style="font-size:26px; color:#94A0AB">hidden nodes</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:38px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Calculator</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:76px; font-weight:600; line-height:1; color:#4C8C6A">0</p>
+      <p style="font-size:26px; color:#94A0AB">hidden nodes</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:38px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Clock</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:76px; font-weight:600; line-height:1; color:#4C8C6A">0</p>
+      <p style="font-size:26px; color:#94A0AB">hidden nodes</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:38px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Contacts</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:76px; font-weight:600; line-height:1; color:#4C8C6A">0</p>
+      <p style="font-size:26px; color:#94A0AB">hidden nodes</p>
+    </div>
+  </div>
+  <p style="font-size:44px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1500px">Four apps. Four zeroes. Clean answer: Android never marks a node hidden. Ship it.</p>
+  <aside>Sell the conclusion honestly here. You believed this. Let the audience believe it too, for about five seconds.</aside>
+</section></div>
+<div class="slide" data-id="a1-tell"><section id="a1-tell" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:44px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F; letter-spacing:2px; text-transform:uppercase">The tell</p>
+  <div style="display:flex; gap:24px">
+    <div style="flex:1; background:#1C242D; border:1px solid #C4452F; border-radius:12px; padding:34px; display:flex; flex-direction:column; gap:10px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Settings</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:70px; font-weight:600; line-height:1; color:#E0A526">32</p>
+      <p style="font-size:26px; color:#94A0AB">total nodes</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #C4452F; border-radius:12px; padding:34px; display:flex; flex-direction:column; gap:10px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Calculator</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:70px; font-weight:600; line-height:1; color:#E0A526">32</p>
+      <p style="font-size:26px; color:#94A0AB">total nodes</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #C4452F; border-radius:12px; padding:34px; display:flex; flex-direction:column; gap:10px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Clock</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:70px; font-weight:600; line-height:1; color:#E0A526">32</p>
+      <p style="font-size:26px; color:#94A0AB">total nodes</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #C4452F; border-radius:12px; padding:34px; display:flex; flex-direction:column; gap:10px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB">Contacts</p>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:70px; font-weight:600; line-height:1; color:#E0A526">32</p>
+      <p style="font-size:26px; color:#94A0AB">total nodes</p>
+    </div>
+  </div>
+  <p style="font-size:46px; font-weight:400; line-height:1.35; color:#EDEAE3; width:1560px">Identical counts. The probe <b style="font-weight:600; color:#E0A526">never left the launcher</b>. Four apps were never launched, and four clean zeroes were four readings of the same screen.</p>
+  <p style="font-size:34px; font-weight:300; line-height:1.4; color:#94A0AB; width:1500px">The zeroes were accurate. The question was never asked.</p>
+  <aside>The total count is the hero of this slide. Point at it. Nobody looks at the denominator until it betrays them.</aside>
+</section></div>
+<div class="slide" data-id="a1-rule"><section id="a1-rule" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:44px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F; letter-spacing:2px; text-transform:uppercase">Rule 01</p>
+  <h2 style="font-size:78px; font-weight:600; line-height:1.12; letter-spacing:-1px; width:1580px">Any result of &ldquo;zero&rdquo; or &ldquo;no difference&rdquo; needs a positive control.</h2>
+  <div style="width:1560px; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:14px; padding:44px 48px; display:flex; flex-direction:column; gap:16px">
+    <p style="font-size:38px; font-weight:400; line-height:1.4">Make the measurement report the thing you expect it to find. <b style="font-weight:600">Then</b> believe the zero.</p>
+    <p style="font-size:32px; font-weight:300; line-height:1.4; color:#5A6169">The probe now asserts that the hierarchy names the app it asked for, before it believes any count at all.</p>
+  </div>
+  <p style="font-size:34px; font-weight:300; line-height:1.45; color:#5A6169; width:1560px">A probe that never ran and a check that silently passes are the same defect in different clothes.</p>
+  <aside>First of the four habits. Say the number of the rule — the audience is collecting them, and you will show all four again at the end.</aside>
+</section></div>
+<div class="slide" data-id="a1-echo"><section id="a1-echo" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <h2 style="font-size:62px; font-weight:600; line-height:1.14; letter-spacing:-1px; width:1520px">You already have one of these. It is just green.</h2>
+  <div style="display:flex; gap:26px">
+    <div style="flex:1; background:#FAF8F3; border:1px solid #D8D3C7; border-top:5px solid #E0A526; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-size:32px; font-weight:600; line-height:1.25">The flake detector that finds no flakes</h3>
+      <p style="font-size:28px; font-weight:300; line-height:1.4; color:#5A6169">Has it ever reported one?</p>
+    </div>
+    <div style="flex:1; background:#FAF8F3; border:1px solid #D8D3C7; border-top:5px solid #E0A526; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-size:32px; font-weight:600; line-height:1.25">The a11y scan with zero violations</h3>
+      <p style="font-size:28px; font-weight:300; line-height:1.4; color:#5A6169">On a page you broke on purpose?</p>
+    </div>
+    <div style="flex:1; background:#FAF8F3; border:1px solid #D8D3C7; border-top:5px solid #E0A526; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-size:32px; font-weight:600; line-height:1.25">The LLM judge that approves everything</h3>
+      <p style="font-size:28px; font-weight:300; line-height:1.4; color:#5A6169">Feed it something it must reject.</p>
+    </div>
+  </div>
+  <div style="width:1560px; background:#141A21; border-radius:12px; padding:36px 44px; display:flex; flex-direction:column; gap:12px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#E0A526; line-height:1.4">count=$(ls "$ANDROID_HOME/emulator" | wc -l)&nbsp;&nbsp;# unset =&gt; 0 =&gt; "clean"</p>
+    <p style="font-size:30px; font-weight:300; line-height:1.4; color:#BDC6CE">My clean-stop script reported &ldquo;clean&rdquo; while two emulator helpers were running. A check that silently passes when its own input is missing is worse than no check, because it is trusted.</p>
+  </div>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#5A6169">Rule 01 &nbsp;·&nbsp; positive controls</p>
+  <aside>Droppable if running long. If you keep it, the three cards are the audience-facing payoff — let them sit for a second each.</aside>
+</section></div>
+<div class="slide" data-id="act2"><section id="act2" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:150px; font-weight:600; line-height:1; color:#2A343E">02</p>
+  <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">Exit 0 is not evidence</h2>
+  <div style="width:180px; height:5px; background:#E0A526"></div>
+  <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1300px">Four commands from one family. Four different ways of telling you it failed.</p>
+  <aside>Section divider. This is the densest and most immediately useful act — flag that as you move into it.</aside>
+</section></div>
+<div class="slide" data-id="a2-table"><section id="a2-table" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:36px">
+  <h2 style="font-size:60px; font-weight:600; line-height:1.14; letter-spacing:-1px">There is no convention. None. Not even within one tool family.</h2>
+  <table style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#EDEAE3; border:1px solid #2A343E; border-radius:8px; padding:16px">
+    <tr style="background:#1C242D">
+      <th style="width:34%; text-align:left; font-size:26px; color:#94A0AB">command</th>
+      <th style="width:30%; text-align:left; font-size:26px; color:#94A0AB">failure text goes to</th>
+      <th style="width:14%; text-align:left; font-size:26px; color:#94A0AB">exit</th>
+      <th style="width:22%; text-align:left; font-size:26px; color:#94A0AB">caught by $?</th>
+    </tr>
+    <tr><td>adb (device offline)</td><td style="color:#E0A526">stderr</td><td style="color:#4C8C6A">0</td><td style="color:#C4452F">no</td></tr>
+    <tr style="background:#1A222A"><td>am start</td><td style="color:#E0A526">stdout</td><td style="color:#4C8C6A">0</td><td style="color:#C4452F">no</td></tr>
+    <tr><td>uiautomator dump</td><td style="color:#E0A526">both, split</td><td style="color:#4C8C6A">0</td><td style="color:#C4452F">no</td></tr>
+    <tr style="background:#1A222A"><td>pm grant (undeclared)</td><td style="color:#C4452F">nothing at all</td><td style="color:#4C8C6A">0</td><td style="color:#C4452F">no</td></tr>
+    <tr><td>adb uninstall</td><td style="color:#E0A526">stdout</td><td style="color:#C4452F">1</td><td style="color:#4C8C6A">yes</td></tr>
+    <tr style="background:#1A222A"><td>simctl privacy</td><td style="color:#E0A526">stderr</td><td style="color:#4C8C6A">0</td><td style="color:#C4452F">no</td></tr>
+  </table>
+  <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Every tool this project drives reports at least some failures while exiting zero &mdash; and mostly on stderr, where a naive stdout check never looks.</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Read three rows aloud. The audience finds the fourth themselves.</p>
+  <aside>Do not read the whole table. Read adb, am start, and pm grant. The silence in the pm grant row is the one they will remember.</aside>
+</section></div>
+<div class="slide" data-id="a2-silent"><section id="a2-silent" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F; letter-spacing:2px; text-transform:uppercase">The silent ones</p>
+  <div style="display:flex; gap:26px">
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:38px; display:flex; flex-direction:column; gap:16px">
+      <h3 style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; font-weight:500; color:#E0A526">pm grant</h3>
+      <p style="font-size:30px; font-weight:300; line-height:1.4; color:#BDC6CE">For a permission the app never declared: exit 0, no output on any stream, and nothing granted.</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:38px; display:flex; flex-direction:column; gap:16px">
+      <h3 style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; font-weight:500; color:#E0A526">simctl privacy</h3>
+      <p style="font-size:30px; font-weight:300; line-height:1.4; color:#BDC6CE">Accepts a bundle id for an app that is not installed, and does nothing. Successfully.</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:38px; display:flex; flex-direction:column; gap:16px">
+      <h3 style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; font-weight:500; color:#E0A526">adb uninstall</h3>
+      <p style="font-size:30px; font-weight:300; line-height:1.4; color:#BDC6CE">Reports <b style="font-weight:600; color:#4C8C6A">Success</b> when all it removed was the updates to a system app. The app is still there.</p>
+    </div>
+  </div>
+  <div style="width:1560px; background:#0E1318; border-left:6px solid #4C8C6A; border-radius:4px; padding:40px 46px; display:flex; flex-direction:column; gap:14px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB; letter-spacing:2px; text-transform:uppercase">Rule 02</p>
+    <p style="font-size:42px; font-weight:400; line-height:1.35; color:#EDEAE3">Read the state back. <span style="color:#94A0AB">dumpsys package</span>, not the command's opinion of itself.</p>
+  </div>
+  <aside>Where the platform cannot report state back — iOS privacy is write-only — check the precondition before the write instead.</aside>
+</section></div>
+<div class="slide" data-id="a2-devnull"><section id="a2-devnull" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:42px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F; letter-spacing:2px; text-transform:uppercase">The one that cost most</p>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:52px 60px; display:flex; flex-direction:column; gap:20px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:46px; font-weight:500; color:#EDEAE3">mobium back &gt;/dev/null 2&gt;&amp;1</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#C4452F">there is no &ldquo;back&rdquo; command, and there never has been</p>
+  </div>
+  <p style="font-size:38px; font-weight:300; line-height:1.45; color:#BDC6CE; width:1580px">The shell printed <span style="color:#EDEAE3">unknown command</span> into <span style="color:#EDEAE3">/dev/null</span>. The screen did not move. The next step was misdiagnosed as a scrolling problem for far longer than I want to admit &mdash; and that redirect was hiding a <b style="font-weight:600; color:#E0A526">missing feature</b>, not a failing call.</p>
+  <p style="font-size:44px; font-weight:400; line-height:1.35; color:#EDEAE3; width:1560px">&ldquo;2&gt;/dev/null&rdquo; is a claim that you already know what a failure there means.</p>
+  <aside>The punchline is that it hid a missing feature. The tool could not press back at all, and this redirect delayed finding that out.</aside>
+</section></div>
+<div class="slide" data-id="a2-agent"><section id="a2-agent" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <h2 style="font-size:66px; font-weight:600; line-height:1.14; letter-spacing:-1px; width:1560px">An error message is an instruction an agent obeys unconditionally.</h2>
+  <div style="background:#141A21; border-radius:14px; padding:44px 52px; display:flex; flex-direction:column; gap:16px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:34px; color:#E0A526">unknown ref text=Charles Babbage &mdash; run app_map again</p>
+  </div>
+  <div style="display:flex; gap:26px">
+    <div style="flex:1; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:12px">
+      <h3 style="font-size:30px; font-weight:600; color:#4C8C6A">The refusal was correct</h3>
+      <p style="font-size:29px; font-weight:300; line-height:1.4; color:#5A6169">Inside a WebView the map matches CSS selectors. There is nothing for a text locator to resolve against.</p>
+    </div>
+    <div style="flex:1; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:12px">
+      <h3 style="font-size:30px; font-weight:600; color:#C4452F">The advice was impossible</h3>
+      <p style="font-size:29px; font-weight:300; line-height:1.4; color:#5A6169">Re-mapping can never help &mdash; the ref was never stale. Followed literally, it loops forever.</p>
+    </div>
+  </div>
+  <p style="font-size:40px; font-weight:400; line-height:1.4; color:#141A21; width:1560px">A wrong remedy is worse than no remedy, because it gets obeyed. When you write an error, check that doing what it says could actually fix it.</p>
+  <aside>This is the strongest agentic beat in the deck. A human gives up on bad advice eventually; an agent does not.</aside>
+</section></div>
+<div class="slide" data-id="act3"><section id="act3" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:150px; font-weight:600; line-height:1; color:#2A343E">03</p>
+  <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">The test that could not fail</h2>
+  <div style="width:180px; height:5px; background:#E0A526"></div>
+  <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1300px">And four witnesses that lied about a feature which was working.</p>
+  <aside>Section divider. This act contains the single most transferable idea in the talk.</aside>
+</section></div>
+<div class="slide" data-id="a3-test"><section id="a3-test" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:44px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">Exactly the test a careful reviewer wants to see</p>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:52px 60px; display:flex; flex-direction:column; gap:22px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:42px; font-weight:500; color:#EDEAE3">TestTruncationCountsCharactersNotBytes</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:32px; color:#94A0AB">sample := strings.Repeat("&#26085;&#26412;&#35486;&#12398;&#12486;&#12461;&#12473;&#12488;", 40)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:36px; font-weight:600; color:#4C8C6A">PASS</p>
+  </div>
+  <p style="font-size:40px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Labels are capped at 120. The bug would be capping on <b style="font-weight:600; color:#EDEAE3">bytes</b> instead of <b style="font-weight:600; color:#EDEAE3">characters</b>, which mangles any non-Latin script. So I wrote the test. It passed.</p>
+  <aside>Ask the room, rhetorically, what is wrong with this test. Give them three seconds. Almost nobody sees it.</aside>
+</section></div>
+<div class="slide" data-id="a3-reveal"><section id="a3-reveal" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <div style="display:flex; gap:26px; align-items:stretch">
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:40px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:64px; font-weight:600; line-height:1; color:#E0A526">24</p>
+      <p style="font-size:29px; font-weight:300; line-height:1.4; color:#BDC6CE">bytes per repeat of that string</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:40px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:64px; font-weight:600; line-height:1; color:#E0A526">120</p>
+      <p style="font-size:29px; font-weight:300; line-height:1.4; color:#BDC6CE">the cap &mdash; exactly five repeats</p>
+    </div>
+    <div style="flex:1; background:#C4452F; border-radius:12px; padding:40px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:64px; font-weight:600; line-height:1; color:#FFF6F1">0</p>
+      <p style="font-size:29px; font-weight:300; line-height:1.4; color:#FFE3D8">ways this test could ever fail</p>
+    </div>
+  </div>
+  <p style="font-size:42px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1580px">A 120-<b style="font-weight:600; color:#EDEAE3">byte</b> cut lands on a character boundary every single time. The test passes on the broken implementation and the correct one, identically. It was never a test.</p>
+  <div style="width:1560px; background:#0E1318; border-left:6px solid #E0A526; border-radius:4px; padding:38px 46px; display:flex; flex-direction:column; gap:14px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#94A0AB; letter-spacing:2px; text-transform:uppercase">Rule 03</p>
+    <p style="font-size:40px; font-weight:400; line-height:1.35; color:#EDEAE3">Mutate the code and watch the test fail before you believe it.</p>
+  </div>
+  <aside>Also mention: the test asserted the absence of U+FFFD, which malformed bytes do not contain. Two independent reasons it could not fail. Drop this detail if running long.</aside>
+</section></div>
+<div class="slide" data-id="a3-witness"><section id="a3-witness" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:36px">
+  <h2 style="font-size:62px; font-weight:600; line-height:1.14; letter-spacing:-1px; width:1580px">The last four defects I logged were in the <span style="color:#E0A526">witness</span>, not the feature.</h2>
+  <div style="display:flex; gap:22px">
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:32px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F">67</p>
+      <p style="font-size:28px; font-weight:300; line-height:1.38; color:#BDC6CE">WebDriverAgent honors a pause only while the finger is down</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:32px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F">68</p>
+      <p style="font-size:28px; font-weight:300; line-height:1.38; color:#BDC6CE">A WebView cannot witness a drag, and fails exactly at 500ms</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:32px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F">69</p>
+      <p style="font-size:28px; font-weight:300; line-height:1.38; color:#BDC6CE">A move event is not movement &mdash; iOS sends them for a stationary finger</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-radius:12px; padding:32px; display:flex; flex-direction:column; gap:12px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F">70</p>
+      <p style="font-size:28px; font-weight:300; line-height:1.38; color:#BDC6CE">iOS has no witness for a double tap at all, by any means available</p>
+    </div>
+  </div>
+  <p style="font-size:42px; font-weight:400; line-height:1.38; color:#EDEAE3; width:1580px">The gesture code was right. Four times in a row, the thing I built to check it was lying. The devices did not reject my answer &mdash; they rejected <b style="font-weight:600; color:#E0A526">the way I was asking the question</b>.</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">When a feature and its test disagree, suspect the test first</p>
+  <aside>The one-line takeaway: build the witness before you trust the measurement, and prove the witness can see.</aside>
+</section></div>
+<div class="slide" data-id="a3-counter"><section id="a3-counter" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:42px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#4C8C6A; letter-spacing:2px; text-transform:uppercase">The honest counter-example</p>
+  <h2 style="font-size:66px; font-weight:600; line-height:1.14; letter-spacing:-1px; width:1560px">One feature went to both platforms, and neither found anything.</h2>
+  <div style="width:1560px; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:14px; padding:44px 48px; display:flex; flex-direction:column; gap:18px">
+    <p style="font-size:36px; font-weight:400; line-height:1.4">In a defect table that is otherwise a column of <b style="font-weight:600">yes</b>, that is notable rather than reassuring &mdash; so it is written down as the exception, with the reason it is plausible.</p>
+    <p style="font-size:32px; font-weight:300; line-height:1.4; color:#5A6169">A record that only contains the times you were wrong is not a record. It is a performance.</p>
+  </div>
+  <p style="font-size:34px; font-weight:300; line-height:1.45; color:#5A6169; width:1560px">If you keep a log like this, keep the clean results in it too. They are how you tell a real finding from a story you enjoy telling.</p>
+  <aside>This slide buys you credibility for everything else. It also pre-empts the sceptic in the Q&A who assumes you cherry-picked.</aside>
+</section></div>
+<div class="slide" data-id="act4"><section id="act4" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:150px; font-weight:600; line-height:1; color:#2A343E">04</p>
+  <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">Fixtures, and the password</h2>
+  <div style="width:180px; height:5px; background:#C4452F"></div>
+  <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1300px">Every rule I wrote was tuned on apps written by the company that wrote the operating system.</p>
+  <aside>Section divider. This act is fast and is the emotional peak — do not over-explain any of it.</aside>
+</section></div>
+<div class="slide" data-id="a4-arc"><section id="a4-arc" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:38px">
+  <h2 style="font-size:60px; font-weight:600; line-height:1.14; letter-spacing:-1px; width:1580px">Three real third-party apps, chosen for the code paths they exercise.</h2>
+  <div style="display:flex; gap:26px">
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-top:5px solid #C4452F; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-size:34px; font-weight:600">Wikipedia</h3>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F">3 defects, first screen</p>
+      <p style="font-size:28px; font-weight:300; line-height:1.4; color:#BDC6CE">One feed card produced an <b style="font-weight:600; color:#E0A526">876-character label</b> &mdash; 91% of the entire map's text, from one of thirteen entries. It began with a span tag.</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-top:5px solid #4C8C6A; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-size:34px; font-weight:600">F-Droid</h3>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#4C8C6A">0 defects</p>
+      <p style="font-size:28px; font-weight:300; line-height:1.4; color:#BDC6CE">Chosen because it was the same <i>shape</i> as the app that had just broken everything. Shape was the wrong selection criterion.</p>
+    </div>
+    <div style="flex:1; background:#1C242D; border:1px solid #2A343E; border-top:5px solid #C4452F; border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:14px">
+      <h3 style="font-size:34px; font-weight:600">Aegis</h3>
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#C4452F">1 defect, and it was bad</p>
+      <p style="font-size:28px; font-weight:300; line-height:1.4; color:#BDC6CE">Chosen for a single untested code path: it has a password field.</p>
+    </div>
+  </div>
+  <p style="font-size:36px; font-weight:400; line-height:1.4; color:#EDEAE3; width:1580px">Google writes Google's apps to be accessible. Nobody else is obliged to. <b style="font-weight:600; color:#E0A526">A system app is to a real app what a hand-written fixture is to a device.</b></p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Rule 04 &nbsp;·&nbsp; capture fixtures from devices, and pick the next app for its code path</p>
+  <aside>Pace this at roughly twenty seconds per card. The F-Droid zero matters — it is why the selection rule changed from size to code path.</aside>
+</section></div>
+<div class="slide" data-id="a4-password"><section id="a4-password" data-transition="fade" style="background:#C4452F; color:#FFF6F1; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:44px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#FFD9CC; letter-spacing:2px; text-transform:uppercase">Aegis, screen one</p>
+  <h2 style="font-size:92px; font-weight:600; line-height:1.08; letter-spacing:-1.5px; width:1580px">My tool printed passwords in plaintext.</h2>
+  <div style="width:1560px; background:#A6371F; border-radius:14px; padding:44px 50px; display:flex; flex-direction:column; gap:18px">
+    <p style="font-size:36px; font-weight:400; line-height:1.4; color:#FFF6F1">Android marks the node <span style="font-family:'Fira Code', 'Courier New', monospace">password="true"</span> <b style="font-weight:600">and</b> puts the typed value in its text attribute.</p>
+    <p style="font-size:36px; font-weight:400; line-height:1.4; color:#FFE3D8">I parsed the flag. I read it nowhere.</p>
+  </div>
+  <p style="font-size:34px; font-weight:300; line-height:1.45; color:#FFE3D8; width:1580px">Every path that surfaces node text now redacts: the length is kept, the value dropped. And the regression fixture's password value is literally <span style="font-family:'Fira Code', 'Courier New', monospace; color:#FFF6F1">PASSWORD-MUST-NOT-APPEAR</span> &mdash; so a leak names itself in the failure output.</p>
+  <aside>The single statement slide in the deck. Do not rush it and do not soften it. The fixture naming trick is the practical gift — say it slowly.</aside>
+</section></div>
+<div class="slide" data-id="habits"><section id="habits" data-transition="push" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:38px">
+  <h2 style="font-size:66px; font-weight:600; line-height:1.12; letter-spacing:-1px">Four habits. All cheap. All earned the hard way.</h2>
+  <div style="display:flex; flex-direction:column; gap:18px">
+    <div style="display:flex; gap:28px; align-items:center; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:30px 36px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:44px; font-weight:600; color:#C4452F; width:70px">01</p>
+      <p style="font-size:36px; font-weight:400; line-height:1.35; color:#141A21">Give every negative result a <b style="font-weight:600">positive control</b>. Show it a thing it must catch, before you trust a zero.</p>
+    </div>
+    <div style="display:flex; gap:28px; align-items:center; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:30px 36px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:44px; font-weight:600; color:#C4452F; width:70px">02</p>
+      <p style="font-size:36px; font-weight:400; line-height:1.35; color:#141A21"><b style="font-weight:600">Read the state back.</b> Capture both streams. There is no convention about which one carries the error.</p>
+    </div>
+    <div style="display:flex; gap:28px; align-items:center; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:30px 36px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:44px; font-weight:600; color:#C4452F; width:70px">03</p>
+      <p style="font-size:36px; font-weight:400; line-height:1.35; color:#141A21"><b style="font-weight:600">Mutate, then watch it fail.</b> A test you have never seen fail is a test you have not tested.</p>
+    </div>
+    <div style="display:flex; gap:28px; align-items:center; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:30px 36px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:44px; font-weight:600; color:#C4452F; width:70px">04</p>
+      <p style="font-size:36px; font-weight:400; line-height:1.35; color:#141A21"><b style="font-weight:600">Capture fixtures from the real thing.</b> When you fix a heuristic, keep a capture that fails under the old rule.</p>
+    </div>
+  </div>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#5A6169">The takeaway card &mdash; this is the slide people screenshot</p>
+  <aside>Do not elaborate. Read each one once and move to the close. If you are over time, this is the slide to land on and stop.</aside>
+</section></div>
+<div class="slide" data-id="close"><section id="close" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:44px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">Five months &nbsp;·&nbsp; 70 defects &nbsp;·&nbsp; 54 of them found only by running it</p>
+  <h2 style="font-size:78px; font-weight:600; line-height:1.12; letter-spacing:-1px; width:1600px">Your agent will write you a thousand tests this quarter.</h2>
+  <p style="font-size:52px; font-weight:300; line-height:1.3; color:#BDC6CE; width:1560px">The question is not whether they pass.<br>It is whether they <b style="font-weight:600; color:#E0A526">could fail</b>.</p>
+  <div style="width:1560px; height:1px; background:#2A343E"></div>
+  <p style="font-size:32px; font-weight:300; line-height:1.45; color:#94A0AB; width:1560px">Slides, the defect log, and the exact commands you watched &mdash; including the fixture whose password value is PASSWORD-MUST-NOT-APPEAR.</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#EDEAE3">Lana Begunova &nbsp;·&nbsp; github.com/lana-20 &nbsp;·&nbsp; [repo link]</p>
+  <aside>Replace the bracketed repo link before recording. Then stop talking — the twenty-minute live Q&A is where the scroll-axis signal, the 10.2-second first byte, and the three false limitations belong.</aside>
+</section></div>
+</div>
+<div id="bar"><i></i></div>
+<div id="hud"></div>
+<div id="help">&larr; &rarr; move &nbsp;·&nbsp; S notes &nbsp;·&nbsp; F full screen</div>
+<div id="notes"></div>
+<script>
+(function () {
+  var NOTES = ["Do not introduce yourself yet. Go straight to the terminal on the next slide. The introduction comes after the cold open, in one line.", "Let the green sit on screen for a beat before you say anything. Read the timing aloud slowly. Do not explain yet \u2014 the next slide is the reveal.", "This is the thesis of the whole talk, stated in eleven words. Pause after it. Then give your one-line introduction and move on.", "Say the ratio out loud. Fifty-four of seventy. Then note the ratio did not improve as the project matured \u2014 a real phone made it worse, not better.", "This is the bridge slide. Half the room switches off at the word mobile \u2014 this is where you keep them. Keep it to ninety seconds.", "Section divider. Two seconds on screen. Do not read it aloud.", "Keep this quick. The audience should feel the method is completely reasonable \u2014 because it is.", "Sell the conclusion honestly here. You believed this. Let the audience believe it too, for about five seconds.", "The total count is the hero of this slide. Point at it. Nobody looks at the denominator until it betrays them.", "First of the four habits. Say the number of the rule \u2014 the audience is collecting them, and you will show all four again at the end.", "Droppable if running long. If you keep it, the three cards are the audience-facing payoff \u2014 let them sit for a second each.", "Section divider. This is the densest and most immediately useful act \u2014 flag that as you move into it.", "Do not read the whole table. Read adb, am start, and pm grant. The silence in the pm grant row is the one they will remember.", "Where the platform cannot report state back \u2014 iOS privacy is write-only \u2014 check the precondition before the write instead.", "The punchline is that it hid a missing feature. The tool could not press back at all, and this redirect delayed finding that out.", "This is the strongest agentic beat in the deck. A human gives up on bad advice eventually; an agent does not.", "Section divider. This act contains the single most transferable idea in the talk.", "Ask the room, rhetorically, what is wrong with this test. Give them three seconds. Almost nobody sees it.", "Also mention: the test asserted the absence of U+FFFD, which malformed bytes do not contain. Two independent reasons it could not fail. Drop this detail if running long.", "The one-line takeaway: build the witness before you trust the measurement, and prove the witness can see.", "This slide buys you credibility for everything else. It also pre-empts the sceptic in the Q&A who assumes you cherry-picked.", "Section divider. This act is fast and is the emotional peak \u2014 do not over-explain any of it.", "Pace this at roughly twenty seconds per card. The F-Droid zero matters \u2014 it is why the selection rule changed from size to code path.", "The single statement slide in the deck. Do not rush it and do not soften it. The fixture naming trick is the practical gift \u2014 say it slowly.", "Do not elaborate. Read each one once and move to the close. If you are over time, this is the slide to land on and stop.", "Replace the bracketed repo link before recording. Then stop talking \u2014 the twenty-minute live Q&A is where the scroll-axis signal, the 10.2-second first byte, and the three false limitations belong."];
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var hud = document.getElementById('hud');
+  var bar = document.querySelector('#bar > i');
+  var notesEl = document.getElementById('notes');
+  var i = 0, showNotes = false;
+
+  function fit() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    slides.forEach(function (el) {
+      el.firstElementChild.style.transform = 'scale(' + s + ')';
+    });
+  }
+  function render() {
+    slides.forEach(function (el, n) { el.classList.toggle('is-active', n === i); });
+    hud.textContent = (i + 1) + ' / ' + 26;
+    bar.style.width = ((i + 1) / 26 * 100) + '%';
+    notesEl.innerHTML = '';
+    if (NOTES[i]) {
+      var b = document.createElement('b'); b.textContent = 'Speaker notes';
+      var p = document.createElement('div'); p.textContent = NOTES[i];
+      notesEl.appendChild(b); notesEl.appendChild(p);
+    }
+    notesEl.classList.toggle('on', showNotes && !!NOTES[i]);
+    if (location.hash.slice(1) !== String(i + 1)) {
+      history.replaceState(null, '', '#' + (i + 1));
+    }
+  }
+  function go(n) { i = Math.max(0, Math.min(26 - 1, n)); render(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { go(i + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(i - 1); e.preventDefault(); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(26 - 1); }
+    else if (e.key === 's' || e.key === 'S') { showNotes = !showNotes; render(); }
+    else if (e.key === 'f' || e.key === 'F') {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else { document.documentElement.requestFullscreen(); }
+    }
+  });
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('#notes') || e.target.closest('a')) { return; }
+    go(e.clientX < window.innerWidth * 0.25 ? i - 1 : i + 1);
+  });
+  window.addEventListener('resize', fit);
+
+  var start = parseInt(location.hash.slice(1), 10);
+  if (start > 0 && start <= 26) { i = start - 1; }
+  fit(); render();
+})();
+</script>
+</body>
+</html>
