@@ -4,7 +4,7 @@
 The slide files are the source of truth and are byte-identical to the ones in the
 Claude artifact. This script only wraps them in a viewer: it never edits a slide.
 
-    python3 scripts/build_deck.py          # -> deck/deck.html
+    python3 scripts/build_deck.py          # -> index.html (what Pages serves)
 """
 import json, re, sys, html
 from pathlib import Path
@@ -51,8 +51,9 @@ def main() -> int:
         notes=notes_json,
         count=len(slides),
     )
-    (DECK / "deck.html").write_text(out)
-    print(f"wrote {DECK/'deck.html'} - {len(slides)} slides, {len(hrefs)} font link(s)")
+    out_path = ROOT / "index.html"
+    out_path.write_text(out)
+    print(f"wrote {out_path} - {len(slides)} slides, {len(hrefs)} font link(s)")
     return 0
 
 TEMPLATE = """<!doctype html>
@@ -67,11 +68,18 @@ TEMPLATE = """<!doctype html>
 <style>
   html, body {{ margin:0; height:100%; background:#0B0E11; overflow:hidden; }}
   body {{ font-family: Rubik, Arial, sans-serif; }}
-  #stage {{ position:fixed; inset:0; display:grid; place-items:center; }}
-  .slide {{ position:absolute; inset:0; display:grid; place-items:center; visibility:hidden; }}
+  #stage {{ position:fixed; inset:0; overflow:hidden; }}
+  .slide {{ position:absolute; inset:0; visibility:hidden; }}
   .slide.is-active {{ visibility:visible; }}
+  /* The slide format assumes a border-box canvas with no default margins:
+     padding sits INSIDE 1920x1080, and spacing comes from flex/grid gap only.
+     Without this reset a section lays out at 2176x1368 and spills off-screen. */
+  .slide > section, .slide > section * {{ box-sizing:border-box; margin:0; }}
+  /* Centred by absolute positioning, not by grid: a 1920px item makes an auto
+     grid track 1920px wide, so place-items centres inside the TRACK and the
+     slide drifts off the viewport. translate(-50%,-50%) then scale is stable. */
   .slide > section {{
-    position:relative; width:1920px; height:1080px; flex:none;
+    position:absolute; left:50%; top:50%; width:1920px; height:1080px; overflow:hidden;
     transform-origin:center center; box-shadow:0 24px 80px rgba(0,0,0,.55);
   }}
   .slide > section > aside {{ display:none; }}
@@ -101,7 +109,8 @@ TEMPLATE = """<!doctype html>
     #bar, #hud, #help, #notes {{ display:none !important; }}
     .slide {{ position:static; visibility:visible !important; page-break-after:always;
               display:block; width:1920px; height:1080px; }}
-    .slide > section {{ box-shadow:none; transform:none !important; }}
+    .slide > section {{ box-shadow:none; transform:none !important;
+                        position:relative; left:auto; top:auto; }}
     @page {{ size:1920px 1080px; margin:0; }}
   }}
 </style>
@@ -126,7 +135,7 @@ TEMPLATE = """<!doctype html>
   function fit() {{
     var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
     slides.forEach(function (el) {{
-      el.firstElementChild.style.transform = 'scale(' + s + ')';
+      el.firstElementChild.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
     }});
   }}
   function render() {{

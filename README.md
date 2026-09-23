@@ -58,10 +58,10 @@ submission/
   RUN-OF-SHOW.md               25-minute timing plan, slide by slide, with the slack
 research/
   CFP-REQUIREMENTS.md          what the Guild wants and forbids, and the two binding clauses
+index.html                     BUILT — the standalone deck, and what Pages serves
 deck/
   deck.json                    the index: title, slide order, sections, typefaces
   slides/<id>.html             26 slides, one file each — the source of truth
-  deck.html                    BUILT — standalone, self-contained, what Pages serves
 scripts/
   build_deck.py                slides/ + deck.json -> deck.html. Never edits a slide.
 ```
@@ -69,7 +69,7 @@ scripts/
 ### Rebuilding the deck
 
 ```sh
-python3 scripts/build_deck.py     # -> deck/deck.html
+python3 scripts/build_deck.py     # -> index.html
 ```
 
 The slide files are the source of truth and are byte-identical to the ones in the
