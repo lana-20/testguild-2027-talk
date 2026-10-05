@@ -36,7 +36,7 @@ The standard advice is to switch animations off. This session shows, measured on
 - **Android's three animation scales at 0** read back 0 — and an app animation running on its own clock still slid for **2.5 seconds**, exactly as with the scales at 1.
 - **The same scales made an app that asks "should motion be reduced?" appear at once**: 2.6 seconds down to well under one.
 - **iOS has no programmatic switch at all.** Reduce Motion lives in Settings, and changing it from a test means driving the Settings app.
-- **With the motion off, the demo test's steps took 23–46% less time on every device** — from opening the screen to the last check — a real iPhone and Pixel, the simulator and the emulator — measured three rounds each through both of Mobium's agentic clients, the command line and MCP, with an animation that ignores the setting as the control. The control held on all four.
+- **With the motion off, the demo test's steps took 23–46% less time on every device** — a real iPhone and Pixel, the simulator and the emulator. That is from opening the screen to the last check, measured three rounds each through both of Mobium's agentic clients, the command line and MCP, with an animation that ignores the setting as the control. The control held on all four.
 
 Then the fix that makes the switch reach the app, how to prove it worked, and what to do about the motion that stays — and how Mobium, an open-source tool for driving native apps from a terminal or an AI agent, builds all of it in: one call that sets Reduce Motion on either platform and puts it back, an action that waits for its target to stop moving, and a refusal, with an error code, for a target that never does.
 
