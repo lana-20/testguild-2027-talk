@@ -147,9 +147,9 @@
 <p>Notice the first step. The setting is part of the test. It isn&#x27;t a manual prerequisite someone forgets.</p>
 <p class="click">click</p></section>
 <section class="slide"><h2>22 · demo-clients · 18:30</h2>
-<p>And because every step in that file is a tool call, Mobium&#x27;s agentic clients can run the same steps.</p>
-<p>Here are the first three steps, three ways. On top, the test file. In the middle, the command line — what you&#x27;d type, or what a shell script runs. At the bottom, MCP — the Model Context Protocol, exactly what an AI agent sends.</p>
-<p>They&#x27;re the same tools underneath. The command-line version is checked against the test file before it runs. The MCP version reads its steps straight from the file. So they can&#x27;t drift apart. And those two clients are where every number on the four-device slide came from.</p>
+<p>And because every step in that file is a tool call, Mobium&#x27;s two agentic clients can run the same steps.</p>
+<p>Here are the first three steps, in three forms. On top, the test file itself — one JSON document, which the test runner built into Mobium reads and runs. In the middle, the command line: one command per step — what you&#x27;d type, or what a shell script runs. At the bottom, MCP, the Model Context Protocol: JSON-RPC requests to Mobium&#x27;s MCP server, one message per line — exactly what an AI agent sends.</p>
+<p>The same tools underneath all three. The command-line version is checked against the test file before it runs. The MCP version reads its steps straight from the file. So they can&#x27;t drift apart. And those two clients are where every number on the four-device slide came from.</p>
 <p class="click">click</p></section>
 <section class="slide"><h2>23 · demo-run · 19:15</h2>
 <p>The config names the four devices as projects. One command per device. Eight passes — two cases on each of four devices.</p>

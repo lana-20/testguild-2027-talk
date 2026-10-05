@@ -333,16 +333,18 @@ someone forgets.
 
 ## 22 · demo-clients · 18:30
 
-And because every step in that file is a tool call, Mobium's agentic clients can run the same
+And because every step in that file is a tool call, Mobium's two agentic clients can run the same
 steps.
 
-Here are the first three steps, three ways. On top, the test file. In the middle, the command
-line — what you'd type, or what a shell script runs. At the bottom, MCP — the Model Context
-Protocol, exactly what an AI agent sends.
+Here are the first three steps, in three forms. On top, the test file itself — one JSON document,
+which the test runner built into Mobium reads and runs. In the middle, the command line: one
+command per step — what you'd type, or what a shell script runs. At the bottom, MCP, the Model
+Context Protocol: JSON-RPC requests to Mobium's MCP server, one message per line — exactly what an
+AI agent sends.
 
-They're the same tools underneath. The command-line version is checked against the test file
-before it runs. The MCP version reads its steps straight from the file. So they can't drift
-apart. And those two clients are where every number on the four-device slide came from.
+The same tools underneath all three. The command-line version is checked against the test file
+before it runs. The MCP version reads its steps straight from the file. So they can't drift apart.
+And those two clients are where every number on the four-device slide came from.
 
 [click]
 
