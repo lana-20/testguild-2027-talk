@@ -8,6 +8,8 @@ getting it right is one of the things the video is for.
 
 ---
 
+## Speaker video · 60–90 s
+
 Hi, I'm Lana Begunova. I'm an SDET in Seattle, and I build
 Mobium, an open-source tool for automating mobile apps.
 

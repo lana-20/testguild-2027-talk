@@ -5,7 +5,7 @@ speaker submission: the pitch, the 25-minute run of show, the 29-slide deck, the
 and the provenance of every number in them.
 
 **▶ View the deck: [lana-20.github.io/testguild-2027-talk](https://lana-20.github.io/testguild-2027-talk/)**
-· **Teleprompter: [teleprompter.html](https://lana-20.github.io/testguild-2027-talk/teleprompter.html)** — the spoken script, large and scrolling
+· **Teleprompter: [teleprompter.html](https://lana-20.github.io/testguild-2027-talk/teleprompter.html)** — the spoken script, large and scrolling · [speaker video](https://lana-20.github.io/testguild-2027-talk/teleprompter-video.html)
 · arrow keys to move · **S** for speaker notes · **F** for full screen · `#12` in the URL jumps to a slide
 
 ---
@@ -65,6 +65,7 @@ research/
 demo/                          the scripts the demo runs, and how to set it up — see demo/README.md
 index.html                     BUILT — the standalone deck, and what Pages serves
 teleprompter.html              BUILT — the transcript, large and scrolling (scripts/build_teleprompter.py)
+teleprompter-video.html        BUILT — the 60-90 s speaker video's script, the same way
 deck/
   deck.json                    the index: title, slide order, sections, typefaces
   slides/<id>.html             29 slides, one file each — the source of truth
@@ -106,7 +107,7 @@ Both are ticked on the form. Both need honoring.
 ## Open items
 
 - [x] ~~Submit~~ **done 2026-10-05.**
-- [ ] **Record the 60–90 s speaker video** the confirmation asked for — phone is fine, not a webinar; the link is in the confirmation email. A script to read is in [`submission/SPEAKER-VIDEO.md`](submission/SPEAKER-VIDEO.md).
+- [ ] **Record the 60–90 s speaker video** the confirmation asked for — phone is fine, not a webinar; the link is in the confirmation email. A script to read is in [`submission/SPEAKER-VIDEO.md`](submission/SPEAKER-VIDEO.md), and on a teleprompter at `teleprompter-video.html`.
 - [x] ~~Mobium and MobiumApp public~~ **done** — [mobiumdev/mobium](https://github.com/mobiumdev/mobium)
       and [mobiumdev/mobium-app](https://github.com/mobiumdev/mobium-app), both MIT, are on the closing slide.
 - [ ] Confirm the LinkedIn slug, X handle and website fields in `FORM-ANSWERS.md`.

@@ -1,71 +1,9 @@
-#!/usr/bin/env python3
-"""Build the teleprompter pages from the scripts in submission/.
-
-    python3 scripts/build_teleprompter.py     # -> teleprompter.html, teleprompter-video.html
-
-teleprompter.html is the talk, from TRANSCRIPT.md; teleprompter-video.html is the 60-90 s
-speaker video, from SPEAKER-VIDEO.md. Both are served beside the deck.
-
-The transcript is the source; this only lays it out to be read aloud: large type on black,
-one block per slide with its number, id and start time, cues in brackets set apart, and a
-scroll that runs by itself. Keys, shown on the page:
-
-    space        start / stop scrolling        up / down    slower / faster (0.6 ≈ 150 words a minute)
-    + / -        larger / smaller type         m            mirror (for a beam-splitter glass)
-    n / p        next / previous slide         home         back to the top
-
-Never edits the transcript.
-"""
-import html, re
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parent.parent
-PAGES = [
-    (ROOT / "submission" / "TRANSCRIPT.md", ROOT / "teleprompter.html",
-     "Teleprompter — Fast and Robust Mobile Tests with Mobium"),
-    (ROOT / "submission" / "SPEAKER-VIDEO.md", ROOT / "teleprompter-video.html",
-     "Teleprompter — speaker video"),
-]
-
-
-def inline(text):
-    t = html.escape(text)
-    t = re.sub(r"\[([^\]]+)\]", r'<span class="cue">\1</span>', t)
-    return t
-
-
-def build(src, dst, title):
-    body = src.read_text().split("\n---\n", 1)[1]
-    blocks = []
-    for part in re.split(r"^## ", body, flags=re.M)[1:]:
-        head, _, text = part.partition("\n")
-        paras = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
-        out = []
-        for p in paras:
-            p = " ".join(p.split("\n"))
-            if re.fullmatch(r"\[[^\]]+\]", p):
-                cls = "click" if p == "[click]" else "cueline"
-                out.append(f'<p class="{cls}">{html.escape(p[1:-1])}</p>')
-            else:
-                out.append(f"<p>{inline(p)}</p>")
-        blocks.append(f'<section class="slide"><h2>{html.escape(head.strip())}</h2>\n' + "\n".join(out) + "</section>")
-    if not blocks:
-        raise SystemExit(f"{src}: no '## ' section after the '---' line — nothing to show")
-    dst.write_text(TEMPLATE.replace("{{BLOCKS}}", "\n".join(blocks)).replace("{{TITLE}}", html.escape(title)))
-    print(f"wrote {dst} - {len(blocks)} section(s)")
-
-
-def main():
-    for src, dst, title in PAGES:
-        build(src, dst, title)
-
-
-TEMPLATE = """<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{TITLE}}</title>
+<title>Teleprompter — speaker video</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap">
 <style>
   :root { --bg:#000; --ink:#F2EFE8; --dim:#7C8791; --cue:#E0A526; --click:#4C8C6A; --line:rgba(224,165,38,.35); --size:56px; }
@@ -91,7 +29,13 @@ TEMPLATE = """<!doctype html>
 </head>
 <body>
 <div id="scroller"><div id="script">
-{{BLOCKS}}
+<section class="slide"><h2>Speaker video · 60–90 s</h2>
+<p>Hi, I&#x27;m Lana Begunova. I&#x27;m an SDET in Seattle, and I build Mobium, an open-source tool for automating mobile apps.</p>
+<p>My talk is &quot;Fast and Robust Mobile Tests with Mobium.&quot;</p>
+<p>Here&#x27;s the idea. Animations are for humans. To a test, every slide-in and fade is either time spent waiting, or a race it can lose — a slow suite, or a flaky one.</p>
+<p>The standard advice is to turn animations off. I measured what that actually does, on a real iPhone, a real Pixel, a simulator and an emulator. The system switch reaches an app&#x27;s own animations only when the app listens. So I&#x27;ll show you how to make it listen — one line per framework — how to prove the motion is really gone, with a control, and what to do with the motion you can&#x27;t turn off.</p>
+<p>With the motion off, the same test steps took a quarter to nearly half less time on every device. Everything runs from one test file, through Mobium&#x27;s command line and MCP — what an AI agent uses.</p>
+<p>See you at the Guild.</p></section>
 </div></div>
 <div id="guide"></div>
 <div id="hud"><span><b id="state">paused</b> · space</span><span>speed <b id="speed">0.6</b> · ↑ ↓</span><span>type <b id="size">56</b>px · + −</span><span>mirror · m</span><span>slide · n p</span><span>top · home</span><span id="where"></span></div>
@@ -148,7 +92,3 @@ TEMPLATE = """<!doctype html>
 </script>
 </body>
 </html>
-"""
-
-if __name__ == "__main__":
-    main()
