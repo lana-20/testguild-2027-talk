@@ -83,7 +83,7 @@ Every second shaved off a test comes off everyone's feedback loop.
 
 ## Anything else you want to tell me?
 
-Every number in this session was measured for it, on a real iPhone 15 Plus and an Android emulator, with the app keeping its own time rather than the test tool. Attendees get the slides, the demo scripts they watched, and the small open-source app the measurements were taken on — two identical animations, one honoring the setting and one ignoring it as the control.
+Every number in this session was measured for it, on a real iPhone 15 Plus and an Android emulator, with the app keeping its own time rather than the test tool. Attendees get the slides, the demo scripts they watched, and the small open-source app the measurements were taken on — two identical animations, one honoring the setting and one ignoring it as the control. Both are public and MIT licensed: the tool at github.com/mobiumdev/mobium, the app at github.com/mobiumdev/mobium-app.
 
 ---
 

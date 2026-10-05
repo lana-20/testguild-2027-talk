@@ -2,7 +2,7 @@
 
 The practice half of the talk, in the order the theory went: Android's animation scales, then
 Reduce Motion on a real iPhone, then the same calls from an AI agent. Every script drives
-MobiumApp's Motion Demo, where the app — not the tool — keeps the time:
+MobiumApp's Motion Demo ([mobiumdev/mobium-app](https://github.com/mobiumdev/mobium-app)), where the app — not the tool — keeps the time:
 
 - **honoring** slides in over two seconds, and appears at once when the platform says motion
   should be reduced;

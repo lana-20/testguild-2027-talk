@@ -41,7 +41,7 @@ listens**. With all three Android scales at 0, an app animation on its own clock
 2.5 seconds; the one that asked whether motion was reduced appeared at once. The fix is to have
 the app honor Reduce Motion, so the fast path is a real one in the build you ship; the proof is a
 control that must not move; and the motion that stays is waited out, or refused when it never
-stops. **Mobium**, the open-source tool it is built on, does each step — and the demo runs it
+stops. **[Mobium](https://github.com/mobiumdev/mobium)**, the open-source tool it is built on, does each step — and the demo runs it
 from a terminal and from an AI agent.
 
 The techniques stand without the tool; the tool is shown doing them. That balance is what the
@@ -102,9 +102,8 @@ Both are ticked on the form. Both need honoring.
 ## Open items
 
 - [ ] **Submit.** Nothing is sent. Deadline Oct 8.
-- [ ] **Mobium and MobiumApp are not public yet.** The submission promises the demo scripts and
-      the app they ran against. Both repos have to be public by February, and a citable repo is
-      worth more on a ballot that opens Oct 9. Add their URLs to `deck/slides/close.html` then.
+- [x] ~~Mobium and MobiumApp public~~ **done** — [mobiumdev/mobium](https://github.com/mobiumdev/mobium)
+      and [mobiumdev/mobium-app](https://github.com/mobiumdev/mobium-app), both MIT, are on the closing slide.
 - [ ] Confirm the LinkedIn slug, X handle and website fields in `FORM-ANSWERS.md`.
 - [ ] Time a read-through before recording, and a rehearsal of the demo with `NOPAUSE=1`. The
       slack and the droppable beats are named in `RUN-OF-SHOW.md`.
