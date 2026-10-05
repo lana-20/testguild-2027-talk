@@ -1,0 +1,7 @@
+mcp  emulator-5554  on   honoring 2515  control 2547  case 13.62
+mcp  emulator-5554  off  honoring 1166  control 2600  case 7.20
+mcp  emulator-5554  on   honoring 2565  control 2519  case 12.68
+mcp  emulator-5554  off  honoring 1047  control 2550  case 7.17
+mcp  emulator-5554  on   honoring 2619  control 2581  case 13.40
+mcp  emulator-5554  off  honoring 234  control 2502  case 7.94
+reduce_motion as found: off

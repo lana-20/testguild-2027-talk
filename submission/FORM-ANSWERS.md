@@ -9,11 +9,11 @@ Paste each block into the matching field. Nothing here is submitted until the fo
 
 ## Presentation Title
 
-**Fast and Durable Mobile Tests with Mobium: Turn Off the Motion**
+**Fast and Robust Mobile Tests with Mobium: Turn Off the Motion**
 
 Alternates, if the title field feels long:
-- Animations Are for Humans: Fast, Durable Mobile Tests with Mobium
-- Two Seconds a Screen: Making Mobile Tests Fast and Durable with Mobium
+- Animations Are for Humans: Fast, Robust Mobile Tests with Mobium
+- Two Seconds a Screen: Making Mobile Tests Fast and Robust with Mobium
 
 ---
 
@@ -29,7 +29,7 @@ Alternates, if the title field feels long:
 
 Mobile tests that are slow and flaky because the app is busy being beautiful.
 
-Every slide-in, fade and bounce is time a test spends waiting, or a race it loses: a tap aimed at a button still moving, a read of a screen halfway through a transition. On a real iPhone, one target that slides in costs **3.2 seconds** of a test's time; the same target with its animation off costs **1.3** — the tool's own round trip. Multiply that by every screen in every test.
+Every slide-in, fade and bounce is time a test spends waiting, or a race it loses: a tap aimed at a button still moving, a read of a screen halfway through a transition. On a real iPhone, one target that slides in costs **3.3 seconds** of a test's time; the same target with its animation off costs **1.3** — the tool's own round trip. Multiply that by every screen in every test.
 
 The standard advice is to switch animations off. This session shows, measured on four devices — a real iPhone and Pixel, an iOS simulator and an Android emulator — what that advice does and does not do:
 

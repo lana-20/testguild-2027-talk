@@ -1,0 +1,8 @@
+motion-cli.sh runs the test's 11 steps
+cli  457C7DC2-C706-45D9-8D68-1D26953E28B1  on   honoring 1999  control 1983  case 12.79
+cli  457C7DC2-C706-45D9-8D68-1D26953E28B1  off  honoring 950  control 2050  case 8.96
+cli  457C7DC2-C706-45D9-8D68-1D26953E28B1  on   honoring 1983  control 2033  case 12.60
+cli  457C7DC2-C706-45D9-8D68-1D26953E28B1  off  honoring 917  control 2017  case 8.86
+cli  457C7DC2-C706-45D9-8D68-1D26953E28B1  on   honoring 2016  control 2017  case 12.48
+cli  457C7DC2-C706-45D9-8D68-1D26953E28B1  off  honoring 900  control 2050  case 8.93
+reduce_motion as found: off

@@ -1,0 +1,7 @@
+mcp  iPhone  on   honoring 2830  control 2897  case 17.50
+mcp  iPhone  off  honoring 1314  control 2864  case 13.33
+mcp  iPhone  on   honoring 2847  control 3297  case 18.03
+mcp  iPhone  off  honoring 1315  control 3430  case 13.80
+mcp  iPhone  on   honoring 3346  control 3446  case 18.60
+mcp  iPhone  off  honoring 1315  control 3398  case 13.89
+reduce_motion as found: on

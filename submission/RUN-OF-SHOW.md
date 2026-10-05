@@ -2,26 +2,26 @@
 
 Pre-recorded on TestGuild's own deck template, then ~20 minutes of live Q&A.
 Theory first, practice last: everything the demo shows has been explained before it runs.
-The umbrella is **fast and durable mobile tests, with Mobium**; turning off motion is the
+The umbrella is **fast and robust mobile tests, with Mobium**; turning off motion is the
 technique, and each part ends on what Mobium does about it.
 Slide ids in brackets match `deck/slides/<id>.html`.
 
 | Time | Beat | Slides |
 |---|---|---|
-| 0:00–1:30 | Cold open — the same tap, 3.2 s and 1.3 s | `cover` `open-numbers` |
+| 0:00–1:30 | Cold open — the same tap, 3.3 s and 1.3 s | `cover` `open-numbers` |
 | 1:30–3:00 | Animations are for humans | `premise` |
 | 3:00–6:30 | **Part 1** — what motion costs a test | `part1` `p1-cost` `p1-two-kinds` |
 | 6:30–10:30 | **Part 2** — the system's animations | `part2` `p2-android` `p2-ios` `p2-rule` |
 | 10:30–15:00 | **Part 3** — the app's own animations | `part3` `p3-scales` `p3-two-fixes` `p3-code` `p3-rule` |
 | 15:00–17:30 | **Part 4** — proving it, and what stays | `part4` `p4-control` `p4-devices` `p4-stays` |
-| 17:30–23:30 | **Demo** — four devices, recorded, animations on and off side by side | `demo` `demo-code` `demo-run` `demo-emulator` `demo-pixel` `demo-simulator` `demo-iphone` `demo-results` |
+| 17:30–23:30 | **Demo** — four devices, recorded, animations on and off side by side | `demo` `demo-code` `demo-clients` `demo-run` `demo-emulator` `demo-pixel` `demo-simulator` `demo-iphone` `demo-results` |
 | 23:30–25:00 | Habits, and the conclusion | `habits` `close` |
 
 ## 0:00–1:30 — Cold open
 
-Open on the two numbers. Same app, same target, same tap: 3.2 seconds, then 1.3.
+Open on the two numbers. Same app, same target, same tap: 3.3 seconds, then 1.3.
 
-> "Same screen. Same button. Same tap. One run took three point two seconds, the other one point three. Nothing about the test changed. One setting on the phone did, and one line in the app."
+> "Same screen. Same button. Same tap. One run took three point three seconds, the other one point three. Nothing about the test changed. One setting on the phone did, and one line in the app."
 
 Name yourself in one line, then the premise.
 
@@ -43,12 +43,13 @@ The measurement: with all three Android scales at 0, an animation on the app's o
 
 ## 15:00–17:30 — Part 4: proving it, and what stays
 
-Let the app time itself, and keep one animation that ignores the setting as the **control**: if the control's time moves when the setting does, the measurement is measuring something else. Then the same measurement on four devices — real iPhone, simulator, real Pixel, emulator: a short test saved 14–40%, and the control held flat on every one. Then the motion you cannot turn off — spinners, confetti, live content: wait for stillness, and refuse a target that never holds still rather than chase it. **Mobium:** every action waits for its target to stop moving, and a target still moving after five seconds is refused with exit 6, `timeout`, and both positions it was seen at.
+Let the app time itself, and keep one animation that ignores the setting as the **control**: if the control's time moves when the setting does, the measurement is measuring something else. Then the same measurement on four devices and through both of Mobium's agentic clients, the CLI and MCP: the demo test's case saved 23–46%, and the control held on every one. Then the motion you cannot turn off — spinners, confetti, live content: wait for stillness, and refuse a target that never holds still rather than chase it. **Mobium:** every action waits for its target to stop moving, and a target still moving after five seconds is refused with exit 6, `timeout`, and both positions it was seen at.
 
 ## 17:30–23:30 — Demo
 
 Recorded, not live. First the code: one Mobium test, `demo/tests/motion.test.json`, and the
-config naming four devices — the same file ran on all of them (`demo-code`, `demo-run`). Then
+config naming four devices — the same file ran on all of them (`demo-code`, `demo-run`) — and the
+same steps through the CLI and through MCP, what an agent sends (`demo-clients`). Then
 four videos of it running, made by `demo/record.sh` — the Android emulator, the real Pixel, the
 iPhone simulator, the real iPhone, in the order the theory went. Each slide plays
 the same steps twice side by side: animations on, then with the platform's own switch off.
@@ -85,4 +86,4 @@ Time the read-through before recording. Terminal beats always take longer than t
 
 Two lines in the CFP to stay on the right side of:
 - **"Product tours … if the logo is required for the talk to make sense, it is a pitch."** The techniques must stand without Mobium — every part states the platform fact first, then what Mobium does with it. Never open a part on the tool.
-- **Accessibility, "avoid unless you have a specific trench case."** This is one — measured, with numbers — and the subject is test speed and durability; Reduce Motion is the mechanism.
+- **Accessibility, "avoid unless you have a specific trench case."** This is one — measured, with numbers — and the subject is test speed and robustness; Reduce Motion is the mechanism.

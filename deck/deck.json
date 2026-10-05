@@ -4,7 +4,7 @@
     "v": 1,
     "at": "2026-09-22T20:10:00Z"
   },
-  "title": "Fast and Durable Mobile Tests with Mobium",
+  "title": "Fast and Robust Mobile Tests with Mobium",
   "order": [
     "cover",
     "open-numbers",
@@ -27,6 +27,7 @@
     "p4-stays",
     "demo",
     "demo-code",
+    "demo-clients",
     "demo-run",
     "demo-emulator",
     "demo-pixel",
@@ -38,7 +39,7 @@
   ],
   "sections": {
     "s0": {
-      "description": "The same tap, 3.2 s and 1.3 s \u2014 and why animations are for humans",
+      "description": "The same tap, 3.3 s and 1.3 s \u2014 and why animations are for humans",
       "start": "cover"
     },
     "s1": {

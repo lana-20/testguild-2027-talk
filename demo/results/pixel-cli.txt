@@ -1,0 +1,8 @@
+motion-cli.sh runs the test's 11 steps
+cli  Pixel  on   honoring 3191  control 3126  case 17.50
+cli  Pixel  off  honoring 1394  control 3087  case 11.07
+cli  Pixel  on   honoring 2995  control 3033  case 15.97
+cli  Pixel  off  honoring 1275  control 3146  case 10.94
+cli  Pixel  on   honoring 3084  control 3033  case 16.98
+cli  Pixel  off  honoring 1158  control 2982  case 11.01
+reduce_motion as found: off

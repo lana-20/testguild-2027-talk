@@ -1,0 +1,20 @@
+<section id="demo-clients" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:14px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:1px">the same steps, three clients &nbsp;&mdash;&nbsp; mobium test, the CLI, MCP</p>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:18px 40px; display:flex; flex-direction:column">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">{&quot;accessibility&quot;:&nbsp;{&quot;setting&quot;:&nbsp;&quot;reduce_motion&quot;,&nbsp;&quot;value&quot;:&nbsp;&quot;${reduce_motion}&quot;}}</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">{&quot;tap&quot;:&nbsp;&quot;label=Motion&nbsp;Demo&quot;}</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">{&quot;wait_for&quot;:&nbsp;{&quot;target&quot;:&nbsp;&quot;testid=reduceMotion&quot;,&nbsp;&quot;condition&quot;:&nbsp;&quot;text&quot;,&nbsp;...}}</p>
+  </div>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:18px 40px; display:flex; flex-direction:column">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">$&nbsp;mobium&nbsp;accessibility&nbsp;reduce_motion&nbsp;on</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">$&nbsp;mobium&nbsp;tap&nbsp;&quot;label=Motion&nbsp;Demo&quot;</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">$&nbsp;mobium&nbsp;wait&nbsp;testid=reduceMotion&nbsp;--for&nbsp;text&nbsp;--text&nbsp;&quot;reduceMotion=true&quot;&nbsp;--exact</p>
+  </div>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:18px 40px; display:flex; flex-direction:column">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">→&nbsp;tools/call&nbsp;app_accessibility&nbsp;{&quot;setting&quot;:&nbsp;&quot;reduce_motion&quot;,&nbsp;&quot;value&quot;:&nbsp;&quot;on&quot;}</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">→&nbsp;tools/call&nbsp;app_tap&nbsp;{&quot;target&quot;:&nbsp;&quot;label=Motion&nbsp;Demo&quot;}</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">→&nbsp;tools/call&nbsp;app_wait_for&nbsp;{&quot;target&quot;:&nbsp;&quot;testid=reduceMotion&quot;,&nbsp;&quot;condition&quot;:&nbsp;&quot;text&quot;,&nbsp;...}</p>
+  </div>
+  <p style="font-size:28px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1660px">demo/motion-cli.sh spells each step as a command and is checked against the test file before it runs; demo/motion-mcp.py sends the file's steps as they are. Both read the app's times &mdash; the four-device numbers came from them.</p>
+  <aside>The first three of the test's eleven steps, each in its three forms: the test file, the CLI, and MCP — what an AI agent sends. A step in the test file already is a tool call; the CLI names the same tool as a command. Same tools underneath all three: the CLI parses flags and calls the tool by name.</aside>
+</section>

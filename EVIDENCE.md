@@ -19,23 +19,75 @@ tool reporting on itself. The scripts in `demo/` reproduce them.
 
 ## The numbers
 
-| Claim on a slide | Measured | Script |
-|---|---|---|
-| iPhone, Reduce Motion on: honoring target 1.3 s | 1298, 1265, 1332, 1297 ms | `demo/reduce-motion.sh` |
-| iPhone, Reduce Motion off: honoring target 3.2 s | 3146, 3214, 3163, 3162, 3246 ms | same |
-| iPhone control (ignoring target) 3.2 s either way | on: 3180, 3230, 3280, 3246 ms · off: 3229, 3230, 3214, 3164 ms | same |
-| 1.3 s is the tool's own round trip | Replay and the tap are two CLI calls; the target is already in place | same |
-| iOS Reduce Motion change through Settings ~25 s | 25 s each way on the iPhone | `mobium accessibility reduce_motion off` |
-| Android, scales at 1: both targets ~2.5 s | honoring 2516, 2517, 2550, 2601 ms · ignoring 2501, 2534, 2549, 2533 ms | `demo/animation-scales.sh` |
-| Android, all scales at 0: honoring well under 1 s | 267, 733, 783, 233, 767 ms | same |
-| Android, all scales at 0: ignoring unchanged ~2.5 s | 2599, 2550, 2584, 2618, 2517 ms | same |
-| React Native on Android reads the *transition* scale | animator scale 0 alone: `reduceMotion=false`; transition scale 0 alone: `true` | measured by hand, same session |
-| A falling confetti piece is refused, exit 6 `timeout` | "failed check stable: it is still moving after 5s", both positions given | `demo/reduce-motion.sh` |
-| An untouched emulator reads `animator_duration_scale` as `null` | `settings get global animator_duration_scale` before any change | `demo/animation-scales.sh` restores it by deleting the key |
+"By hand" means `mobium` commands typed in the session, before the script that now runs them
+existed — the same commands: Replay, tap the target, read the app's result with `mobium text`.
+Each value is listed under the source it really came from.
 
-## Four devices, animations on and off (slide `p4-devices`)
+| Claim on a slide | By hand | By script | Script |
+|---|---|---|---|
+| iPhone, Reduce Motion on: honoring target 1.3 s (earlier `p4-control` and `open-numbers`) | 1298, 1265, 1332 ms | 1297, 1298 ms | `demo/reduce-motion.sh` |
+| iPhone, Reduce Motion off: honoring target 3.2 s (earlier `p4-control` and `open-numbers`) | 3146, 3214, 3163 ms | 3162, 3246 ms | same |
+| iPhone control (ignoring target) 3.2 s either way (earlier `p4-control`) | on 3180, 3230, 3280 · off 3229, 3230, 3214 ms | on 3246 · off 3164, 3214 ms | same |
+| 1.3 s is the tool's own round trip | — | Replay and the tap are two CLI calls; the target is already in place | same |
+| iOS Reduce Motion change through Settings ~25 s (`p2-ios`) | 25 s, `mobium accessibility reduce_motion off`, timed | — | — |
+| Android, scales at 1: both targets ~2.5 s (`p3-scales`) | honoring 2516, 2517, 2550 · ignoring 2501, 2534, 2549 ms | honoring 2516, 2601 · ignoring 2547, 2533 ms | `demo/animation-scales.sh` |
+| Android, all scales at 0: honoring well under 1 s (`p3-scales`) | 267, 733, 783 ms | 233, 767 ms | same |
+| Android, all scales at 0: ignoring unchanged ~2.5 s (`p3-scales`) | 2599, 2550, 2584 ms | 2618, 2517 ms | same |
+| React Native on Android reads the *transition* scale (`p3-code` notes) | animator scale 0 alone: `reduceMotion=false`; transition scale 0 alone: `true` | — | — |
+| A falling confetti piece is refused, exit 6 `timeout` (`p4-stays`) | refused, 5 s, both positions | the same, on the slide | `demo/reduce-motion.sh` |
+| An untouched emulator reads `animator_duration_scale` as `null` (`p2-android` notes) | read before any change | restored by deleting the key | `demo/animation-scales.sh` |
 
-`demo/compare.sh`, one device at a time with nothing else running on the Mac, three rounds per
+The slide `p3-scales` shows the script's run (2533/2517, 2601/767). The iPhone rows fed an earlier
+`p4-control` and `open-numbers`; both now show the two clients' runs, below.
+
+## Four devices, two clients (slides `p4-control`, `p4-devices`, `open-numbers`)
+
+The demo test's steps, run through Mobium's two agentic clients: `demo/motion-cli.sh` (the CLI —
+each step a `mobium` command, checked against `tests/motion.test.json` before it runs) and
+`demo/motion-mcp.py` (MCP — the test file's steps sent to `mobium mcp` as `tools/call` requests).
+Three rounds per client per device, one device at a time, 2026-10-04. "Off" is each platform's
+own switch, set by the test's first step. Each client read Reduce Motion before and after its
+run, and every device came back as found; the Android scales were also read raw before, between
+and after (`1 1 null` on the emulator, `1.0 1.0 null` on the Pixel). Raw output in
+`demo/results/<device>-<client>.txt`; every value, in ms and seconds:
+
+| Device | Client | Animations | Honoring (ms) | Control (ms) | Case (s) |
+|---|---|---|---|---|---|
+| iPhone 15 Plus | CLI | on | 3331 3297 3330 | 3414 2879 2897 | 18.73 18.05 18.11 |
+|  | CLI | off | 1348 1348 1315 | 3313 3312 3363 | 13.91 13.97 13.84 |
+|  | MCP | on | 2830 2847 3346 | 2897 3297 3446 | 17.50 18.03 18.60 |
+|  | MCP | off | 1314 1315 1315 | 2864 3430 3398 | 13.33 13.80 13.89 |
+| iPhone 17 Pro simulator | CLI | on | 1999 1983 2016 | 1983 2033 2017 | 12.79 12.60 12.48 |
+|  | CLI | off | 950 917 900 | 2050 2017 2050 | 8.96 8.86 8.93 |
+|  | MCP | on | 2049 2016 2016 | 2000 2000 1950 | 12.43 12.43 12.69 |
+|  | MCP | off | 917 916 900 | 2017 2017 1967 | 8.67 8.71 8.65 |
+| Pixel 8 Pro | CLI | on | 3191 2995 3084 | 3126 3033 3033 | 17.50 15.97 16.98 |
+|  | CLI | off | 1394 1275 1158 | 3087 3146 2982 | 11.07 10.94 11.01 |
+|  | MCP | on | 3171 3000 3163 | 3196 3109 3154 | 16.54 16.18 16.90 |
+|  | MCP | off | 1215 826 783 | 2969 3153 2981 | 11.01 11.74 11.19 |
+| Android 15 emulator | CLI | on | 2599 2530 2547 | 2584 2546 2533 | 12.66 13.13 12.94 |
+|  | CLI | off | 250 267 1151 | 2599 2567 2584 | 8.05 8.03 7.22 |
+|  | MCP | on | 2515 2565 2619 | 2547 2519 2581 | 13.62 12.68 13.40 |
+|  | MCP | off | 1166 1047 234 | 2600 2550 2502 | 7.20 7.17 7.94 |
+
+- **The case** is the test from opening the Motion Demo to its last check — replay and tap both
+  targets, celebrate, wait for the confetti — so not the setting switch before it (25 s through
+  Settings on an iPhone) and not the launch. With animations on it also waits out the falling
+  confetti, which is animation too. Saved, by median: iPhone 4.2 s (23%) through either client,
+  simulator 3.7–3.8 s (29–30%), Pixel 5.4–6.0 s (32–35%), emulator 4.9–6.2 s (38–46%).
+- **Honoring with the motion off lands at two levels on Android** — about 0.25 or about 1.1 s —
+  in both clients: how long Mobium's tap takes to confirm the target is still, depending on when
+  its read meets the app's redraw. A median of three can fall on either, which is why the CLI and
+  MCP rows differ there, not because of the client. The iOS devices are steady.
+- **The iPhone's control** moved between its on and off medians by up to 0.4 s, within its own
+  spread of 2.86–3.45 s on both sides.
+- **`open-numbers`** shows round 1 of the CLI on the iPhone: 3331 ms on, 1348 ms off.
+
+## Earlier: four devices by `compare.sh` (no longer on a slide)
+
+Measured before the demo test existed, with a different flow and a different span; superseded on
+the slides by the two clients above, kept for the record. `demo/compare.sh`, one device at a
+time with nothing else running on the Mac, three rounds per
 condition. "Off" is each platform's own switch: Reduce Motion on iOS, all three animation scales
 at 0 on Android. Each device's setting was read first and put back after — the iPhone to Reduce
 Motion on, the simulator to off, the emulator to `1 1 null`, the Pixel to `1.0 1.0 null`, each

@@ -1,0 +1,7 @@
+mcp  Pixel  on   honoring 3171  control 3196  case 16.54
+mcp  Pixel  off  honoring 1215  control 2969  case 11.01
+mcp  Pixel  on   honoring 3000  control 3109  case 16.18
+mcp  Pixel  off  honoring 826  control 3153  case 11.74
+mcp  Pixel  on   honoring 3163  control 3154  case 16.90
+mcp  Pixel  off  honoring 783  control 2981  case 11.19
+reduce_motion as found: off

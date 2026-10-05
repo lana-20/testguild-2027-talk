@@ -41,15 +41,17 @@ over USB, an iPhone 17 Pro simulator on iOS 26.5, and an Android 15 emulator.
 | Piece | Time | Where | What it shows |
 |---|---|---|---|
 | `tests/motion.test.json` | ~30 s a device, ~90 s on the iPhone | demo | **the demo**: one test, unchanged on all four devices — `demo-code`, `demo-run` |
+| `motion-cli.sh <device> [wda]` | ~1–5 min a device | `p4-devices`, `p4-control`, `demo-clients` | the test's steps through the CLI, timed — Mobium's agentic clients, one |
+| `motion-mcp.py <device> [wda]` | ~1–5 min a device | `p4-devices`, `p4-control`, `demo-clients` | the test's steps through MCP, as an agent sends them, timed — the other |
 | `animation-scales.sh <serial>` | ~40 s | `p3-scales`, Q&A | the standard three scales at 0: the app animation that listens stops, the one on its own clock does not |
 | `reduce-motion.sh` | ~2 min | `p4-control`, `p4-stays`, Q&A | Reduce Motion moves the honoring target and not the control; confetti stays still, and a falling piece is refused |
 | `mcp-session.py` | ~30 s | Q&A | the same calls from an agent's side, over MCP |
-| `compare.sh` | 1–3 min a device | `p4-devices` | the four-device table, animations on and off |
+| `compare.sh` | 1–3 min a device | — | an earlier four-device measurement, before the test existed; superseded on the slides by the two clients |
 | `record.sh <project> <out.mp4>` | 1–2 min a device | demo | records a device running that test: the videos on `demo-emulator` … `demo-iphone` |
 | Claude Code | live | Q&A | an agent driving the phone through `mcp.json` |
 
 `animation-scales.sh`, `reduce-motion.sh` and `mcp-session.py` pause at every beat — press return;
-`NOPAUSE=1` runs straight through for a rehearsal. The test, `compare.sh` and `record.sh` run straight through.
+`NOPAUSE=1` runs straight through for a rehearsal. The test, the two clients, `compare.sh` and `record.sh` run straight through.
 
 ### `animation-scales.sh` — Android
 
@@ -148,6 +150,31 @@ the Settings app on an iPhone — opens the Motion Demo, checks what the app say
 confetti to read `confetti: done` or `still: reduce motion`. Every test starts from a fresh
 launch, and the run's session puts the setting back when it ends. The runs behind the slides are
 in `results/runs.txt`: eight passes, two per device.
+
+### The same steps through the CLI and MCP
+
+The test's steps are tool calls, so Mobium's two agentic clients can run them too, and do —
+that is where the four-device numbers come from (`p4-devices`, `p4-control`, `open-numbers`):
+
+```sh
+ROUNDS=3 demo/motion-cli.sh <device> [wda]      # the CLI: each step a mobium command
+ROUNDS=3 demo/motion-mcp.py <device> [wda]      # MCP: the steps as tools/call requests
+SHOW=1 demo/motion-mcp.py emulator-5554         # print every request it sends
+```
+
+- **`motion-mcp.py` reads its steps from `tests/motion.test.json`** and sends each as it is — a
+  step already names a tool and its arguments — with the case's values filled in. Nothing is
+  restated.
+- **`motion-cli.sh` spells each step as a `mobium` command**, readable on a slide, and
+  `same-steps.py` turns those commands back into the test's form and compares them before
+  anything runs: a changed step is named and refused (checked by changing one).
+- Each round runs both cases from a fresh launch, as `mobium test` does, then reads the two
+  times the app kept with `mobium text` / `app_text`, and the case's own time: from opening the
+  Motion Demo to its last check — not the setting switch, not the launch. One line per case, the
+  same format from both, saved in `results/<device>-<client>.txt`.
+- Each reads Reduce Motion before and after its run, each in a session of its own, and reports a
+  difference rather than fixing it. The MCP client stops the CLI's daemon first: a device holds
+  one automation session.
 
 ### `record.sh` — the videos of that test
 

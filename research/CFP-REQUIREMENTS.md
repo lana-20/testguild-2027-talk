@@ -43,7 +43,7 @@ Agentic testing and AI agents in the SDLC · evals and "LLM as a judge" · test 
 
 ## Why our angle is what it is
 
-**Fast and durable mobile tests, with Mobium** — turning off the motion is the technique.
+**Fast and robust mobile tests, with Mobium** — turning off the motion is the technique.
 It sits on the right side of three lines in the lists above:
 
 - **"Mobile, only as a real case."** It is one: measured on four devices — two real phones, a

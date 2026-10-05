@@ -1,4 +1,4 @@
-# Automation Guild '27 — *Fast and Durable Mobile Tests with Mobium*
+# Automation Guild '27 — *Fast and Robust Mobile Tests with Mobium*
 
 Everything for the TestGuild [Automation Guild '27](https://testguild.com/call-for-speakers/)
 speaker submission: the pitch, the 25-minute run of show, the 29-slide deck, the demo scripts,
@@ -34,7 +34,7 @@ and the provenance of every number in them.
 
 Animations are for humans. To a test, every slide-in and fade is either time spent waiting for
 the screen to settle or a race against it — a slow suite or a flaky one. The session makes mobile
-tests **fast and durable** by turning the motion off, measured on four devices — a real iPhone and
+tests **fast and robust** by turning the motion off, measured on four devices — a real iPhone and
 Pixel, an iOS simulator and an Android emulator: the system's animations first (Android's three scales; iOS's Reduce Motion, which only
 Settings can change), then the app's own — which the system switch reaches **only if the app
 listens**. With all three Android scales at 0, an app animation on its own clock still slid for

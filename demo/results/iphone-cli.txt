@@ -1,0 +1,8 @@
+motion-cli.sh runs the test's 11 steps
+cli  iPhone  on   honoring 3331  control 3414  case 18.73
+cli  iPhone  off  honoring 1348  control 3313  case 13.91
+cli  iPhone  on   honoring 3297  control 2879  case 18.05
+cli  iPhone  off  honoring 1348  control 3312  case 13.97
+cli  iPhone  on   honoring 3330  control 2897  case 18.11
+cli  iPhone  off  honoring 1315  control 3363  case 13.84
+reduce_motion as found: on

@@ -1,0 +1,8 @@
+motion-cli.sh runs the test's 11 steps
+cli  emulator-5554  on   honoring 2599  control 2584  case 12.66
+cli  emulator-5554  off  honoring 250  control 2599  case 8.05
+cli  emulator-5554  on   honoring 2530  control 2546  case 13.13
+cli  emulator-5554  off  honoring 267  control 2567  case 8.03
+cli  emulator-5554  on   honoring 2547  control 2533  case 12.94
+cli  emulator-5554  off  honoring 1151  control 2584  case 7.22
+reduce_motion as found: off
