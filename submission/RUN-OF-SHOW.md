@@ -14,7 +14,7 @@ Slide ids in brackets match `deck/slides/<id>.html`.
 | 6:30–10:30 | **Part 2** — the system's animations | `part2` `p2-android` `p2-ios` `p2-rule` |
 | 10:30–15:00 | **Part 3** — the app's own animations | `part3` `p3-scales` `p3-two-fixes` `p3-code` `p3-rule` |
 | 15:00–17:30 | **Part 4** — proving it, and what stays | `part4` `p4-control` `p4-devices` `p4-stays` |
-| 17:30–23:30 | **Demo** — four devices, recorded, animations on and off side by side | `demo` `demo-emulator` `demo-pixel` `demo-simulator` `demo-iphone` `demo-results` |
+| 17:30–23:30 | **Demo** — four devices, recorded, animations on and off side by side | `demo` `demo-code` `demo-run` `demo-emulator` `demo-pixel` `demo-simulator` `demo-iphone` `demo-results` |
 | 23:30–25:00 | Habits, and the conclusion | `habits` `close` |
 
 ## 0:00–1:30 — Cold open
@@ -47,8 +47,10 @@ Let the app time itself, and keep one animation that ignores the setting as the 
 
 ## 17:30–23:30 — Demo
 
-Recorded, not live: four videos, made by `demo/record.sh` — the Android emulator, the real
-Pixel, the iPhone simulator, the real iPhone, in the order the theory went. Each slide plays
+Recorded, not live. First the code: one Mobium test, `demo/tests/motion.test.json`, and the
+config naming four devices — the same file ran on all of them (`demo-code`, `demo-run`). Then
+four videos of it running, made by `demo/record.sh` — the Android emulator, the real Pixel, the
+iPhone simulator, the real iPhone, in the order the theory went. Each slide plays
 the same steps twice side by side: animations on, then with the platform's own switch off.
 Narrate one slide fully (the emulator: the honoring target is in place before the tap, the
 control still slides, the confetti holds still), then let the other three confirm it in about

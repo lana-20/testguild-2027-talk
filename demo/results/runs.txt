@@ -1,0 +1,8 @@
+  ok    [emulator · emulator-5554] motion.test.json › animations on (15s)
+  ok    [emulator · emulator-5554] motion.test.json › animations off (10.1s)
+  ok    [pixel · Pixel_8_Pro] motion.test.json › animations on (19.1s)
+  ok    [pixel · Pixel_8_Pro] motion.test.json › animations off (13.6s)
+  ok    [simulator · 457C7DC2-C706-45D9-8D68-1D26953E28B1] motion.test.json › animations on (16.2s)
+  ok    [simulator · 457C7DC2-C706-45D9-8D68-1D26953E28B1] motion.test.json › animations off (12.1s)
+  ok    [iphone · iPhone 15 Plus] motion.test.json › animations on (46.5s)
+  ok    [iphone · iPhone 15 Plus] motion.test.json › animations off (41.7s)

@@ -68,28 +68,32 @@ read back. Medians on the slide; every raw value here, in ms.
 - The Pixel's first "on" round took 10.7 s against 8.3 s for the next two. The cause was not
   looked into; the median is 8.3 s either way.
 
-## The demo videos (slides `demo-emulator` … `demo-iphone`)
+## The demo videos (slides `demo-code` … `demo-iphone`)
 
-`demo/record.sh` on each device, 2026-10-04, after the four-device table. The app's own
-numbers from each recording, in ms — on screen in the clips, and written beside each video:
+Every video is one device running `demo/tests/motion.test.json` — the same file on all four —
+under `demo/record.sh`, 2026-10-04. Each test passed on each device (`demo/results/runs.txt`).
+The app's own numbers, read from each clip's last frame, in ms:
 
 | Device | Animations on: honoring · control | Off: honoring · control | Confetti |
 |---|---|---|---|
-| Android 15 emulator | 2547 · 2534 | 249 · 2599 | falling → still |
-| Pixel 8 Pro | 3091 · 3120 | 824 · 2932 | falling → still |
-| iPhone 17 Pro simulator | 2050 · 2033 | 900 · 2017 | falling → still |
-| iPhone 15 Plus | 2996 · 3080 | 1232 · 3130 | falling → still |
+| Android 15 emulator | 2517 · 2584 | 233 · 2533 | done → still |
+| Pixel 8 Pro | 3114 · 2876 | 1192 · 3140 | done → still |
+| iPhone 17 Pro simulator | 2016 · 2033 | 917 · 2066 | done → still |
+| iPhone 15 Plus | 3213 · 3213 | 1282 · 3114 | done → still |
 
-- Each clip is one recorded segment, started only once MobiumApp is in front; the relaunch and
-  the switch happen between segments and are not in any video. Frames of every video were
-  checked for anything else on screen.
-- A clip's length is not a timing: it includes the script's pauses for the viewer, and the
-  iPhone's off clip runs longer than its on clip. The timings are the app's numbers above.
-- Android's status bar is in its demo mode (9:41, no notifications) for the recording, put back
-  after; the icon beside the clock is Android's screen-capture indicator. An iPhone shows 9:41
-  by itself while its screen is captured.
+- **The cut**, by `demo/keep-app.py`: only frames close to the Motion Demo are kept. On the iPhone
+  every kept frame scored at most 38 and every rejected one — home screen, Settings, launches —
+  at least 46, against a cut-off of 40; on the Pixel, 28 and 43. Each written file was checked
+  frame by frame. Raw recordings of the phones were deleted once their cuts were checked.
+- **The clips end before the restore.** The session puts the setting back the moment the last
+  case passes; on the emulator, simulator and Pixel the app redrew itself within a second, and
+  those last frames are trimmed (a jump of 33–37 between two frames).
+- **The iPhone's video is from a second run.** The first, at 22:13, passed but left Reduce Motion
+  off when it had been on; it was put back on the Settings switch, and two runs after it
+  restored correctly. The video is from the second of those (22:35). Cause open: Mobium's ROADMAP.
+- A clip's length is not a timing: it includes waits for what the test checks.
 - Full-resolution originals are kept outside the repo; `deck/media/` holds 1440-pixel-tall
-  encodes, under 600 KB each.
+  encodes, under 500 KB each.
 
 ## Claims on a slide that are not measurements
 

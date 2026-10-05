@@ -26,6 +26,8 @@
     "p4-devices",
     "p4-stays",
     "demo",
+    "demo-code",
+    "demo-run",
     "demo-emulator",
     "demo-pixel",
     "demo-simulator",

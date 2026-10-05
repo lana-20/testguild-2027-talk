@@ -1,0 +1,9 @@
+{
+  "testDir": "tests",
+  "projects": [
+    {"name": "emulator",  "device": "${MOBIUM_EMULATOR}"},
+    {"name": "pixel",     "device": "${MOBIUM_PIXEL}"},
+    {"name": "simulator", "device": "${MOBIUM_SIMULATOR}", "driver": "wda"},
+    {"name": "iphone",    "device": "${MOBIUM_IPHONE}",    "driver": "wda"}
+  ]
+}

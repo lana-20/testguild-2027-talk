@@ -1,0 +1,26 @@
+{
+  "app": "dev.mobium.mobiumapp",
+  "tests": [{
+    "name": "animations ${animations}",
+    "each": [
+      {"animations": "on", "reduce_motion": "off", "reported": "false",
+       "confetti": "confetti: done"},
+      {"animations": "off", "reduce_motion": "on", "reported": "true",
+       "confetti": "still: reduce motion"}
+    ],
+    "steps": [
+      {"accessibility": {"setting": "reduce_motion", "value": "${reduce_motion}"}},
+      {"tap": "label=Motion Demo"},
+      {"wait_for": {"target": "testid=reduceMotion", "condition": "text",
+                    "text": "reduceMotion=${reported}", "exact": true}},
+      {"tap": "label=Replay Honoring"},
+      {"tap": "label=Honoring target"},
+      {"wait_for": {"target": "testid=honoringResult", "condition": "text", "text": "tapped"}},
+      {"tap": "label=Replay Ignoring"},
+      {"tap": "label=Ignoring target"},
+      {"wait_for": {"target": "testid=ignoringResult", "condition": "text", "text": "tapped"}},
+      {"tap": "label=Celebrate 🎉"},
+      {"wait_for": {"target": "testid=confettiState", "condition": "text", "text": "${confetti}"}}
+    ]
+  }]
+}

@@ -268,7 +268,65 @@
   <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">Demo</h2>
   <div style="width:180px; height:5px; background:#E0A526"></div>
   <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1400px">Four devices, recorded: the same steps with animations on, then off &mdash; Android first, as the theory went.</p>
-  <aside>Recorded, not live: each device ran demo/record.sh — the same taps with animations on, then with the platform's own switch off. Only the app is ever on screen; the switch itself happens between the two clips. On each slide the two clips play side by side.</aside>
+  <aside>Recorded, not live: every device ran the same test file, the one on the next slide, under a screen recorder. The video is cut down to the app's Motion screen — launches and Settings are not in it. On each device slide the two cases play side by side.</aside>
+</section></div>
+<div class="slide" data-id="demo-code"><section id="demo-code" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:16px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:1px">demo/tests/motion.test.json &nbsp;&mdash;&nbsp; the one test, unchanged on all four devices</p>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:24px 40px; display:flex; flex-direction:column">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">{</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&quot;app&quot;:&nbsp;&quot;dev.mobium.mobiumapp&quot;,</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&quot;tests&quot;:&nbsp;[{</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:&nbsp;&quot;animations&nbsp;${animations}&quot;,</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&quot;each&quot;:&nbsp;[</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;animations&quot;:&nbsp;&quot;on&quot;,&nbsp;&quot;reduce_motion&quot;:&nbsp;&quot;off&quot;,&nbsp;&quot;reported&quot;:&nbsp;&quot;false&quot;,</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;confetti&quot;:&nbsp;&quot;confetti:&nbsp;done&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;animations&quot;:&nbsp;&quot;off&quot;,&nbsp;&quot;reduce_motion&quot;:&nbsp;&quot;on&quot;,&nbsp;&quot;reported&quot;:&nbsp;&quot;true&quot;,</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;confetti&quot;:&nbsp;&quot;still:&nbsp;reduce&nbsp;motion&quot;}</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;],</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&quot;steps&quot;:&nbsp;[</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;accessibility&quot;:&nbsp;{&quot;setting&quot;:&nbsp;&quot;reduce_motion&quot;,&nbsp;&quot;value&quot;:&nbsp;&quot;${reduce_motion}&quot;}},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;tap&quot;:&nbsp;&quot;label=Motion&nbsp;Demo&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;wait_for&quot;:&nbsp;{&quot;target&quot;:&nbsp;&quot;testid=reduceMotion&quot;,&nbsp;&quot;condition&quot;:&nbsp;&quot;text&quot;,</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:&nbsp;&quot;reduceMotion=${reported}&quot;,&nbsp;&quot;exact&quot;:&nbsp;true}},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;tap&quot;:&nbsp;&quot;label=Replay&nbsp;Honoring&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;tap&quot;:&nbsp;&quot;label=Honoring&nbsp;target&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;wait_for&quot;:&nbsp;{&quot;target&quot;:&nbsp;&quot;testid=honoringResult&quot;,&nbsp;&quot;condition&quot;:&nbsp;&quot;text&quot;,&nbsp;&quot;text&quot;:&nbsp;&quot;tapped&quot;}},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;tap&quot;:&nbsp;&quot;label=Replay&nbsp;Ignoring&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;tap&quot;:&nbsp;&quot;label=Ignoring&nbsp;target&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;wait_for&quot;:&nbsp;{&quot;target&quot;:&nbsp;&quot;testid=ignoringResult&quot;,&nbsp;&quot;condition&quot;:&nbsp;&quot;text&quot;,&nbsp;&quot;text&quot;:&nbsp;&quot;tapped&quot;}},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;tap&quot;:&nbsp;&quot;label=Celebrate&nbsp;🎉&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&quot;wait_for&quot;:&nbsp;{&quot;target&quot;:&nbsp;&quot;testid=confettiState&quot;,&nbsp;&quot;condition&quot;:&nbsp;&quot;text&quot;,&nbsp;&quot;text&quot;:&nbsp;&quot;${confetti}&quot;}}</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;}]</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">}</p>
+  </div>
+  <aside>The code that ran, verbatim — its whitespace reflowed to fit the slide, the parsed test identical. Two cases from one list: each switches the platform's own Reduce Motion, opens the Motion screen, checks what the app says, taps both targets after their Replay, and waits for the confetti to say done or still. Only the device changes between the four runs.</aside>
+</section></div>
+<div class="slide" data-id="demo-run"><section id="demo-run" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:16px">
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:1px">demo/mobium.config.json &nbsp;&mdash;&nbsp; four devices, one project each</p>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:20px 40px; display:flex; flex-direction:column">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">{</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&quot;testDir&quot;:&nbsp;&quot;tests&quot;,</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&quot;projects&quot;:&nbsp;[</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;{&quot;name&quot;:&nbsp;&quot;emulator&quot;,&nbsp;&nbsp;&quot;device&quot;:&nbsp;&quot;${MOBIUM_EMULATOR}&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;{&quot;name&quot;:&nbsp;&quot;pixel&quot;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;device&quot;:&nbsp;&quot;${MOBIUM_PIXEL}&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;{&quot;name&quot;:&nbsp;&quot;simulator&quot;,&nbsp;&quot;device&quot;:&nbsp;&quot;${MOBIUM_SIMULATOR}&quot;,&nbsp;&quot;driver&quot;:&nbsp;&quot;wda&quot;},</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&nbsp;&nbsp;{&quot;name&quot;:&nbsp;&quot;iphone&quot;,&nbsp;&nbsp;&nbsp;&nbsp;&quot;device&quot;:&nbsp;&quot;${MOBIUM_IPHONE}&quot;,&nbsp;&nbsp;&nbsp;&nbsp;&quot;driver&quot;:&nbsp;&quot;wda&quot;}</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;]</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">}</p>
+  </div>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:20px 40px; display:flex; flex-direction:column">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">$&nbsp;mobium&nbsp;test&nbsp;--project&nbsp;&lt;name&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;once&nbsp;per&nbsp;device,&nbsp;under&nbsp;a&nbsp;screen&nbsp;recorder</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[emulator&nbsp;·&nbsp;emulator-5554]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;on&nbsp;(15s)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[emulator&nbsp;·&nbsp;emulator-5554]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;off&nbsp;(10.1s)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[pixel&nbsp;·&nbsp;Pixel_8_Pro]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;on&nbsp;(19.1s)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[pixel&nbsp;·&nbsp;Pixel_8_Pro]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;off&nbsp;(13.6s)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[simulator&nbsp;·&nbsp;457C7DC2-C706-45D9-8D68-1D26953E28B1]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;on&nbsp;(16.2s)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[simulator&nbsp;·&nbsp;457C7DC2-C706-45D9-8D68-1D26953E28B1]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;off&nbsp;(12.1s)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[iphone&nbsp;·&nbsp;iPhone&nbsp;15&nbsp;Plus]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;on&nbsp;(46.5s)</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[iphone&nbsp;·&nbsp;iPhone&nbsp;15&nbsp;Plus]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;off&nbsp;(41.7s)</p>
+  </div>
+  <aside>Eight passes, two per device. The phones take longer than the virtual devices, and the iPhone longest: switching Reduce Motion there is a trip through the Settings app. Each run's session put the setting back when it ended, and the recording harness read it before and after to make sure.</aside>
 </section></div>
 <div class="slide" data-id="demo-emulator"><section id="demo-emulator" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 96px; display:flex; flex-direction:column; justify-content:center; gap:0px">
   <div style="display:flex; gap:48px; align-items:center">
@@ -276,19 +334,19 @@
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">All three scales to 0</p>
       <h2 style="font-size:64px; font-weight:600; line-height:1.1; letter-spacing:-1px">Android emulator</h2>
       <div style="display:flex; flex-direction:column; gap:14px">
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;2547 ms → <b style="color:#4C8C6A">249 ms</b></p>
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;2534 ms · 2599 ms</p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;2517 ms → <b style="color:#4C8C6A">233 ms</b></p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;2584 ms · 2533 ms</p>
         <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">confetti &nbsp;falls → <b style="color:#4C8C6A">still</b></p>
       </div>
       <p style="font-size:28px; font-weight:300; line-height:1.4; color:#94A0AB">Times as the app counts them, from Replay to the tap.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">animations on</p>
-      <video src="deck/media/android-emulator-on.mp4" poster="deck/media/android-emulator-on.jpg" aria-label="Android emulator, animations on: 2547 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/emulator-on.mp4" poster="deck/media/emulator-on.jpg" aria-label="Android emulator, animations on: 2517 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#4C8C6A; letter-spacing:2px; text-transform:uppercase">animations off</p>
-      <video src="deck/media/android-emulator-off.mp4" poster="deck/media/android-emulator-off.jpg" aria-label="Android emulator, animations off: 249 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/emulator-off.mp4" poster="deck/media/emulator-off.jpg" aria-label="Android emulator, animations off: 233 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
   <aside>Android 15 emulator. The honoring target is in place before the tap; the ignoring one — the control — still slides for two and a half seconds, because the scales do not reach an animation on the app's own clock. The confetti stays still on the right.</aside>
@@ -299,19 +357,19 @@
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">All three scales to 0</p>
       <h2 style="font-size:64px; font-weight:600; line-height:1.1; letter-spacing:-1px">Real Pixel 8 Pro</h2>
       <div style="display:flex; flex-direction:column; gap:14px">
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;3091 ms → <b style="color:#4C8C6A">824 ms</b></p>
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;3120 ms · 2932 ms</p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;3114 ms → <b style="color:#4C8C6A">1192 ms</b></p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;2876 ms · 3140 ms</p>
         <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">confetti &nbsp;falls → <b style="color:#4C8C6A">still</b></p>
       </div>
       <p style="font-size:28px; font-weight:300; line-height:1.4; color:#94A0AB">Times as the app counts them, from Replay to the tap.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">animations on</p>
-      <video src="deck/media/pixel-on.mp4" poster="deck/media/pixel-on.jpg" aria-label="Real Pixel 8 Pro, animations on: 3091 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/pixel-on.mp4" poster="deck/media/pixel-on.jpg" aria-label="Real Pixel 8 Pro, animations on: 3114 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#4C8C6A; letter-spacing:2px; text-transform:uppercase">animations off</p>
-      <video src="deck/media/pixel-off.mp4" poster="deck/media/pixel-off.jpg" aria-label="Real Pixel 8 Pro, animations off: 824 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/pixel-off.mp4" poster="deck/media/pixel-off.jpg" aria-label="Real Pixel 8 Pro, animations off: 1192 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
   <aside>The speaker's own phone, Android 17. Same picture as the emulator, on hardware. The status bar is Android's demo mode — 9:41, no notifications — set for the recording and put back after; the small icon by the clock is Android's screen-capture indicator.</aside>
@@ -322,19 +380,19 @@
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">Reduce Motion on</p>
       <h2 style="font-size:64px; font-weight:600; line-height:1.1; letter-spacing:-1px">iPhone simulator</h2>
       <div style="display:flex; flex-direction:column; gap:14px">
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;2050 ms → <b style="color:#4C8C6A">900 ms</b></p>
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;2033 ms · 2017 ms</p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;2016 ms → <b style="color:#4C8C6A">917 ms</b></p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;2033 ms · 2066 ms</p>
         <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">confetti &nbsp;falls → <b style="color:#4C8C6A">still</b></p>
       </div>
       <p style="font-size:28px; font-weight:300; line-height:1.4; color:#94A0AB">Times as the app counts them, from Replay to the tap.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">animations on</p>
-      <video src="deck/media/ios-simulator-on.mp4" poster="deck/media/ios-simulator-on.jpg" aria-label="iPhone simulator, animations on: 2050 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/simulator-on.mp4" poster="deck/media/simulator-on.jpg" aria-label="iPhone simulator, animations on: 2016 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#4C8C6A; letter-spacing:2px; text-transform:uppercase">animations off</p>
-      <video src="deck/media/ios-simulator-off.mp4" poster="deck/media/ios-simulator-off.jpg" aria-label="iPhone simulator, animations off: 900 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/simulator-off.mp4" poster="deck/media/simulator-off.jpg" aria-label="iPhone simulator, animations off: 917 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
   <aside>iPhone 17 Pro simulator, iOS 26.5. Reduce Motion is the only switch iOS has; the app asks for it and skips its slide, the control does not.</aside>
@@ -345,27 +403,27 @@
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">Reduce Motion on</p>
       <h2 style="font-size:64px; font-weight:600; line-height:1.1; letter-spacing:-1px">Real iPhone 15 Plus</h2>
       <div style="display:flex; flex-direction:column; gap:14px">
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;2996 ms → <b style="color:#4C8C6A">1232 ms</b></p>
-        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;3080 ms · 3130 ms</p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">honoring &nbsp;3213 ms → <b style="color:#4C8C6A">1282 ms</b></p>
+        <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">control &nbsp;&nbsp;3213 ms · 3114 ms</p>
         <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#BDC6CE">confetti &nbsp;falls → <b style="color:#4C8C6A">still</b></p>
       </div>
       <p style="font-size:28px; font-weight:300; line-height:1.4; color:#94A0AB">Times as the app counts them, from Replay to the tap.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">animations on</p>
-      <video src="deck/media/iphone-on.mp4" poster="deck/media/iphone-on.jpg" aria-label="Real iPhone 15 Plus, animations on: 2996 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/iphone-on.mp4" poster="deck/media/iphone-on.jpg" aria-label="Real iPhone 15 Plus, animations on: 3213 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; align-items:center">
       <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#4C8C6A; letter-spacing:2px; text-transform:uppercase">animations off</p>
-      <video src="deck/media/iphone-off.mp4" poster="deck/media/iphone-off.jpg" aria-label="Real iPhone 15 Plus, animations off: 1232 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
+      <video src="deck/media/iphone-off.mp4" poster="deck/media/iphone-off.jpg" aria-label="Real iPhone 15 Plus, animations off: 1282 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
-  <aside>The speaker's own iPhone, iOS 26.6.2, recorded over USB. Reduce Motion went through the Settings app between the two clips — about 25 seconds, left out of the video — and was put back on after.</aside>
+  <aside>The speaker's own iPhone, iOS 26.6.2, recorded over USB. The test switched Reduce Motion through the Settings app — about 25 seconds each way, cut from the video, since its first screen shows the owner's name — and the session put it back on after.</aside>
 </section></div>
 <div class="slide" data-id="demo-results"><section id="demo-results" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
   <h2 style="font-size:66px; font-weight:600; line-height:1.1; letter-spacing:-1px; width:1600px">What you just watched</h2>
   <div style="display:flex; flex-direction:column; gap:18px">
-    <div style="background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:28px 36px"><p style="font-size:34px; line-height:1.4"><b style="font-weight:600">Every device:</b> with the switch off, the app that listens is in place before the tap &mdash; 0.2 to 1.2 s instead of 2 to 3.</p></div>
+    <div style="background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:28px 36px"><p style="font-size:34px; line-height:1.4"><b style="font-weight:600">Every device:</b> with the switch off, the app that listens is in place before the tap &mdash; 0.2 to 1.3 s instead of 2 to 3.2.</p></div>
     <div style="background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:28px 36px"><p style="font-size:34px; line-height:1.4"><b style="font-weight:600">The control never moved:</b> the animation that does not listen slid for its full time on all four.</p></div>
     <div style="background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:28px 36px"><p style="font-size:34px; line-height:1.4"><b style="font-weight:600">Confetti:</b> falling with animations on, a still &ldquo;Done&rdquo; with them off &mdash; nothing left to wait out.</p></div>
     <div style="background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:28px 36px"><p style="font-size:34px; line-height:1.4"><b style="font-weight:600">The same steps everywhere:</b> one script, two platforms, real and virtual &mdash; only the switch differs.</p></div>
@@ -414,7 +472,7 @@
 <div id="notes"></div>
 <script>
 (function () {
-  var NOTES = ["Do not introduce yourself yet. Go straight to the two numbers on the next slide. The introduction comes after the cold open, in one line.", "Let both numbers sit before you speak. The app timed these taps, not the tool: it reports how long after its own Replay the tap arrived. Do not explain the setting yet \u2014 that is the whole talk.", "The two failure modes look different, which is why teams rarely trace them to the same cause. This is the thesis; everything after is how.", "Section divider. Two seconds on screen. Do not read it aloud.", "Two seconds: a target that slides in over two seconds cost 3.2 s on the iPhone and 2.5 s on Android when the tool waited for it, against 1.3 s and well under one second with the motion off. The race cost does not show up as time \u2014 it shows up as a retry.", "This distinction carries the rest of the talk. Part 2 is the left box, Part 3 the right one \u2014 and Part 3 is where the time actually goes.", "Section divider. Two seconds on screen. Do not read it aloud.", "An untouched emulator reads animator_duration_scale as null, not 1. Restoring it as 1 leaves the device different from how you found it; delete the key instead.", "Reduce Motion reduces; it does not remove. Settings' own push still slides with it on. Its real power is what it tells the app \u2014 which is Part 3.", "Droppable if tight: its point returns on the habits card. The restore matters most on a real phone \u2014 the iPhone in the demo is the speaker's own.", "Section divider. Two seconds on screen. Do not read it aloud.", "Two identical animations, one line apart: one reads the platform's reduce-motion answer, one does not. The zeroed scales are how Android answers yes. So the system switch turns off the app's animations only when the app listens.", "Recommend the right-hand one, and say why twice: the fast path becomes a real path, and it is an accessibility fix the app owes its users anyway. The test build is the fallback when the app team cannot change the code.", "React Native on Android answers from the transition scale alone \u2014 measured: animator scale 0 by itself left it false. Zero all three and every reader agrees.", "This is the line people should leave with if they leave with one.", "Section divider. Two seconds on screen. Do not read it aloud.", "The app records how long after its own Replay the tap arrived, so the tool's opinion of itself is not the evidence. 1.3 s is the tool's own round trip: Replay and the tap are two calls.", "Off means each platform's own switch: Reduce Motion on iOS, all three scales at 0 on Android. The control is flat on every device, so the savings belong to the setting. One screen, one animation: a real suite has many \u2014 let the audience multiply. The iPhone's on-time here is 2.9 s against 3.2 s on the previous slide: the procedure differs (here Replay follows straight after the screen opens), and why that is worth 0.3 s was not established \u2014 compare within a table, not across.", "Chasing a moving target is how a race becomes a flake: sometimes the tap lands, sometimes it does not, and the retry hides it. A refusal fails the same way every time.", "Recorded, not live: each device ran demo/record.sh \u2014 the same taps with animations on, then with the platform's own switch off. Only the app is ever on screen; the switch itself happens between the two clips. On each slide the two clips play side by side.", "Android 15 emulator. The honoring target is in place before the tap; the ignoring one \u2014 the control \u2014 still slides for two and a half seconds, because the scales do not reach an animation on the app's own clock. The confetti stays still on the right.", "The speaker's own phone, Android 17. Same picture as the emulator, on hardware. The status bar is Android's demo mode \u2014 9:41, no notifications \u2014 set for the recording and put back after; the small icon by the clock is Android's screen-capture indicator.", "iPhone 17 Pro simulator, iOS 26.5. Reduce Motion is the only switch iOS has; the app asks for it and skips its slide, the control does not.", "The speaker's own iPhone, iOS 26.6.2, recorded over USB. Reduce Motion went through the Settings app between the two clips \u2014 about 25 seconds, left out of the video \u2014 and was put back on after.", "Back from the videos. Read the four lines quickly; the timings behind them are on the four-device slide and in EVIDENCE.md.", "Do not elaborate. Read each one once and move to the close. If you are over time, this is the slide to land on and stop.", "Read the conclusion close to verbatim, then stop. Both repos are public and MIT licensed; the deck link in the footer holds the demo scripts. The live Q&A is where the scale each framework reads, iOS's missing command, and the agent belong."];
+  var NOTES = ["Do not introduce yourself yet. Go straight to the two numbers on the next slide. The introduction comes after the cold open, in one line.", "Let both numbers sit before you speak. The app timed these taps, not the tool: it reports how long after its own Replay the tap arrived. Do not explain the setting yet \u2014 that is the whole talk.", "The two failure modes look different, which is why teams rarely trace them to the same cause. This is the thesis; everything after is how.", "Section divider. Two seconds on screen. Do not read it aloud.", "Two seconds: a target that slides in over two seconds cost 3.2 s on the iPhone and 2.5 s on Android when the tool waited for it, against 1.3 s and well under one second with the motion off. The race cost does not show up as time \u2014 it shows up as a retry.", "This distinction carries the rest of the talk. Part 2 is the left box, Part 3 the right one \u2014 and Part 3 is where the time actually goes.", "Section divider. Two seconds on screen. Do not read it aloud.", "An untouched emulator reads animator_duration_scale as null, not 1. Restoring it as 1 leaves the device different from how you found it; delete the key instead.", "Reduce Motion reduces; it does not remove. Settings' own push still slides with it on. Its real power is what it tells the app \u2014 which is Part 3.", "Droppable if tight: its point returns on the habits card. The restore matters most on a real phone \u2014 the iPhone in the demo is the speaker's own.", "Section divider. Two seconds on screen. Do not read it aloud.", "Two identical animations, one line apart: one reads the platform's reduce-motion answer, one does not. The zeroed scales are how Android answers yes. So the system switch turns off the app's animations only when the app listens.", "Recommend the right-hand one, and say why twice: the fast path becomes a real path, and it is an accessibility fix the app owes its users anyway. The test build is the fallback when the app team cannot change the code.", "React Native on Android answers from the transition scale alone \u2014 measured: animator scale 0 by itself left it false. Zero all three and every reader agrees.", "This is the line people should leave with if they leave with one.", "Section divider. Two seconds on screen. Do not read it aloud.", "The app records how long after its own Replay the tap arrived, so the tool's opinion of itself is not the evidence. 1.3 s is the tool's own round trip: Replay and the tap are two calls.", "Off means each platform's own switch: Reduce Motion on iOS, all three scales at 0 on Android. The control is flat on every device, so the savings belong to the setting. One screen, one animation: a real suite has many \u2014 let the audience multiply. The iPhone's on-time here is 2.9 s against 3.2 s on the previous slide: the procedure differs (here Replay follows straight after the screen opens), and why that is worth 0.3 s was not established \u2014 compare within a table, not across.", "Chasing a moving target is how a race becomes a flake: sometimes the tap lands, sometimes it does not, and the retry hides it. A refusal fails the same way every time.", "Recorded, not live: every device ran the same test file, the one on the next slide, under a screen recorder. The video is cut down to the app's Motion screen \u2014 launches and Settings are not in it. On each device slide the two cases play side by side.", "The code that ran, verbatim \u2014 its whitespace reflowed to fit the slide, the parsed test identical. Two cases from one list: each switches the platform's own Reduce Motion, opens the Motion screen, checks what the app says, taps both targets after their Replay, and waits for the confetti to say done or still. Only the device changes between the four runs.", "Eight passes, two per device. The phones take longer than the virtual devices, and the iPhone longest: switching Reduce Motion there is a trip through the Settings app. Each run's session put the setting back when it ended, and the recording harness read it before and after to make sure.", "Android 15 emulator. The honoring target is in place before the tap; the ignoring one \u2014 the control \u2014 still slides for two and a half seconds, because the scales do not reach an animation on the app's own clock. The confetti stays still on the right.", "The speaker's own phone, Android 17. Same picture as the emulator, on hardware. The status bar is Android's demo mode \u2014 9:41, no notifications \u2014 set for the recording and put back after; the small icon by the clock is Android's screen-capture indicator.", "iPhone 17 Pro simulator, iOS 26.5. Reduce Motion is the only switch iOS has; the app asks for it and skips its slide, the control does not.", "The speaker's own iPhone, iOS 26.6.2, recorded over USB. The test switched Reduce Motion through the Settings app \u2014 about 25 seconds each way, cut from the video, since its first screen shows the owner's name \u2014 and the session put it back on after.", "Back from the videos. Read the four lines quickly; the timings behind them are on the four-device slide and in EVIDENCE.md.", "Do not elaborate. Read each one once and move to the close. If you are over time, this is the slide to land on and stop.", "Read the conclusion close to verbatim, then stop. Both repos are public and MIT licensed; the deck link in the footer holds the demo scripts. The live Q&A is where the scale each framework reads, iOS's missing command, and the agent belong."];
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
   var hud = document.getElementById('hud');
   var bar = document.querySelector('#bar > i');
@@ -429,8 +487,8 @@
   }
   function render() {
     slides.forEach(function (el, n) { el.classList.toggle('is-active', n === i); });
-    hud.textContent = (i + 1) + ' / ' + 27;
-    bar.style.width = ((i + 1) / 27 * 100) + '%';
+    hud.textContent = (i + 1) + ' / ' + 29;
+    bar.style.width = ((i + 1) / 29 * 100) + '%';
     notesEl.innerHTML = '';
     if (NOTES[i]) {
       var b = document.createElement('b'); b.textContent = 'Speaker notes';
@@ -442,13 +500,13 @@
       history.replaceState(null, '', '#' + (i + 1));
     }
   }
-  function go(n) { i = Math.max(0, Math.min(27 - 1, n)); render(); }
+  function go(n) { i = Math.max(0, Math.min(29 - 1, n)); render(); }
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { go(i + 1); e.preventDefault(); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(i - 1); e.preventDefault(); }
     else if (e.key === 'Home') { go(0); }
-    else if (e.key === 'End') { go(27 - 1); }
+    else if (e.key === 'End') { go(29 - 1); }
     else if (e.key === 's' || e.key === 'S') { showNotes = !showNotes; render(); }
     else if (e.key === 'f' || e.key === 'F') {
       if (document.fullscreenElement) { document.exitFullscreen(); }
@@ -462,7 +520,7 @@
   window.addEventListener('resize', fit);
 
   var start = parseInt(location.hash.slice(1), 10);
-  if (start > 0 && start <= 27) { i = start - 1; }
+  if (start > 0 && start <= 29) { i = start - 1; }
   fit(); render();
 })();
 </script>
