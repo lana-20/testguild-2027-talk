@@ -40,6 +40,7 @@ Measured on 2026-10-04: an Android 15 emulator, and an iPhone 15 Plus on iOS 26.
 | `reduce-motion.sh` | ~2 min | 2, 3, 4 | Reduce Motion moves the honoring target and not the control; confetti stays still, and a falling piece is refused |
 | `mcp-session.py` | ~30 s | — | the same calls from an agent's side, over MCP |
 | `compare.sh` | 1–3 min a device | 4 | not a stage beat: the four-device table on `p4-devices`, animations on and off |
+| `record.sh <out.mp4>` | 1–3 min a device | demo | **the demo itself**: the videos on `demo-emulator` … `demo-iphone` |
 | Claude Code | live | Q&A | an agent driving the phone through `mcp.json` |
 
 Each script pauses at every beat — press return. `NOPAUSE=1` runs straight through for a rehearsal.
@@ -121,6 +122,22 @@ Replay, tap, read. One tab-separated line per condition, medians first and every
 It reads the device's setting first and puts it back at the end, also on a failure; on Android
 exactly as found, a missing key included. Run one device at a time — two measurements on one Mac
 slow each other down. The 2026-10-04 run is in `EVIDENCE.md`.
+
+### `record.sh` — the demo videos
+
+`IPHONE=` or `ANDROID=` as for `compare.sh`, and the video's path. The same steps at a pace a
+viewer can follow — Replay and tap each target, then Celebrate — with animations on, then with
+the platform's own switch off. Each condition is its own segment, started only once MobiumApp
+is in front, so the home screen, the wallpaper and the Settings app (whose first screen shows the
+owner's name) are never recorded; the two are joined into `<out>.mp4` and also kept as
+`<out>-on.mp4` and `<out>-off.mp4` for the side-by-side slides. The timings go to `<out>.txt`.
+
+- The simulator and Android are recorded by `mobium record`; a real iPhone by `phone-view
+  --record`, from the phone's own USB screen. Joining needs ffmpeg.
+- Android's status bar goes into its demo mode for the recording — 9:41, full bars, no
+  notifications — and its setting is put back after, as the animation setting is.
+- To watch a real Android phone live while it records, mirror it read-only over USB, so the
+  mirror cannot send a touch of its own.
 
 ## Why not iPhone Mirroring
 

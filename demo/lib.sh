@@ -40,3 +40,34 @@ motion() {
   m tap "label=Motion Demo" >/dev/null || fail "MobiumApp has no Motion Demo"
   m wait "testid=reduceMotion" >/dev/null || fail "the Motion Demo did not come up"
 }
+
+# take_animations reads the device's animation setting, defines
+# `animations on|off` — the platform's own switch: all three Android scales,
+# or Reduce Motion on iOS — and `restore`, which puts back what was read:
+# on Android exactly as found, a missing key included. It sets a trap so
+# restore runs however the script ends.
+take_animations() {
+  if [ -n "$ANDROID" ]; then
+    ADB="${ADB:-adb}"
+    a() { "$ADB" -s "$ANDROID" shell "$@" | tr -d '\r'; }
+    KEYS="window_animation_scale transition_animation_scale animator_duration_scale"
+    for k in $KEYS; do eval "was_$k=\$(a settings get global $k)"; done
+    restore() {
+      for k in $KEYS; do
+        eval "v=\$was_$k"
+        if [ "$v" = null ]; then a settings delete global "$k" >/dev/null; else a settings put global "$k" "$v"; fi
+      done
+    }
+    animations() { for k in $KEYS; do a settings put global "$k" "$([ "$1" = on ] && echo 1 || echo 0)"; done; }
+    DEVICE="$ANDROID"
+  else
+    was_rm=$(m accessibility reduce_motion | awk '{ print $2 }')
+    restore() { m accessibility reduce_motion "$was_rm" >/dev/null 2>&1 || true; }
+    animations() {
+      want=$([ "$1" = on ] && echo off || echo on)
+      [ "$(m accessibility reduce_motion | awk '{ print $2 }')" = "$want" ] || m accessibility reduce_motion "$want" >/dev/null
+    }
+    DEVICE="$IPHONE"
+  fi
+  trap restore EXIT INT TERM
+}

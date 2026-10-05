@@ -26,6 +26,10 @@
     "p4-devices",
     "p4-stays",
     "demo",
+    "demo-emulator",
+    "demo-pixel",
+    "demo-simulator",
+    "demo-iphone",
     "demo-results",
     "habits",
     "close"
@@ -52,7 +56,7 @@
       "start": "part4"
     },
     "s5": {
-      "description": "Demo \u2014 Android, a real iPhone, an agent",
+      "description": "Demo \u2014 four devices recorded, animations on and off side by side",
       "start": "demo"
     },
     "s6": {

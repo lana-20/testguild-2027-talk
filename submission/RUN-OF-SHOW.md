@@ -14,7 +14,7 @@ Slide ids in brackets match `deck/slides/<id>.html`.
 | 6:30–10:30 | **Part 2** — the system's animations | `part2` `p2-android` `p2-ios` `p2-rule` |
 | 10:30–15:00 | **Part 3** — the app's own animations | `part3` `p3-scales` `p3-two-fixes` `p3-code` `p3-rule` |
 | 15:00–17:30 | **Part 4** — proving it, and what stays | `part4` `p4-control` `p4-devices` `p4-stays` |
-| 17:30–23:30 | **Demo** — Android, then a real iPhone, then an agent | `demo` `demo-results` |
+| 17:30–23:30 | **Demo** — four devices, recorded, animations on and off side by side | `demo` `demo-emulator` `demo-pixel` `demo-simulator` `demo-iphone` `demo-results` |
 | 23:30–25:00 | Habits, and the conclusion | `habits` `close` |
 
 ## 0:00–1:30 — Cold open
@@ -47,7 +47,14 @@ Let the app time itself, and keep one animation that ignores the setting as the 
 
 ## 17:30–23:30 — Demo
 
-In the order the theory went: `demo/animation-scales.sh` on the emulator (~40 s), `demo/reduce-motion.sh` on the iPhone (~2 min; the two trips through Settings are on screen — cut them in the edit if tight), the confetti refusal inside it, then `demo/mcp-session.py` (~30 s) to show the same calls from an agent. Phone on screen through `demo/phone-view`. See `demo/README.md`.
+Recorded, not live: four videos, made by `demo/record.sh` — the Android emulator, the real
+Pixel, the iPhone simulator, the real iPhone, in the order the theory went. Each slide plays
+the same steps twice side by side: animations on, then with the platform's own switch off.
+Narrate one slide fully (the emulator: the honoring target is in place before the tap, the
+control still slides, the confetti holds still), then let the other three confirm it in about
+a minute each. Only MobiumApp is ever on screen; the switch itself, on the iPhone a trip
+through Settings, happens between the two clips. The live terminal beats
+(`reduce-motion.sh`, `mcp-session.py`) and the agent stay for the Q&A.
 
 ## 23:30–25:00 — Close
 
@@ -61,7 +68,7 @@ The four habits on one card, then the conclusion, close to verbatim:
 
 Roughly **2 minutes of slack**, from two droppable beats:
 - Part 2: `p2-rule` can go; its point is on `habits`.
-- Demo: cut the second trip through Settings in the edit and narrate it.
+- Demo: narrate only the emulator slide in full; the other three can run under one sentence each.
 
 Time the read-through before recording. Terminal beats always take longer than they look.
 

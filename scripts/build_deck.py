@@ -4,6 +4,10 @@
 The slide files are the source of truth and are byte-identical to the ones in the
 Claude artifact. This script only wraps them in a viewer: it never edits a slide.
 
+A slide names an uploaded file the artifact's way, `/_blob/<id>`. deck/media/assets.json
+maps each id to its copy in deck/media/, and the viewer gets that path instead; a
+picture carrying `data-video` becomes a looping, muted <video> with it as the poster.
+
     python3 scripts/build_deck.py          # -> index.html (what Pages serves)
 """
 import json, re, sys, html
@@ -22,6 +26,26 @@ def main() -> int:
         if h and h not in seen:
             seen.add(h); hrefs.append(h)
 
+    assets_file = DECK / "media" / "assets.json"
+    assets = json.loads(assets_file.read_text()) if assets_file.exists() else {}
+    unmapped = set()
+
+    def local(m):
+        blob = m.group(1)
+        if blob not in assets or not (DECK / "media" / assets[blob]).exists():
+            unmapped.add(blob); return m.group(0)
+        return f"deck/media/{assets[blob]}"
+
+    def video(m):
+        tag = m.group(0)
+        src = re.search(r'\bsrc="([^"]*)"', tag)
+        vid = re.search(r'\bdata-video="([^"]*)"', tag)
+        alt = re.search(r'\balt="([^"]*)"', tag)
+        style = re.search(r'\bstyle="([^"]*)"', tag)
+        return (f'<video src="{vid.group(1)}" poster="{src.group(1) if src else ""}" '
+                f'aria-label="{alt.group(1) if alt else ""}" style="{style.group(1) if style else ""}" '
+                f'autoplay muted loop playsinline></video>')
+
     slides, notes, missing = [], [], []
     for sid in order:
         f = DECK / "slides" / f"{sid}.html"
@@ -35,8 +59,13 @@ def main() -> int:
         a = re.search(r"<aside>(.*?)</aside>", section, re.S)
         note = re.sub(r"<[^>]+>", "", a.group(1)).strip() if a else ""
         notes.append(note)
+        section = re.sub(r"/?_blob/([0-9a-f]{32})", local, section)
+        section = re.sub(r"<img\b[^>]*\bdata-video=[^>]*>", video, section)
         slides.append(f'<div class="slide" data-id="{sid}">{section}</div>')
 
+    if unmapped:
+        print(f"error: no file in deck/media for asset(s): {', '.join(sorted(unmapped))} — add them to deck/media/assets.json", file=sys.stderr)
+        return 1
     if missing:
         print(f"error: no file for slide id(s): {', '.join(missing)}", file=sys.stderr)
         return 1
@@ -75,8 +104,8 @@ TEMPLATE = """<!doctype html>
      padding sits INSIDE 1920x1080, and spacing comes from flex/grid gap only.
      Without this reset a section lays out at 2176x1368 and spills off-screen. */
   .slide > section, .slide > section * {{ box-sizing:border-box; margin:0; }}
-  /* Centred by absolute positioning, not by grid: a 1920px item makes an auto
-     grid track 1920px wide, so place-items centres inside the TRACK and the
+  /* Centered by absolute positioning, not by grid: a 1920px item makes an auto
+     grid track 1920px wide, so place-items centers inside the TRACK and the
      slide drifts off the viewport. translate(-50%,-50%) then scale is stable. */
   .slide > section {{
     position:absolute; left:50%; top:50%; width:1920px; height:1080px; overflow:hidden;

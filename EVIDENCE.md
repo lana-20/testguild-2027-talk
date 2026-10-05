@@ -68,6 +68,29 @@ read back. Medians on the slide; every raw value here, in ms.
 - The Pixel's first "on" round took 10.7 s against 8.3 s for the next two. The cause was not
   looked into; the median is 8.3 s either way.
 
+## The demo videos (slides `demo-emulator` … `demo-iphone`)
+
+`demo/record.sh` on each device, 2026-10-04, after the four-device table. The app's own
+numbers from each recording, in ms — on screen in the clips, and written beside each video:
+
+| Device | Animations on: honoring · control | Off: honoring · control | Confetti |
+|---|---|---|---|
+| Android 15 emulator | 2547 · 2534 | 249 · 2599 | falling → still |
+| Pixel 8 Pro | 3091 · 3120 | 824 · 2932 | falling → still |
+| iPhone 17 Pro simulator | 2050 · 2033 | 900 · 2017 | falling → still |
+| iPhone 15 Plus | 2996 · 3080 | 1232 · 3130 | falling → still |
+
+- Each clip is one recorded segment, started only once MobiumApp is in front; the relaunch and
+  the switch happen between segments and are not in any video. Frames of every video were
+  checked for anything else on screen.
+- A clip's length is not a timing: it includes the script's pauses for the viewer, and the
+  iPhone's off clip runs longer than its on clip. The timings are the app's numbers above.
+- Android's status bar is in its demo mode (9:41, no notifications) for the recording, put back
+  after; the icon beside the clock is Android's screen-capture indicator. An iPhone shows 9:41
+  by itself while its screen is captured.
+- Full-resolution originals are kept outside the repo; `deck/media/` holds 1440-pixel-tall
+  encodes, under 600 KB each.
+
 ## Claims on a slide that are not measurements
 
 | Claim | Basis |

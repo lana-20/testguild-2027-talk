@@ -27,29 +27,7 @@ ROUNDS="${ROUNDS:-3}"
 now() { python3 -c 'import time; print(int(time.time() * 1000))'; }
 median() { tr ' ' '\n' | grep . | sort -n | awk '{ a[NR] = $1 } END { print a[int((NR + 1) / 2)] }'; }
 
-if [ -n "$ANDROID" ]; then
-  ADB="${ADB:-adb}"
-  a() { "$ADB" -s "$ANDROID" shell "$@" | tr -d '\r'; }
-  KEYS="window_animation_scale transition_animation_scale animator_duration_scale"
-  for k in $KEYS; do eval "was_$k=\$(a settings get global $k)"; done
-  restore() {
-    for k in $KEYS; do
-      eval "v=\$was_$k"
-      if [ "$v" = null ]; then a settings delete global "$k" >/dev/null; else a settings put global "$k" "$v"; fi
-    done
-  }
-  animations() { for k in $KEYS; do a settings put global "$k" "$([ "$1" = on ] && echo 1 || echo 0)"; done; }
-  DEVICE="$ANDROID"
-else
-  was_rm=$(m accessibility reduce_motion | awk '{ print $2 }')
-  restore() { m accessibility reduce_motion "$was_rm" >/dev/null 2>&1 || true; }
-  animations() {
-    want=$([ "$1" = on ] && echo off || echo on)
-    [ "$(m accessibility reduce_motion | awk '{ print $2 }')" = "$want" ] || m accessibility reduce_motion "$want" >/dev/null
-  }
-  DEVICE="$IPHONE"
-fi
-trap restore EXIT INT TERM
+take_animations
 
 measure() {
   animations "$1"
