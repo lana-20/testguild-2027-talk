@@ -1,7 +1,9 @@
-# Demo — turning off the motion, on Android and a real iPhone
+# Demo — turning off the motion, on four devices
 
-The practice half of the talk, in the order the theory went: Android's animation scales, then
-Reduce Motion on a real iPhone, then the same calls from an AI agent. Every script drives
+The practice half of the talk. **The demo itself is one Mobium test**, `tests/motion.test.json`,
+run unchanged on a real iPhone and Pixel, an iOS simulator and an Android emulator, and recorded
+("The demo: one test, four devices", below). The terminal scripts beside it measure the
+evidence and serve the live Q&A, with an AI agent driving the same tools. Everything drives
 MobiumApp's Motion Demo ([mobiumdev/mobium-app](https://github.com/mobiumdev/mobium-app)), where the app — not the tool — keeps the time:
 
 - **honoring** slides in over two seconds, and appears at once when the platform says motion
@@ -12,16 +14,18 @@ MobiumApp's Motion Demo ([mobiumdev/mobium-app](https://github.com/mobiumdev/mob
 Each target records how long after its own Replay the tap arrived. Mobium waits for a target to
 stop moving before it touches it, so a slide is time the test spends waiting.
 
-Measured on 2026-10-04: an Android 15 emulator, and an iPhone 15 Plus on iOS 26.6.2 over USB.
+Measured on 2026-10-04: an iPhone 15 Plus on iOS 26.6.2 over USB, a Pixel 8 Pro on Android 17
+over USB, an iPhone 17 Pro simulator on iOS 26.5, and an Android 15 emulator.
 
 ## Before recording
 
-1. **Mobium**: `MOBIUM=/path/to/mobium` if it is not on `PATH`.
-2. **The emulator**: booted, with MobiumApp installed.
-3. **The phone**: plugged in, unlocked, Auto-Lock off for the session, MobiumApp installed, and
-   **Reduce Motion on** — the iPhone script starts only from there, and puts it back there.
-   `IPHONE` is found by `mobium devices`; set it to choose.
-4. **The phone on screen**: `phone-view`, a window showing the phone's own screen over USB:
+1. **Mobium**: `MOBIUM=/path/to/mobium` if it is not on `PATH`, and ffmpeg for the recordings.
+2. **The devices**, each with MobiumApp installed: the emulator and the simulator booted; the
+   Pixel plugged in with USB debugging on; the iPhone plugged in. Both phones unlocked, Auto-Lock
+   off for the session. Each device's id goes in the variable `mobium.config.json` names.
+3. **The iPhone's Reduce Motion** on, as its owner keeps it: `reduce-motion.sh` starts only from
+   there, and every script puts back what it found.
+4. **A phone on screen**, to watch it live: `phone-view`, a window showing the phone's own screen over USB:
 
    ```sh
    swiftc -O -o demo/phone-view demo/phone-view.swift
@@ -32,19 +36,20 @@ Measured on 2026-10-04: an Android 15 emulator, and an iPhone 15 Plus on iOS 26.
    **"Are you connecting a pair of headphones?"** — answer **Other Device**. While it runs, the
    status bar reads 9:41 with full bars: iOS's own clean status bar for screen capture.
 
-## The beats
+## The pieces
 
-| Script | Time | Part | What it shows |
+| Piece | Time | Where | What it shows |
 |---|---|---|---|
-| `animation-scales.sh <serial>` | ~40 s | 2, 3 | the standard three scales at 0: the app animation that listens stops, the one on its own clock does not |
-| `reduce-motion.sh` | ~2 min | 2, 3, 4 | Reduce Motion moves the honoring target and not the control; confetti stays still, and a falling piece is refused |
-| `mcp-session.py` | ~30 s | — | the same calls from an agent's side, over MCP |
-| `compare.sh` | 1–3 min a device | 4 | not a stage beat: the four-device table on `p4-devices`, animations on and off |
-| `tests/motion.test.json` | — | demo | **the demo itself**: one Mobium test, run unchanged on all four devices by `mobium test`; on `demo-code` |
+| `tests/motion.test.json` | ~30 s a device, ~90 s on the iPhone | demo | **the demo**: one test, unchanged on all four devices — `demo-code`, `demo-run` |
+| `animation-scales.sh <serial>` | ~40 s | `p3-scales`, Q&A | the standard three scales at 0: the app animation that listens stops, the one on its own clock does not |
+| `reduce-motion.sh` | ~2 min | `p4-control`, `p4-stays`, Q&A | Reduce Motion moves the honoring target and not the control; confetti stays still, and a falling piece is refused |
+| `mcp-session.py` | ~30 s | Q&A | the same calls from an agent's side, over MCP |
+| `compare.sh` | 1–3 min a device | `p4-devices` | the four-device table, animations on and off |
 | `record.sh <project> <out.mp4>` | 1–2 min a device | demo | records a device running that test: the videos on `demo-emulator` … `demo-iphone` |
 | Claude Code | live | Q&A | an agent driving the phone through `mcp.json` |
 
-Each script pauses at every beat — press return. `NOPAUSE=1` runs straight through for a rehearsal.
+`animation-scales.sh`, `reduce-motion.sh` and `mcp-session.py` pause at every beat — press return;
+`NOPAUSE=1` runs straight through for a rehearsal. The test, `compare.sh` and `record.sh` run straight through.
 
 ### `animation-scales.sh` — Android
 

@@ -34,15 +34,16 @@ and the provenance of every number in them.
 
 Animations are for humans. To a test, every slide-in and fade is either time spent waiting for
 the screen to settle or a race against it — a slow suite or a flaky one. The session makes mobile
-tests **fast and durable** by turning the motion off, measured on a real iPhone and an Android
-emulator: the system's animations first (Android's three scales; iOS's Reduce Motion, which only
+tests **fast and durable** by turning the motion off, measured on four devices — a real iPhone and
+Pixel, an iOS simulator and an Android emulator: the system's animations first (Android's three scales; iOS's Reduce Motion, which only
 Settings can change), then the app's own — which the system switch reaches **only if the app
 listens**. With all three Android scales at 0, an app animation on its own clock still slid for
 2.5 seconds; the one that asked whether motion was reduced appeared at once. The fix is to have
 the app honor Reduce Motion, so the fast path is a real one in the build you ship; the proof is a
 control that must not move; and the motion that stays is waited out, or refused when it never
-stops. **[Mobium](https://github.com/mobiumdev/mobium)**, the open-source tool it is built on, does each step — and the demo runs it
-from a terminal and from an AI agent.
+stops. **[Mobium](https://github.com/mobiumdev/mobium)**, the open-source tool it is built on, does each step — and the demo is one Mobium
+test file, run unchanged on all four devices and recorded; an AI agent drives the same tools in the
+live Q&A.
 
 The techniques stand without the tool; the tool is shown doing them. That balance is what the
 CFP asks for — see [`research/CFP-REQUIREMENTS.md`](research/CFP-REQUIREMENTS.md), "Why our angle is what it is".

@@ -31,7 +31,7 @@ Mobile tests that are slow and flaky because the app is busy being beautiful.
 
 Every slide-in, fade and bounce is time a test spends waiting, or a race it loses: a tap aimed at a button still moving, a read of a screen halfway through a transition. On a real iPhone, one target that slides in costs **3.2 seconds** of a test's time; the same target with its animation off costs **1.3** — the tool's own round trip. Multiply that by every screen in every test.
 
-The standard advice is to switch animations off. This session shows, measured on a real iPhone and an Android emulator, what that advice does and does not do:
+The standard advice is to switch animations off. This session shows, measured on four devices — a real iPhone and Pixel, an iOS simulator and an Android emulator — what that advice does and does not do:
 
 - **Android's three animation scales at 0** read back 0 — and an app animation running on its own clock still slid for **2.5 seconds**, exactly as with the scales at 1.
 - **The same scales made an app that asks "should motion be reduced?" appear at once**: 2.6 seconds down to well under one.
@@ -69,7 +69,7 @@ They leave with a short, concrete list:
 - **A one-line change for the app team**, per framework — UIKit, SwiftUI, Android views, React Native and the web — that makes the system switch reach the app's own animations, and that is an accessibility improvement in its own right.
 - **A way to prove it**: let the app time itself, and keep one animation that ignores the setting as the control.
 - **What to do with motion that stays** — spinners, confetti, live content: wait for stillness, and treat a target that never holds still as a failure, not something to chase.
-- **A tool that does this for them**: Mobium is MIT licensed, a single binary, and drives real iPhones and Android devices from a terminal, from five client languages, or from an AI agent over MCP — the demo shows the same calls through the CLI and through an agent.
+- **A tool that does this for them**: Mobium is MIT licensed, a single binary, and drives real iPhones and Android devices from a terminal, from five client languages, or from an AI agent over MCP — the demo is one test file, run unchanged on all four devices; in the Q&A an agent drives the same tools live.
 
 Every second shaved off a test comes off everyone's feedback loop.
 
@@ -83,7 +83,7 @@ Every second shaved off a test comes off everyone's feedback loop.
 
 ## Anything else you want to tell me?
 
-Every number in this session was measured for it, on a real iPhone 15 Plus and an Android emulator, with the app keeping its own time rather than the test tool. Attendees get the slides, the demo scripts they watched, and the small open-source app the measurements were taken on — two identical animations, one honoring the setting and one ignoring it as the control. Both are public and MIT licensed: the tool at github.com/mobiumdev/mobium, the app at github.com/mobiumdev/mobium-app.
+Every number in this session was measured for it, on a real iPhone 15 Plus, a real Pixel 8 Pro, an iOS simulator and an Android emulator, with the app keeping its own time rather than the test tool. Attendees get the slides, the demo scripts they watched, and the small open-source app the measurements were taken on — two identical animations, one honoring the setting and one ignoring it as the control. Both are public and MIT licensed: the tool at github.com/mobiumdev/mobium, the app at github.com/mobiumdev/mobium-app.
 
 ---
 

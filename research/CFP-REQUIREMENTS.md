@@ -46,8 +46,8 @@ Agentic testing and AI agents in the SDLC · evals and "LLM as a judge" · test 
 **Fast and durable mobile tests, with Mobium** — turning off the motion is the technique.
 It sits on the right side of three lines in the lists above:
 
-- **"Mobile, only as a real case."** It is one: measured on a real iPhone and an Android
-  emulator, with the app keeping the time and a control that must not move. "A number you will
+- **"Mobile, only as a real case."** It is one: measured on four devices — two real phones, a
+  simulator and an emulator — with the app keeping the time and a control that must not move. "A number you will
   stand behind" is on every slide.
 - **"Automation that survives (flakes …)."** Animations are a cause of both slow suites and
   flaky ones; the talk traces both to it.
