@@ -189,7 +189,7 @@
     <tr style="background:#1A222A"><td>honors the setting</td><td style="color:#E0A526">2601 ms</td><td style="color:#4C8C6A">767 ms</td></tr>
   </table>
   <p style="font-size:36px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Every setting read back 0. The animation on the app's own clock <b style="font-weight:600; color:#EDEAE3">slid for two and a half seconds anyway</b>. The one that asked &ldquo;should motion be reduced?&rdquo; appeared at once.</p>
-  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Android 15 emulator, MobiumApp's Motion Demo &nbsp;·&nbsp; demo/animation-scales.sh</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Android 15 emulator &nbsp;·&nbsp; MobiumApp's Motion Demo &nbsp;·&nbsp; the scales set with adb</p>
   <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Two identical animations, one line apart: one reads the platform's reduce-motion answer, one does not. The zeroed scales are how Android answers yes. So the system switch turns off the app's animations only when the app listens.</aside>
 </section></div>
@@ -253,7 +253,7 @@
     <tr style="background:#1A222A"><td>ignoring target, the control · MCP</td><td style="color:#E0A526">3.3 s</td><td style="color:#E0A526">3.4 s</td></tr>
   </table>
   <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1600px">If the control's time moves when the setting does, the measurement is measuring something else. Here it stayed inside its own spread, 2.9 to 3.4 s, both ways &mdash; so the 1.5 to 2 seconds the honoring target lost belong to the setting.</p>
-  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">iPhone 15 Plus &nbsp;·&nbsp; medians of three per client &nbsp;·&nbsp; demo/motion-cli.sh, demo/motion-mcp.py</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">iPhone 15 Plus &nbsp;·&nbsp; medians of three, through Mobium's CLI and MCP clients</p>
   <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>The app records how long after its own Replay the tap arrived, so the tool's opinion of itself is not the evidence. Two clients, the same steps, the same answer. About 1.3 s with the motion off is the tool's own work: Replay and the tap are two calls, and the tap first confirms the target is still.</aside>
 </section></div>
@@ -271,7 +271,7 @@
     <tr style="background:#1A222A"><td>emulator · MCP</td><td>2.6 → <b style='color:#4C8C6A'>1.0 s</b></td><td>2.5 · 2.6 s</td><td>13.4 → 7.2 s</td><td style="color:#4C8C6A">6.2 s · 46%</td></tr>
   </table>
   <p style="font-size:28px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1640px">The case is the demo test from opening the screen to its last check: replay and tap both targets, celebrate, wait for the confetti. Every device, both clients: a quarter to nearly half of the time gone.</p>
-  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Medians of three per client &nbsp;·&nbsp; 2026-10-04 &nbsp;·&nbsp; demo/motion-cli.sh, demo/motion-mcp.py</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Medians of three per client &nbsp;·&nbsp; Mobium's CLI and MCP clients &nbsp;·&nbsp; 2026-10-04</p>
   <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Off means each platform's own switch: Reduce Motion on iOS, all three scales at 0 on Android, set by the test's first step. The control holds on every device. With animations on the case also waits out the falling confetti, which is animation too. On Android the honoring time with the motion off lands at about 0.25 or about 1.1 s, in both clients — that is how long Mobium's tap takes to confirm the target is still — so a median of three can fall on either; the MCP and CLI rows differ there for that reason, not because of the client.</aside>
 </section></div>
@@ -297,7 +297,7 @@
   <aside>Recorded, not live: every device ran the same test file, the one on the next slide, under a screen recorder. The same steps also ran through the CLI and through MCP, three rounds each, which is where the four-device table's numbers came from. The video is cut down to the app's Motion screen — launches and Settings are not in it. On each device slide the two cases play side by side.</aside>
 </section></div>
 <div class="slide" data-id="demo-code"><section id="demo-code" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:16px">
-  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:1px">demo/tests/motion.test.json &nbsp;&mdash;&nbsp; the one test, unchanged on all four devices</p>
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:1px">the test &nbsp;&mdash;&nbsp; one file, unchanged on all four devices</p>
   <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:24px 40px; display:flex; flex-direction:column">
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">{</p>
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&quot;app&quot;:&nbsp;&quot;dev.mobium.mobiumapp&quot;,</p>
@@ -353,7 +353,7 @@
   <aside>The first three of the test's eleven steps, in three forms. The test file is one JSON document — not newline-delimited — and mobium test, the runner built into the binary, reads it and sends each step as a tool call. The two clients are the CLI, one command per step, and MCP: JSON-RPC 2.0 requests to mobium mcp, one message per line on stdin and stdout, which is what an AI agent sends. demo/motion-cli.sh is checked against the test file before it runs; demo/motion-mcp.py sends the file's steps as they are. Same tools underneath all three.</aside>
 </section></div>
 <div class="slide" data-id="demo-run"><section id="demo-run" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:16px">
-  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:1px">demo/mobium.config.json &nbsp;&mdash;&nbsp; four devices, one project each</p>
+  <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:26px; color:#E0A526; letter-spacing:1px">the config &nbsp;&mdash;&nbsp; four devices, one project each</p>
   <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:20px 40px; display:flex; flex-direction:column">
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">{</p>
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;&quot;testDir&quot;:&nbsp;&quot;tests&quot;,</p>
