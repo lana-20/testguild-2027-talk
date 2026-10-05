@@ -1,0 +1,13 @@
+<section id="p3-code" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:36px">
+  <h2 style="font-size:56px; font-weight:600; line-height:1.14; letter-spacing:-1px">The one line, per framework</h2>
+  <table style="width:1664px; font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#EDEAE3; border:1px solid #2A343E; border-radius:8px; padding:16px">
+    <tr style="background:#1C242D"><th style="width:26%; text-align:left; font-size:26px; color:#94A0AB">framework</th><th style="width:74%; text-align:left; font-size:26px; color:#94A0AB">ask whether motion is reduced</th></tr>
+    <tr><td style="color:#E0A526">UIKit</td><td>UIAccessibility.isReduceMotionEnabled</td></tr>
+    <tr style="background:#1A222A"><td style="color:#E0A526">SwiftUI</td><td>@Environment(\.accessibilityReduceMotion)</td></tr>
+    <tr><td style="color:#E0A526">Android views</td><td>ValueAnimator.areAnimatorsEnabled()</td></tr>
+    <tr style="background:#1A222A"><td style="color:#E0A526">React Native</td><td>AccessibilityInfo.isReduceMotionEnabled()</td></tr>
+    <tr><td style="color:#E0A526">Web / WebView</td><td>@media (prefers-reduced-motion: reduce)</td></tr>
+  </table>
+  <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Then animate with a duration of zero, or set the final state directly. Listen for changes &mdash; the setting can flip while the app runs.</p>
+  <aside>React Native on Android answers from the transition scale alone — measured: animator scale 0 by itself left it false. Zero all three and every reader agrees.</aside>
+</section>

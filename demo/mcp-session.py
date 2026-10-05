@@ -48,7 +48,7 @@ def note(s):
 
 class Session:
     def __init__(self, udid):
-        # One WebDriverAgent session per phone: the CLI's daemon holds one,
+        # One automation session per phone: the CLI's daemon holds one,
         # and this process is about to open its own.
         subprocess.run([MOBIUM, "daemon", "stop"], capture_output=True)
         self.p = subprocess.Popen([MOBIUM, "mcp", "--driver", "wda", "--device", udid],

@@ -1,0 +1,12 @@
+<section id="p4-stays" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <h2 style="font-size:58px; font-weight:600; line-height:1.14; letter-spacing:-1px">Some motion never stops. Wait for stillness &mdash; or refuse.</h2>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:44px 56px; display:flex; flex-direction:column; gap:12px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#94A0AB">$ mobium tap @e2 &nbsp;&nbsp;# a falling piece of confetti</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#C4452F">error: failed check stable: it is still moving after 5s —</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#C4452F">it was at [297,1260][315,1293] and is now at [306,1530][327,1560]</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#94A0AB">$ echo $?</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#E0A526">6 &nbsp;&nbsp;# timeout</p>
+  </div>
+  <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Spinners, confetti, live content. Mobium waits for every target to stop moving before it acts &mdash; and a target that never holds still is a failure with a code, not something to chase.</p>
+  <aside>Chasing a moving target is how a race becomes a flake: sometimes the tap lands, sometimes it does not, and the retry hides it. A refusal fails the same way every time.</aside>
+</section>

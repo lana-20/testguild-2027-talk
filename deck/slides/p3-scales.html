@@ -1,0 +1,11 @@
+<section id="p3-scales" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <h2 style="font-size:60px; font-weight:600; line-height:1.14; letter-spacing:-1px">All three scales at zero. The app's animation, timed by the app:</h2>
+  <table style="width:1664px; font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#EDEAE3; border:1px solid #2A343E; border-radius:8px; padding:16px">
+    <tr style="background:#1C242D"><th style="width:44%; text-align:left; font-size:26px; color:#94A0AB">target</th><th style="width:28%; text-align:left; font-size:26px; color:#94A0AB">scales at 1</th><th style="width:28%; text-align:left; font-size:26px; color:#94A0AB">scales at 0</th></tr>
+    <tr><td>ignores the setting</td><td style="color:#E0A526">2533 ms</td><td style="color:#C4452F">2517 ms</td></tr>
+    <tr style="background:#1A222A"><td>honors the setting</td><td style="color:#E0A526">2601 ms</td><td style="color:#4C8C6A">767 ms</td></tr>
+  </table>
+  <p style="font-size:36px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Every setting read back 0. The animation on the app's own clock <b style="font-weight:600; color:#EDEAE3">slid for two and a half seconds anyway</b>. The one that asked &ldquo;should motion be reduced?&rdquo; appeared at once.</p>
+  <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Android 15 emulator, MobiumApp's Motion Demo &nbsp;·&nbsp; demo/animation-scales.sh</p>
+  <aside>Two identical animations, one line apart: one reads the platform's reduce-motion answer, one does not. The zeroed scales are how Android answers yes. So the system switch turns off the app's animations only when the app listens.</aside>
+</section>

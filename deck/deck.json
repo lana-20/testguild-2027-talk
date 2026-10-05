@@ -1,26 +1,73 @@
 {
   "v": 4,
-  "createdOnFiles": { "v": 1, "at": "2026-09-22T20:10:00Z" },
-  "title": "It Passed, and It Passed Too Easily",
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-09-22T20:10:00Z"
+  },
+  "title": "Fast and Durable Mobile Tests with Mobium",
   "order": [
-    "cover","open-green","open-reveal","premise","bridge",
-    "act1","a1-question","a1-result","a1-tell","a1-rule","a1-echo",
-    "act2","a2-table","a2-silent","a2-devnull","a2-agent",
-    "act3","a3-test","a3-reveal","a3-witness","a3-counter",
-    "act4","a4-arc","a4-password",
-    "habits","close"
+    "cover",
+    "open-numbers",
+    "premise",
+    "part1",
+    "p1-cost",
+    "p1-two-kinds",
+    "part2",
+    "p2-android",
+    "p2-ios",
+    "p2-rule",
+    "part3",
+    "p3-scales",
+    "p3-two-fixes",
+    "p3-code",
+    "p3-rule",
+    "part4",
+    "p4-control",
+    "p4-stays",
+    "demo",
+    "demo-results",
+    "habits",
+    "close"
   ],
   "sections": {
-    "s0": { "description": "A test that passed in 0.31 seconds because nothing ran", "start": "cover" },
-    "s1": { "description": "Act I — the probe that never ran, and why every zero needs a positive control", "start": "act1" },
-    "s2": { "description": "Act II — exit code 0 is not evidence; read the state back", "start": "act2" },
-    "s3": { "description": "Act III — the test that could not fail, and four lying witnesses", "start": "act3" },
-    "s4": { "description": "Act IV — fixtures, three real apps, and the password", "start": "act4" },
-    "s5": { "description": "Four habits to take home", "start": "habits" }
+    "s0": {
+      "description": "The same tap, 3.2 s and 1.3 s \u2014 and why animations are for humans",
+      "start": "cover"
+    },
+    "s1": {
+      "description": "Part 1 \u2014 what motion costs a test: time, races, CPU",
+      "start": "part1"
+    },
+    "s2": {
+      "description": "Part 2 \u2014 the system's animations: Android's scales, iOS's Reduce Motion",
+      "start": "part2"
+    },
+    "s3": {
+      "description": "Part 3 \u2014 the app's own animations, and making the fast path a real path",
+      "start": "part3"
+    },
+    "s4": {
+      "description": "Part 4 \u2014 proving it with a control, and refusing what never stops",
+      "start": "part4"
+    },
+    "s5": {
+      "description": "Demo \u2014 Android, a real iPhone, an agent",
+      "start": "demo"
+    },
+    "s6": {
+      "description": "Four habits, and the conclusion",
+      "start": "habits"
+    }
   },
   "faces": {
-    "rubik": { "family": "Rubik", "href": "https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" },
-    "fira-code": { "family": "Fira Code", "href": "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" }
+    "rubik": {
+      "family": "Rubik",
+      "href": "https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+    },
+    "fira-code": {
+      "family": "Fira Code",
+      "href": "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap"
+    }
   },
   "designSystems": []
 }

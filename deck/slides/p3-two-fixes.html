@@ -1,0 +1,16 @@
+<section id="p3-two-fixes" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:48px">
+  <h2 style="font-size:70px; font-weight:600; line-height:1.1; letter-spacing:-1px; width:1600px">Two ways to stop the app's own motion</h2>
+  <div style="display:flex; gap:32px">
+    <div style="flex:1; background:#FAF8F3; border:1px solid #D8D3C7; border-radius:16px; padding:44px; display:flex; flex-direction:column; gap:16px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#5A6169; letter-spacing:2px; text-transform:uppercase">A test build</p>
+      <p style="font-size:34px; line-height:1.4">Every duration forced to zero behind a test-only flag.</p>
+      <p style="font-size:30px; font-weight:300; line-height:1.4; color:#5A6169">You test a build nobody ships, through a flag nothing tests.</p>
+    </div>
+    <div style="flex:1; background:#141A21; border-radius:16px; padding:44px; display:flex; flex-direction:column; gap:16px">
+      <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#E0A526; letter-spacing:2px; text-transform:uppercase">Honor Reduce Motion</p>
+      <p style="font-size:34px; line-height:1.4; color:#EDEAE3">The app skips motion when the user asked for less.</p>
+      <p style="font-size:30px; font-weight:300; line-height:1.4; color:#BDC6CE">Part 2's switch now reaches it &mdash; in the build you ship, on a path real users take.</p>
+    </div>
+  </div>
+  <aside>Recommend the right-hand one, and say why twice: the fast path becomes a real path, and it is an accessibility fix the app owes its users anyway. The test build is the fallback when the app team cannot change the code.</aside>
+</section>

@@ -1,72 +1,79 @@
 # Run of show — 25 minutes
 
 Pre-recorded on TestGuild's own deck template, then ~20 minutes of live Q&A.
-Cut for a recording, not a live room. Slide ids in brackets match `deck/slides/<id>.html`.
+Theory first, practice last: everything the demo shows has been explained before it runs.
+The umbrella is **fast and durable mobile tests, with Mobium**; turning off motion is the
+technique, and each part ends on what Mobium does about it.
+Slide ids in brackets match `deck/slides/<id>.html`.
 
 | Time | Beat | Slides |
 |---|---|---|
-| 0:00–1:45 | Cold open — the 0.31s green test, then what actually ran | `cover` `open-green` `open-reveal` |
-| 1:45–4:00 | Why you care even though this is mobile | `premise` `bridge` |
-| 4:00–9:30 | **Act I** — the probe that never ran | `act1` `a1-question` `a1-result` `a1-tell` `a1-rule` `a1-echo` |
-| 9:30–15:00 | **Act II** — exit 0 is not evidence | `act2` `a2-table` `a2-silent` `a2-devnull` `a2-agent` |
-| 15:00–20:00 | **Act III** — the test that could not fail | `act3` `a3-test` `a3-reveal` `a3-witness` `a3-counter` |
-| 20:00–23:30 | **Act IV** — fixtures, and the password | `act4` `a4-arc` `a4-password` |
-| 23:30–25:00 | Four habits, and the handoff | `habits` `close` |
+| 0:00–1:30 | Cold open — the same tap, 3.2 s and 1.3 s | `cover` `open-numbers` |
+| 1:30–3:00 | Animations are for humans | `premise` |
+| 3:00–6:30 | **Part 1** — what motion costs a test | `part1` `p1-cost` `p1-two-kinds` |
+| 6:30–10:30 | **Part 2** — the system's animations | `part2` `p2-android` `p2-ios` `p2-rule` |
+| 10:30–15:00 | **Part 3** — the app's own animations | `part3` `p3-scales` `p3-two-fixes` `p3-code` `p3-rule` |
+| 15:00–17:30 | **Part 4** — proving it, and what stays | `part4` `p4-control` `p4-stays` |
+| 17:30–23:30 | **Demo** — Android, then a real iPhone, then an agent | `demo` `demo-results` |
+| 23:30–25:00 | Habits, and the conclusion | `habits` `close` |
 
-## 0:00–1:45 — Cold open, no introduction
+## 0:00–1:30 — Cold open
 
-Open on the terminal. A suite goes green in 0.31 seconds. Let it sit.
+Open on the two numbers. Same app, same target, same tap: 3.2 seconds, then 1.3.
 
-> "That's an iOS test. It creates a simulator, boots it, runs against it, and deletes it. It passed in three hundred and ten milliseconds. Create, boot and delete never ran — the simulator it asked for was already booted, so every step short-circuited and the assertions ran against a device I didn't set up. It passed, and it passed too easily. This talk is about the second half of that sentence."
+> "Same screen. Same button. Same tap. One run took three point two seconds, the other one point three. Nothing about the test changed. One setting on the phone did, and one line in the app."
 
 Name yourself in one line, then the premise.
 
-## 1:45–4:00 — The bridge
+## 1:30–3:00 — Premise
 
-Half the room switches off at the word "mobile". This is where you keep them.
+> "Animations are for humans. They're how a person follows what changed on a screen. Your test isn't a person — every animation is either time it waits, or a race it can lose."
 
-> "You're not here for mobile. You're here because your model now writes the test and the implementation, and you have to decide whether green means anything."
+## 3:00–6:30 — Part 1: what motion costs
 
-## 4:00–9:30 — Act I
+Three costs: **time** (a tool waits for the screen to settle — about two seconds per sliding target, measured on both platforms), **races** (a tap aimed at something still moving; a read halfway through a transition), and **CPU** on the device under test. Then the distinction the rest hangs on: the **system's** animations (transitions between screens and apps) and the **app's own** (anything the app animates itself).
 
-Question (reasonable) → four zeroes (believable) → **32 nodes, four times** (the tell). The probe never left the launcher. Then Rule 01, then point it at the audience's own pipeline: the flake detector that finds no flakes, the a11y scan with zero violations, the LLM judge that approves everything.
+## 6:30–10:30 — Part 2: the system's animations
 
-## 9:30–15:00 — Act II
+Android: three `settings put global` commands, no root, emulator or phone — and put them back after, because on a phone they belong to somebody. iOS: no command at all. Reduce Motion is in Settings › Accessibility › Motion, and changing it from a test means driving the Settings app — about 25 seconds a change on a real iPhone. So: once per device, in setup, never per test. **Mobium:** `mobium accessibility reduce_motion on` is one call on both — the three scales on Android, a trip through Settings on an iPhone — read back, and put back when the session ends.
 
-Read **three** rows of the table aloud, not all six. The `pm grant` row — nothing on any stream, exit 0 — is the one they remember. Then the silent trio, then `mobium back >/dev/null 2>&1`, where the redirect hid a **missing feature**, not a failing call. Close on error messages as instructions an agent obeys unconditionally.
+## 10:30–15:00 — Part 3: the app's own animations
 
-## 15:00–20:00 — Act III
+The measurement: with all three Android scales at 0, an animation on the app's own clock still took 2.5 seconds — unchanged. The one that asked whether motion was reduced appeared at once. Two ways to close the gap: a **test build** with every duration at zero, or an app that **honors Reduce Motion**. Recommend the second: the fast path is then a real path, in the build you ship, and it is an accessibility fix the app owes its users anyway. Show the one line per framework.
 
-Show the passing test and ask the room what's wrong with it. Give them three seconds; almost nobody sees it. Then 24 bytes per repeat, a 120-byte cut, zero ways to fail. Then the four witnesses (defects 67–70) — the gesture code was right all four times. Then `app_check`, the counter-example, which is what makes the rest credible.
+## 15:00–17:30 — Part 4: proving it, and what stays
 
-## 20:00–23:30 — Act IV
+Let the app time itself, and keep one animation that ignores the setting as the **control**: if the control's time moves when the setting does, the measurement is measuring something else. Then the motion you cannot turn off — spinners, confetti, live content: wait for stillness, and refuse a target that never holds still rather than chase it. **Mobium:** every action waits for its target to stop moving, and a target still moving after five seconds is refused with exit 6, `timeout`, and both positions it was seen at.
 
-Wikipedia (3 defects, first screen, one 876-character label) → F-Droid (0, and that is the point) → Aegis (the password). Do not soften the password slide.
+## 17:30–23:30 — Demo
+
+In the order the theory went: `demo/animation-scales.sh` on the emulator (~40 s), `demo/reduce-motion.sh` on the iPhone (~2 min; the two trips through Settings are on screen — cut them in the edit if tight), the confetti refusal inside it, then `demo/mcp-session.py` (~30 s) to show the same calls from an agent. Phone on screen through `demo/phone-view`. See `demo/README.md`.
 
 ## 23:30–25:00 — Close
 
-The four habits on one card, then:
+The four habits on one card, then the conclusion, close to verbatim:
 
-> "Five months, seventy defects, and the only thing that reliably told me the truth was running it. Your agent will write you a thousand tests this quarter. The question isn't whether they pass. It's whether they could fail."
+> "Turn off every animation you can — the system's with a setting, the app's by having it listen to that setting — and wait out the rest. You'll get time back, and you'll take a whole class of races out of your suite. How much time depends on your app and how much it moves. But every second you take off a test comes off the feedback loop of everyone who waits on your build."
 
 ---
 
 ## Fit and slack
 
-Runs long by design. Two droppable examples give roughly **2 minutes of slack**:
-- Act I: the clean-stop script (`a1-echo` — the whole slide can go)
-- Act III: the U+FFFD detail in `a3-reveal`'s notes
+Roughly **2 minutes of slack**, from two droppable beats:
+- Part 2: `p2-rule` can go; its point is on `habits`.
+- Demo: cut the second trip through Settings in the edit and narrate it.
 
 Time the read-through before recording. Terminal beats always take longer than they look.
 
 ## Held back for the live Q&A
 
-Each opens a thread rather than closing one:
-- the scroll-axis signal that does not exist — measured zero overflow in both axes, every time
-- `webinspectord` taking 10.2 seconds to send its first byte, after three plausible and wrong timing diagnoses
-- the three "limitations" that turned out to be false, including geolocation readback via a test provider
-- why the tool is one static binary with no Node
+- Which Android scale an app reads: the React Native app here decides on the *transition* scale alone; native code asks the animator scale. Zero all three.
+- Why iOS has no programmatic switch, and what driving Settings costs.
+- Animations that run on the GPU without moving an element's frame — whether a tool can see them at all.
+- The agent, live: ask it whether this app honors Reduce Motion, and to prove it with a control.
 
 ## Known risk
 
-Acts I–III are platform-agnostic; Act IV is unmistakably mobile. If the recording feels lopsided, trim Act IV to Aegis alone and drop Wikipedia — the password lands without the setup, and the Guild's "mobile, only as a real case" is satisfied either way.
+Two lines in the CFP to stay on the right side of:
+- **"Product tours … if the logo is required for the talk to make sense, it is a pitch."** The techniques must stand without Mobium — every part states the platform fact first, then what Mobium does with it. Never open a part on the tool.
+- **Accessibility, "avoid unless you have a specific trench case."** This is one — measured, with numbers — and the subject is test speed and durability; Reduce Motion is the mechanism.

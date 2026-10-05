@@ -23,7 +23,7 @@ Invitation email from Joe Colantonio, 2026-09-08.
 
 ## Topics they want
 
-Agentic testing and AI agents in the SDLC · evals and "LLM as a judge" · test strategy when developers use AI · Playwright in real pipelines (MCP vs CLI cost) · automation that survives (flakes, self-heal that still fails) · test data and environments · API under faster delivery · career and test leadership · honest tool changes · performance · security/DevSecOps · **mobile, only as a real case** · continuous testing as the setting for flakes and agents.
+Agentic testing and AI agents in the SDLC · evals and "LLM as a judge" · test strategy when developers use AI · a browser framework in real pipelines (MCP vs CLI cost) · automation that survives (flakes, self-heal that still fails) · test data and environments · API under faster delivery · career and test leadership · honest tool changes · performance · security/DevSecOps · **mobile, only as a real case** · continuous testing as the setting for flakes and agents.
 
 ## Focus on
 
@@ -43,4 +43,17 @@ Agentic testing and AI agents in the SDLC · evals and "LLM as a judge" · test 
 
 ## Why our angle is what it is
 
-A straight "here is my new mobile automation tool" session is the exact shape the avoid-list describes, and the electorate is the community. The material that wins is the same material reframed: **the tool is the setting, the verification failures are the content.** Their top ask — a green suite that is not the implementation asserting itself — is our defect record almost verbatim.
+**Fast and durable mobile tests, with Mobium** — turning off the motion is the technique.
+It sits on the right side of three lines in the lists above:
+
+- **"Mobile, only as a real case."** It is one: measured on a real iPhone and an Android
+  emulator, with the app keeping the time and a control that must not move. "A number you will
+  stand behind" is on every slide.
+- **"Automation that survives (flakes …)."** Animations are a cause of both slow suites and
+  flaky ones; the talk traces both to it.
+- **"Product tours … if the logo is required for the talk to make sense, it is a pitch."** The
+  techniques are platform settings and app code that work with any tool. Mobium is shown doing
+  them, after each part has stated the platform fact on its own. Keep that order on every slide.
+
+Accessibility is on the avoid-list "unless you have a specific trench case." Reduce Motion is the
+mechanism here, not the subject, and the case is specific and measured.

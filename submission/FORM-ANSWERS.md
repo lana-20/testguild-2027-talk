@@ -9,84 +9,81 @@ Paste each block into the matching field. Nothing here is submitted until the fo
 
 ## Presentation Title
 
-**It Passed, and It Passed Too Easily: 70 Defects and the Tests That Agreed With Them**
+**Fast and Durable Mobile Tests with Mobium: Turn Off the Motion**
 
 Alternates, if the title field feels long:
-- The Green Suite That Couldn't Fail: 70 Defects From Building a Tool for AI Agents
-- Positive Controls: How to Tell a Passing Test From a Test That Can't Fail
+- Animations Are for Humans: Fast, Durable Mobile Tests with Mobium
+- Two Seconds a Screen: Making Mobile Tests Fast and Durable with Mobium
 
 ---
 
 ## What are the 1-3 key takeaways from your session?
 
-1. **Any result of "zero" or "no difference" needs a positive control before you believe it.** Make the measurement report the thing you expect it to find, *then* trust the zero. A probe that never ran and a check that silently passes are the same defect wearing different clothes.
-2. **Exit code 0 is not evidence — read the state back.** Across every tool in this project, failures arrive on stderr with a zero exit, on stdout with a zero exit, or with no output at all. There is no convention, so assert on the resulting state, not on the command's own opinion of itself.
-3. **Mutate the code and watch the test fail before you trust it.** A test written from the same assumption as the code it checks will pass forever. This is now the core skill for reviewing AI-generated tests, because the model writes both sides.
+1. **Turn off the system's animations once per device, and put them back after.** On Android it is three settings; on iOS it is Reduce Motion, which only the Settings app can change — about 25 seconds, so it belongs in device setup, not in every test.
+2. **The app's own animations are where the time goes, and the system switches only reach them if the app listens.** Have the app honor Reduce Motion instead of shipping a test-only build: the fast path your tests take is then a path real users take, in the build you ship.
+3. **Prove the motion is gone by timing it, with a control that must not move — and for motion you cannot turn off, wait for stillness and refuse what never stops.** A setting that reads 0 is not an animation that stopped. Mobium, the open-source tool the session is built on, does the last two for every action, and turns the setting on with one call on both platforms — reading it back, and putting it back when the session ends.
 
 ---
 
 ## What relevant problem(s) do you aim to solve with your session for attendees?
 
-Tests that cannot fail, and the false confidence they buy.
+Mobile tests that are slow and flaky because the app is busy being beautiful.
 
-I spent five months building a mobile automation tool and kept a record of every defect. **Of 70 substantive defects, 54 were found only by running against a real device.** Not by reading code. Not by the compiler. Not by the test suite — several defects *survived tests written from the same wrong assumption as the code*.
+Every slide-in, fade and bounce is time a test spends waiting, or a race it loses: a tap aimed at a button still moving, a read of a screen halfway through a transition. On a real iPhone, one target that slides in costs **3.2 seconds** of a test's time; the same target with its animation off costs **1.3** — the tool's own round trip. Multiply that by every screen in every test.
 
-The session is that record, walked through as specific failures with the artifacts on screen:
+The standard advice is to switch animations off. This session shows, measured on a real iPhone and an Android emulator, what that advice does and does not do:
 
-- A probe asked whether Android ever marks a UI node hidden. It launched four apps, found zero every time, and reported **32 nodes every time** — it had never left the launcher. Four clean zeroes were four readings of the same screen, and only the identical count gave it away.
-- A truncation test proved labels are cut on characters, not bytes. Its sample was a 24-byte string repeated, so every byte-cut landed on a character boundary anyway. The test passed on the broken implementation.
-- An iOS test went green in 0.31 seconds because the simulator it asked for was already booted, so create, boot and delete never ran.
-- The last four defects I logged were all in the **witness** rather than in the feature — the code was right and the thing observing it was lying.
-- And the one that still stings: my tool printed passwords in plaintext, because both platforms mark a password field and I parsed the flag without ever reading it. Three real third-party apps found it. The fixtures could not.
+- **Android's three animation scales at 0** read back 0 — and an app animation running on its own clock still slid for **2.5 seconds**, exactly as with the scales at 1.
+- **The same scales made an app that asks "should motion be reduced?" appear at once**: 2.6 seconds down to well under one.
+- **iOS has no programmatic switch at all.** Reduce Motion lives in Settings, and changing it from a test means driving the Settings app.
+
+Then the fix that makes the switch reach the app, how to prove it worked, and what to do about the motion that stays — and how Mobium, an open-source tool for driving native apps from a terminal or an AI agent, builds all of it in: one call that sets Reduce Motion on either platform and puts it back, an action that waits for its target to stop moving, and a refusal, with an error code, for a target that never does.
 
 ---
 
 ## Why does this problem exist / needs to be solved?
 
-Three reasons, and AI has made all three worse.
+Because animation is a design decision and test speed is somebody else's problem.
 
-**The author of the test is the author of the assumption.** A hand-written fixture encodes what you already believe. Mine weren't careless — the first was modeled on a real login screen with deliberate edge cases — and they still certified the wrong behavior, because a fixture can prove logic self-consistent while saying nothing about platform semantics.
+**Designers add motion for humans**, and it works: it is how a person follows what changed. A test is not a person. Every animation is either time spent waiting for the screen to settle or a race against it, and the two failure modes look different — one is a slow suite, the other a flaky one — so teams rarely trace both to the same cause.
 
-**Tooling defaults to reporting success.** `pm grant` exits 0 and grants nothing for a permission an app never declared. `simctl privacy` accepts a bundle ID for an app that isn't installed and does nothing, successfully. `adb uninstall` reports `Success` when all it removed was updates to a system app. If your verification stops at the exit code, this entire class of defect is invisible by construction.
+**The usual fixes stop halfway.** The system switch is real but does not reach an app's own animations unless the app reads it. The other common fix, a test build with every duration forced to zero, means testing a build nobody ships, through a flag nothing tests.
 
-**Now the model writes both sides.** When an agent generates the implementation *and* the test, "all green" is the implementation asserting itself. Everything the Guild is asking about evals and LLM-as-judge runs into this: a judge you can't falsify isn't a judge. I'll show what we actually check instead, and what it costs.
+**And nobody measures it.** "We turned animations off" is a setting somebody changed, not a result anybody saw.
 
 ---
 
 ## What do the attendees lose if they don't solve this problem?
 
-They ship on evidence that was never evidence — and they find out on a real user's device, which is the most expensive place to learn it.
+Minutes per run, every run, for everyone — and a steady trickle of flakes with no obvious owner.
 
-Concretely: the bug reaches production with a green pipeline behind it, so nobody looks at the tests, because the tests passed. Time goes into the wrong diagnosis — three of my "flaky" cases already had a plausible story attached, and every story was wrong. And the failure mode is **silence**: the code, the fixture and the test all agree, everything passes, and the tool is wrong on the first real screen it sees.
-
-The multiplier is agent throughput. If you can't tell a passing test from a test that cannot fail, and your team has just increased test volume tenfold with AI, you haven't scaled your coverage. You've scaled your false confidence.
+Two seconds per animated screen is invisible in one test and enormous in a suite: across hundreds of tests and many runs a day it is the difference between a feedback loop people wait for and one they stop waiting for. The flakes cost more than the minutes, because a race with an animation fails rarely and differently each time, and gets retried rather than fixed.
 
 ---
 
 ## How would their day-to-day/career become better & easier with your session?
 
-They leave with four habits they can apply on Monday, each one cheap and each one earned the hard way:
+They leave with a short, concrete list:
 
-- **Give every negative result a positive control.** Before believing "no difference," make the measurement show you a difference it should catch.
-- **Read the state back after every action** — and capture both streams, because there is no convention about which one carries the error.
-- **Mutate, then watch it fail.** A test you haven't seen fail is a test you haven't tested.
-- **Capture fixtures from real devices rather than writing them**, and when you correct a heuristic, keep a real capture that fails under the old rule.
+- **The exact switches**, per platform, and how to put them back so a shared device or someone's phone is left as it was found.
+- **A one-line change for the app team**, per framework — UIKit, SwiftUI, Android views, React Native and the web — that makes the system switch reach the app's own animations, and that is an accessibility improvement in its own right.
+- **A way to prove it**: let the app time itself, and keep one animation that ignores the setting as the control.
+- **What to do with motion that stays** — spinners, confetti, live content: wait for stillness, and treat a target that never holds still as a failure, not something to chase.
+- **A tool that does this for them**: Mobium is MIT licensed, a single binary, and drives real iPhones and Android devices from a terminal, from five client languages, or from an AI agent over MCP — the demo shows the same calls through the CLI and through an agent.
 
-For anyone reviewing AI-generated tests, these are the questions that separate a real check from a rubber stamp — which is quietly becoming the SDET's main job. And for anyone whose roadmap says "add more tests," this reframes the work: the next useful thing is usually proving the existing suite can fail, not adding to it.
+Every second shaved off a test comes off everyone's feedback loop.
 
 ---
 
 ## Do you work for a test tool vendor?
 
-**Yes** — I founded Mobium AI, a testing consultancy in Seattle, and I build an open-source (MIT) mobile automation tool. Nothing is for sale, there's no product tour in this session, and the talk stands entirely on the defect record. The tool is the setting; the failures are the content.
+**Yes** — I founded Mobium AI, a testing consultancy in Seattle, and I build Mobium, an open-source (MIT) mobile automation tool. Nothing is for sale. The session is built on Mobium, but it is not a tour: the techniques are platform settings and app code that work with whatever drives your tests, and Mobium is shown doing them — with the numbers it measured, on a real phone.
 
 ---
 
 ## Anything else you want to tell me?
 
-Every number in this session comes from a written record kept while building, not reconstructed afterward — the defect log, the captured device hierarchies, the commands. Attendees get the repo, the slides, and the exact commands they watched, including the regression fixture whose password value is literally `PASSWORD-MUST-NOT-APPEAR`, so a leak names itself in the failure output.
-
-Fits the *Automation Enlightenment* theme from the unflattering direction: this is five months of being wrong in public, with the receipts.
+Every number in this session was measured for it, on a real iPhone 15 Plus and an Android emulator, with the app keeping its own time rather than the test tool. Attendees get the slides, the demo scripts they watched, and the small open-source app the measurements were taken on — two identical animations, one honoring the setting and one ignoring it as the control.
 
 ---
 

@@ -2,19 +2,25 @@
 #
 #   MOBIUM   the mobium binary (default: mobium on PATH)
 #   IPHONE   the phone's UDID (default: the one iPhone mobium lists)
+#   ANDROID  an Android serial; set by the Android script, which drives that instead
 MOBIUM="${MOBIUM:-mobium}"
 command -v "$MOBIUM" >/dev/null 2>&1 || { echo "no mobium binary: set MOBIUM=/path/to/mobium" >&2; exit 2; }
-if [ -z "$IPHONE" ]; then
-  IPHONE=$("$MOBIUM" devices 2>/dev/null | awk '/\(ios device/ { print $1; exit }')
+if [ -n "$ANDROID" ]; then
+  DEVARGS="--device $ANDROID"
+else
+  if [ -z "$IPHONE" ]; then
+    IPHONE=$("$MOBIUM" devices 2>/dev/null | awk '/\(ios device/ { print $1; exit }')
+  fi
+  [ -n "$IPHONE" ] || { echo "no iPhone connected: plug it in, unlock it, and check 'mobium devices'" >&2; exit 2; }
+  DEVARGS="--driver wda --device $IPHONE"
 fi
-[ -n "$IPHONE" ] || { echo "no iPhone connected: plug it in, unlock it, and check 'mobium devices'" >&2; exit 2; }
 APP=dev.mobium.mobiumapp
 
 B=$(printf '\033[1m'); DIM=$(printf '\033[2m'); G=$(printf '\033[32m'); R=$(printf '\033[31m')
 C=$(printf '\033[36m'); Y=$(printf '\033[33m'); N=$(printf '\033[0m')
 
 # m runs mobium against the phone, quietly.
-m() { "$MOBIUM" --driver wda --device "$IPHONE" "$@"; }
+m() { "$MOBIUM" $DEVARGS "$@"; }
 # show prints the command the way it would be typed, then runs it.
 show() { printf '%s$ mobium %s%s\n' "$C" "$*" "$N"; m "$@"; }
 say() { printf '\n%s%s%s\n' "$B" "$*" "$N"; }

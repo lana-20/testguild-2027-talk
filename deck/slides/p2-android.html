@@ -1,0 +1,12 @@
+<section id="p2-android" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+  <h2 style="font-size:60px; font-weight:600; line-height:1.14; letter-spacing:-1px">Android: three scales to zero. No root, emulator or phone.</h2>
+  <div style="background:#0E1318; border:1px solid #2A343E; border-radius:14px; padding:44px 56px; display:flex; flex-direction:column; gap:12px">
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#94A0AB">$ adb shell settings put global window_animation_scale 0</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#94A0AB">$ adb shell settings put global transition_animation_scale 0</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#94A0AB">$ adb shell settings put global animator_duration_scale 0</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:28px; color:#94A0AB">$ adb shell settings get global animator_duration_scale</p>
+    <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#4C8C6A">0</p>
+  </div>
+  <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Put them back after, <b style="font-weight:600; color:#EDEAE3">as you found them</b> &mdash; including &ldquo;not set at all&rdquo;, which is how an untouched device reads. On a phone, these belong to somebody.</p>
+  <aside>An untouched emulator reads animator_duration_scale as null, not 1. Restoring it as 1 leaves the device different from how you found it; delete the key instead.</aside>
+</section>

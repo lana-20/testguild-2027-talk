@@ -1,8 +1,8 @@
-# Automation Guild '27 — *It Passed, and It Passed Too Easily*
+# Automation Guild '27 — *Fast and Durable Mobile Tests with Mobium*
 
 Everything for the TestGuild [Automation Guild '27](https://testguild.com/call-for-speakers/)
-speaker submission: the pitch, the 25-minute run of show, the 26-slide deck, and the
-provenance of every number in it.
+speaker submission: the pitch, the 25-minute run of show, the 22-slide deck, the demo scripts,
+and the provenance of every number in them.
 
 **▶ View the deck: [lana-20.github.io/testguild-2027-talk](https://lana-20.github.io/testguild-2027-talk/)**
 · arrow keys to move · **S** for speaker notes · **F** for full screen · `#12` in the URL jumps to a slide
@@ -32,19 +32,20 @@ provenance of every number in it.
 
 ## The talk in one paragraph
 
-Five months building a native mobile automation tool, with every defect written down as it
-happened. **Of 70 substantive defects, 54 were found only by running against a real device** —
-not by the compiler, not by review, and not by the test suite, because several defects survived
-tests written from the same wrong assumption as the code. The session walks that record as
-specific failures: a probe that reported four clean zeroes without ever leaving the launcher, a
-truncation test that could not fail, four defects that were in the *witness* rather than the
-feature, and a tool that printed passwords in plaintext. It lands on four habits, and on the
-question that matters once an agent is writing your tests: not whether they pass, but whether
-they *could fail*.
+Animations are for humans. To a test, every slide-in and fade is either time spent waiting for
+the screen to settle or a race against it — a slow suite or a flaky one. The session makes mobile
+tests **fast and durable** by turning the motion off, measured on a real iPhone and an Android
+emulator: the system's animations first (Android's three scales; iOS's Reduce Motion, which only
+Settings can change), then the app's own — which the system switch reaches **only if the app
+listens**. With all three Android scales at 0, an app animation on its own clock still slid for
+2.5 seconds; the one that asked whether motion was reduced appeared at once. The fix is to have
+the app honor Reduce Motion, so the fast path is a real one in the build you ship; the proof is a
+control that must not move; and the motion that stays is waited out, or refused when it never
+stops. **Mobium**, the open-source tool it is built on, does each step — and the demo runs it
+from a terminal and from an AI agent.
 
-**The tool is the setting. The verification failures are the content.** That distinction is the
-whole reason this pitch is shaped the way it is — see
-[`research/CFP-REQUIREMENTS.md`](research/CFP-REQUIREMENTS.md), "Why our angle is what it is".
+The techniques stand without the tool; the tool is shown doing them. That balance is what the
+CFP asks for — see [`research/CFP-REQUIREMENTS.md`](research/CFP-REQUIREMENTS.md), "Why our angle is what it is".
 
 ---
 
@@ -52,18 +53,19 @@ whole reason this pitch is shaped the way it is — see
 
 ```
 README.md                      you are here
-EVIDENCE.md                    every slide number, and the file it came from
+EVIDENCE.md                    every slide number, and the measurement it came from
 submission/
   FORM-ANSWERS.md              the six content fields + vendor answer, paste-ready
   RUN-OF-SHOW.md               25-minute timing plan, slide by slide, with the slack
 research/
   CFP-REQUIREMENTS.md          what the Guild wants and forbids, and the two binding clauses
+demo/                          the scripts the demo runs, and how to set it up — see demo/README.md
 index.html                     BUILT — the standalone deck, and what Pages serves
 deck/
   deck.json                    the index: title, slide order, sections, typefaces
-  slides/<id>.html             26 slides, one file each — the source of truth
+  slides/<id>.html             22 slides, one file each — the source of truth
 scripts/
-  build_deck.py                slides/ + deck.json -> deck.html. Never edits a slide.
+  build_deck.py                slides/ + deck.json -> index.html. Never edits a slide.
 ```
 
 ### Rebuilding the deck
@@ -84,8 +86,8 @@ slide out as a 1920×1080 page for PDF export. Edit a slide, re-run, commit both
 Both are ticked on the form. Both need honoring.
 
 1. **Automation Guild gets the content's first conference outing.** No Mobium talk anywhere
-   before Feb 2027. The PNSQC 2026 poster (Oct 12–14) is about Vibium CLI startup overhead and
-   does **not** conflict — keep it that way, and do not add a Mobium angle to it.
+   before Feb 2027. The PNSQC 2026 poster (Oct 12–14) is about a different tool's CLI startup
+   overhead and does **not** conflict — keep it that way, and do not add a Mobium angle to it.
 2. **Unique content, recorded on TestGuild's deck.** Selected speakers are sent the template.
    **This deck is therefore the content and design master, not the final file** — the structure,
    the numbers and the speaker notes port across; the palette probably will not.
@@ -95,13 +97,12 @@ Both are ticked on the form. Both need honoring.
 ## Open items
 
 - [ ] **Submit.** Nothing is sent. Deadline Oct 8.
-- [ ] **Mobium is private.** The submission promises attendees "the repo, the slides, and the
-      exact commands." That repo has to be public by February, and a citable repo is worth more
-      on a ballot that opens Oct 9.
-- [x] ~~`deck/slides/close.html` placeholder~~ **done** — the closing slide now points at the published deck. Add the Mobium repo URL beside it once that repo is public.
+- [ ] **Mobium and MobiumApp are not public yet.** The submission promises the demo scripts and
+      the app they ran against. Both repos have to be public by February, and a citable repo is
+      worth more on a ballot that opens Oct 9. Add their URLs to `deck/slides/close.html` then.
 - [ ] Confirm the LinkedIn slug, X handle and website fields in `FORM-ANSWERS.md`.
-- [ ] Time a read-through before recording. The run of show is deliberately long; the slack and
-      the two droppable beats are named in `RUN-OF-SHOW.md`.
+- [ ] Time a read-through before recording, and a rehearsal of the demo with `NOPAUSE=1`. The
+      slack and the droppable beats are named in `RUN-OF-SHOW.md`.
 
 ---
 
@@ -110,13 +111,12 @@ Both are ticked on the form. Both need honoring.
 Committed to for this subject, in case a slide gets added later and should match:
 
 - **Palette.** Slate ink `#141A21` for evidence slides, bone `#F0EDE6` for the rules that follow
-  them, amber `#E0A526` for warnings, terracotta `#C4452F` for the single statement slide.
-  Muted green `#4C8C6A` is used **only** for the word PASS and for results that turned out to be
-  false — the green is the villain. The one honest green in the deck is F-Droid's zero.
-- **Type.** Rubik for voice, Fira Code for every artifact — terminal output, counts, exit codes.
-  The mono is evidence, not decoration.
-- **Rhythm.** Dark slides carry the scars, light slides carry the rule you just earned. By the
-  third dark slide the audience knows a confession is coming without being told.
+  them, amber `#E0A526` for time spent waiting, terracotta `#C4452F` for races and refusals.
+  Muted green `#4C8C6A` is used **only** for a time that came down because the motion was off.
+- **Type.** Rubik for voice, Fira Code for every artifact — terminal output, settings, timings,
+  exit codes. The mono is evidence, not decoration.
+- **Rhythm.** Theory first, practice last. Each part states the platform fact first and what
+  Mobium does with it second — never the other way round.
 - **Slide format.** 1920×1080, all styles inline, 128px margins (160px bottom where a slide has a
   pinned footer row). Nothing below 24px.
 
