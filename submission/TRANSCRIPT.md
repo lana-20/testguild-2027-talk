@@ -160,11 +160,6 @@ With Mobium, both platforms are one call: accessibility, reduce motion, on. Unde
 the three scales on Android, and a trip through Settings on an iPhone. Mobium reads the setting
 back to confirm it actually changed, and when the session ends, it puts back whatever it found.
 
-But read it afterwards anyway. Once, on my own iPhone, a run did not put Reduce Motion back. Two
-reruns afterwards did, and I still don't know why. It's an open lead in the tool's roadmap. I'm
-telling you because it's this talk's own rule, applied to my own tool: a setting that says it was
-restored is not the same as a setting you read.
-
 A setting changed on somebody's phone and never changed back is a defect, whoever wrote the test.
 So every recording in the demo reads the setting before the run and after it.
 

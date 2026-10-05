@@ -36,7 +36,7 @@ Three costs: **time** (a tool waits for the screen to settle — about two secon
 
 ## 6:30–10:30 — Part 2: the system's animations
 
-Android: three `settings put global` commands, no root, emulator or phone — and put them back after, because on a phone they belong to somebody. iOS: no command at all. Reduce Motion is in Settings › Accessibility › Motion, and changing it from a test means driving the Settings app — about 25 seconds a change on a real iPhone. So: once per device, in setup, never per test. **Mobium:** `mobium accessibility reduce_motion on` is one call on both — the three scales on Android, a trip through Settings on an iPhone — read back, and put back when the session ends. Then the caveat the slide carries: read it afterwards anyway — one run on the iPhone left Reduce Motion off when it had been on, put back by hand, cause still open. It is the talk's own rule, applied to the tool.
+Android: three `settings put global` commands, no root, emulator or phone — and put them back after, because on a phone they belong to somebody. iOS: no command at all. Reduce Motion is in Settings › Accessibility › Motion, and changing it from a test means driving the Settings app — about 25 seconds a change on a real iPhone. So: once per device, in setup, never per test. **Mobium:** `mobium accessibility reduce_motion on` is one call on both — the three scales on Android, a trip through Settings on an iPhone — read back, and put back when the session ends.
 
 ## 10:30–15:00 — Part 3: the app's own animations
 
