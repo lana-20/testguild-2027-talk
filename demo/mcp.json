@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "mobium": {
+      "command": "${MOBIUM:-mobium}",
+      "args": ["mcp", "--driver", "wda", "--device", "${IPHONE}"]
+    }
+  }
+}
