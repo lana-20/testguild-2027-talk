@@ -14,7 +14,7 @@ and the provenance of every number in them.
 
 | | |
 |---|---|
-| **Submitted?** | **No.** Nothing has been sent yet. |
+| **Submitted?** | **Yes — 2026-10-05.** No submission ID came back. The confirmation asks first-time Guild speakers for a 60–90 s video — see Open items. |
 | **Deadline** | **Oct 8, 2026** — submissions close |
 | **Voting** | opens **Oct 9, 2026**; the community votes sessions in |
 | **Event** | Feb 8–12, 2027, online |
@@ -105,7 +105,8 @@ Both are ticked on the form. Both need honoring.
 
 ## Open items
 
-- [ ] **Submit.** Nothing is sent. Deadline Oct 8.
+- [x] ~~Submit~~ **done 2026-10-05.**
+- [ ] **Record the 60–90 s speaker video** the confirmation asked for — phone is fine, not a webinar; the link is in the confirmation email. A script to read is in [`submission/SPEAKER-VIDEO.md`](submission/SPEAKER-VIDEO.md).
 - [x] ~~Mobium and MobiumApp public~~ **done** — [mobiumdev/mobium](https://github.com/mobiumdev/mobium)
       and [mobiumdev/mobium-app](https://github.com/mobiumdev/mobium-app), both MIT, are on the closing slide.
 - [ ] Confirm the LinkedIn slug, X handle and website fields in `FORM-ANSWERS.md`.

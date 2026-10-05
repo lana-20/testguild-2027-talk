@@ -1,9 +1,9 @@
 # Automation Guild '27 — form answers, as drafted
 
 Form: <https://podio.com/webforms/23345311/1672624>
-Status: **not yet submitted.** Deadline **Oct 8, 2026**; community voting opens **Oct 9**.
+Status: **submitted 2026-10-05**, as below. Community voting opens **Oct 9**.
 
-Paste each block into the matching field. Nothing here is submitted until the form is sent.
+This is the text as submitted; keep it as the record of what the Guild has.
 
 ---
 
