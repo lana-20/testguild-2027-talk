@@ -13,7 +13,7 @@ Slide ids in brackets match `deck/slides/<id>.html`.
 | 3:00–6:30 | **Part 1** — what motion costs a test | `part1` `p1-cost` `p1-two-kinds` |
 | 6:30–10:30 | **Part 2** — the system's animations | `part2` `p2-android` `p2-ios` `p2-rule` |
 | 10:30–15:00 | **Part 3** — the app's own animations | `part3` `p3-scales` `p3-two-fixes` `p3-code` `p3-rule` |
-| 15:00–17:30 | **Part 4** — proving it, and what stays | `part4` `p4-control` `p4-stays` |
+| 15:00–17:30 | **Part 4** — proving it, and what stays | `part4` `p4-control` `p4-devices` `p4-stays` |
 | 17:30–23:30 | **Demo** — Android, then a real iPhone, then an agent | `demo` `demo-results` |
 | 23:30–25:00 | Habits, and the conclusion | `habits` `close` |
 
@@ -43,7 +43,7 @@ The measurement: with all three Android scales at 0, an animation on the app's o
 
 ## 15:00–17:30 — Part 4: proving it, and what stays
 
-Let the app time itself, and keep one animation that ignores the setting as the **control**: if the control's time moves when the setting does, the measurement is measuring something else. Then the motion you cannot turn off — spinners, confetti, live content: wait for stillness, and refuse a target that never holds still rather than chase it. **Mobium:** every action waits for its target to stop moving, and a target still moving after five seconds is refused with exit 6, `timeout`, and both positions it was seen at.
+Let the app time itself, and keep one animation that ignores the setting as the **control**: if the control's time moves when the setting does, the measurement is measuring something else. Then the same measurement on four devices — real iPhone, simulator, real Pixel, emulator: a short test saved 14–40%, and the control held flat on every one. Then the motion you cannot turn off — spinners, confetti, live content: wait for stillness, and refuse a target that never holds still rather than chase it. **Mobium:** every action waits for its target to stop moving, and a target still moving after five seconds is refused with exit 6, `timeout`, and both positions it was seen at.
 
 ## 17:30–23:30 — Demo
 

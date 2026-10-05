@@ -39,6 +39,7 @@ Measured on 2026-10-04: an Android 15 emulator, and an iPhone 15 Plus on iOS 26.
 | `animation-scales.sh <serial>` | ~40 s | 2, 3 | the standard three scales at 0: the app animation that listens stops, the one on its own clock does not |
 | `reduce-motion.sh` | ~2 min | 2, 3, 4 | Reduce Motion moves the honoring target and not the control; confetti stays still, and a falling piece is refused |
 | `mcp-session.py` | ~30 s | — | the same calls from an agent's side, over MCP |
+| `compare.sh` | 1–3 min a device | 4 | not a stage beat: the four-device table on `p4-devices`, animations on and off |
 | Claude Code | live | Q&A | an agent driving the phone through `mcp.json` |
 
 Each script pauses at every beat — press return. `NOPAUSE=1` runs straight through for a rehearsal.
@@ -110,6 +111,16 @@ Prompts that work against this screen and change nothing on the phone:
   happened, and why?"
 
 Anything that changes Reduce Motion: say in the prompt to put it back on and read the switch.
+
+### `compare.sh` — the evidence table
+
+`IPHONE=<udid>` for a real iPhone or a simulator, `ANDROID=<serial>` for an emulator or a phone.
+Animations on, then off, three rounds each (`ROUNDS=` to change): the honoring and ignoring times
+as the app counts them, and the wall-clock time of a short test — launch, open the Motion Demo,
+Replay, tap, read. One tab-separated line per condition, medians first and every raw value after.
+It reads the device's setting first and puts it back at the end, also on a failure; on Android
+exactly as found, a missing key included. Run one device at a time — two measurements on one Mac
+slow each other down. The 2026-10-04 run is in `EVIDENCE.md`.
 
 ## Why not iPhone Mirroring
 

@@ -1,7 +1,7 @@
 # Automation Guild '27 — *Fast and Durable Mobile Tests with Mobium*
 
 Everything for the TestGuild [Automation Guild '27](https://testguild.com/call-for-speakers/)
-speaker submission: the pitch, the 25-minute run of show, the 22-slide deck, the demo scripts,
+speaker submission: the pitch, the 25-minute run of show, the 23-slide deck, the demo scripts,
 and the provenance of every number in them.
 
 **▶ View the deck: [lana-20.github.io/testguild-2027-talk](https://lana-20.github.io/testguild-2027-talk/)**
@@ -63,7 +63,7 @@ demo/                          the scripts the demo runs, and how to set it up �
 index.html                     BUILT — the standalone deck, and what Pages serves
 deck/
   deck.json                    the index: title, slide order, sections, typefaces
-  slides/<id>.html             22 slides, one file each — the source of truth
+  slides/<id>.html             23 slides, one file each — the source of truth
 scripts/
   build_deck.py                slides/ + deck.json -> index.html. Never edits a slide.
 ```
