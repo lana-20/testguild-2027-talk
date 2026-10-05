@@ -5,6 +5,7 @@ speaker submission: the pitch, the 25-minute run of show, the 29-slide deck, the
 and the provenance of every number in them.
 
 **▶ View the deck: [lana-20.github.io/testguild-2027-talk](https://lana-20.github.io/testguild-2027-talk/)**
+· **Teleprompter: [teleprompter.html](https://lana-20.github.io/testguild-2027-talk/teleprompter.html)** — the spoken script, large and scrolling
 · arrow keys to move · **S** for speaker notes · **F** for full screen · `#12` in the URL jumps to a slide
 
 ---
@@ -58,10 +59,12 @@ EVIDENCE.md                    every slide number, and the measurement it came f
 submission/
   FORM-ANSWERS.md              the six content fields + vendor answer, paste-ready
   RUN-OF-SHOW.md               25-minute timing plan, slide by slide, with the slack
+  TRANSCRIPT.md                the words to say, slide by slide — the teleprompter's source
 research/
   CFP-REQUIREMENTS.md          what the Guild wants and forbids, and the two binding clauses
 demo/                          the scripts the demo runs, and how to set it up — see demo/README.md
 index.html                     BUILT — the standalone deck, and what Pages serves
+teleprompter.html              BUILT — the transcript, large and scrolling (scripts/build_teleprompter.py)
 deck/
   deck.json                    the index: title, slide order, sections, typefaces
   slides/<id>.html             29 slides, one file each — the source of truth

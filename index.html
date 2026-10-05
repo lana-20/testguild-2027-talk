@@ -77,6 +77,7 @@
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#4C8C6A">Honoring: tapped <b>1348ms</b> after replay</p>
   </div>
   <p style="font-size:44px; font-weight:300; line-height:1.35; color:#BDC6CE; width:1560px">Same screen. Same button. Same tap. On a real iPhone.<br><b style="font-weight:600; color:#EDEAE3">One setting changed on the phone, and one line in the app.</b></p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Let both numbers sit before you speak. The app timed these taps, not the tool: each line is the app's own record of how long after its Replay the tap arrived, read back with mobium text — round 1 of demo/motion-cli.sh on the speaker's iPhone. Same steps both times — Replay, then tap the target. Do not explain the setting yet — that is the whole talk.</aside>
 </section></div>
 <div class="slide" data-id="premise"><section id="premise" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:48px">
@@ -92,6 +93,7 @@
       <p style="font-size:32px; color:#FFE3D8; line-height:1.35">a flaky suite</p>
     </div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>The two failure modes look different, which is why teams rarely trace them to the same cause. This is the thesis; everything after is how.</aside>
 </section></div>
 <div class="slide" data-id="part1"><section id="part1" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
@@ -99,6 +101,7 @@
   <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">What motion costs a test</h2>
   <div style="width:180px; height:5px; background:#E0A526"></div>
   <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1400px">Before turning anything off: where the time goes, and where the flakes come from.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Section divider. Two seconds on screen. Do not read it aloud.</aside>
 </section></div>
 <div class="slide" data-id="p1-cost"><section id="p1-cost" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:36px">
@@ -110,6 +113,7 @@
     <tr><td style="color:#E0A526">CPU</td><td>the device under test renders frames nobody watches</td><td>a busier device</td></tr>
   </table>
   <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Two seconds is invisible in one test. Across a suite, on every run, for everyone waiting on the build, it is the feedback loop.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Two seconds: a target that slides in over two seconds cost 3.3 s on the iPhone and 2.5 s on the Android emulator when the tool waited for it, against 1.3 s and 0.3 s with the motion off — the demo test through the CLI, medians of three. The race cost does not show up as time — it shows up as a retry.</aside>
 </section></div>
 <div class="slide" data-id="p1-two-kinds"><section id="p1-two-kinds" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:48px">
@@ -126,6 +130,7 @@
       <p style="font-size:30px; font-weight:300; line-height:1.4; color:#5A6169">Only the app can turn them off.</p>
     </div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>This distinction carries the rest of the talk. Part 2 is the left box, Part 3 the right one — and Part 3 is where the time actually goes.</aside>
 </section></div>
 <div class="slide" data-id="part2"><section id="part2" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
@@ -133,6 +138,7 @@
   <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">The system's animations</h2>
   <div style="width:180px; height:5px; background:#E0A526"></div>
   <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1400px">Android: three settings. iOS: one switch, and only Settings can flip it.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Section divider. Two seconds on screen. Do not read it aloud.</aside>
 </section></div>
 <div class="slide" data-id="p2-android"><section id="p2-android" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
@@ -145,6 +151,7 @@
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#4C8C6A">0</p>
   </div>
   <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Put them back after, <b style="font-weight:600; color:#EDEAE3">as you found them</b> &mdash; including &ldquo;not set at all&rdquo;, which is how an untouched device reads. On a phone, these belong to somebody.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>An untouched emulator reads animator_duration_scale as null, not 1. Restoring it as 1 leaves the device different from how you found it; delete the key instead.</aside>
 </section></div>
 <div class="slide" data-id="p2-ios"><section id="p2-ios" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
@@ -152,6 +159,7 @@
   <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:40px; color:#E0A526">Settings › Accessibility › Motion › Reduce Motion</p>
   <p style="font-size:38px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Nothing outside the phone can set it. A test that wants it has to drive the Settings app &mdash; about <b style="font-weight:600; color:#EDEAE3">25 seconds</b> a change on a real iPhone, measured.</p>
   <p style="font-size:38px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">So: <b style="font-weight:600; color:#EDEAE3">once per device, in setup</b>. Never per test.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Reduce Motion reduces; it does not remove. Settings' own push still slides with it on. Its real power is what it tells the app — which is Part 3.</aside>
 </section></div>
 <div class="slide" data-id="p2-rule"><section id="p2-rule" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:44px">
@@ -162,6 +170,7 @@
     <p style="font-size:32px; font-weight:300; line-height:1.4; color:#5A6169">The three scales on Android; a trip through Settings on an iPhone. Confirmed by reading the setting back, and returned to what it was when the session ends. Read it afterwards anyway: once, on the iPhone, it was not &mdash; the cause is still open.</p>
   </div>
   <p style="font-size:34px; font-weight:300; line-height:1.45; color:#5A6169; width:1560px">A setting changed on somebody's phone and never changed back is a defect, whoever wrote the test. So the demo's recordings read it before and after.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Droppable if tight: its point returns on the habits card. The restore matters most on a real phone — the iPhone in the demo is the speaker's own. On 2026-10-04 one test run left its Reduce Motion off when it had been on; it was put back by hand, two reruns restored correctly, and the cause is an open lead in Mobium's roadmap. Say it: it is the talk's own rule applied to the tool.</aside>
 </section></div>
 <div class="slide" data-id="part3"><section id="part3" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
@@ -169,6 +178,7 @@
   <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">The app's own animations</h2>
   <div style="width:180px; height:5px; background:#E0A526"></div>
   <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1400px">Where the time actually goes &mdash; and the switch from Part 2 does not reach it on its own.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Section divider. Two seconds on screen. Do not read it aloud.</aside>
 </section></div>
 <div class="slide" data-id="p3-scales"><section id="p3-scales" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:40px">
@@ -180,6 +190,7 @@
   </table>
   <p style="font-size:36px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Every setting read back 0. The animation on the app's own clock <b style="font-weight:600; color:#EDEAE3">slid for two and a half seconds anyway</b>. The one that asked &ldquo;should motion be reduced?&rdquo; appeared at once.</p>
   <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Android 15 emulator, MobiumApp's Motion Demo &nbsp;·&nbsp; demo/animation-scales.sh</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Two identical animations, one line apart: one reads the platform's reduce-motion answer, one does not. The zeroed scales are how Android answers yes. So the system switch turns off the app's animations only when the app listens.</aside>
 </section></div>
 <div class="slide" data-id="p3-two-fixes"><section id="p3-two-fixes" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:48px">
@@ -196,6 +207,7 @@
       <p style="font-size:30px; font-weight:300; line-height:1.4; color:#BDC6CE">Part 2's switch now reaches it &mdash; in the build you ship, on a path real users take.</p>
     </div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Recommend the right-hand one, and say why twice: the fast path becomes a real path, and it is an accessibility fix the app owes its users anyway. The test build is the fallback when the app team cannot change the code.</aside>
 </section></div>
 <div class="slide" data-id="p3-code"><section id="p3-code" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:36px">
@@ -209,6 +221,7 @@
     <tr><td style="color:#E0A526">Web / WebView</td><td>@media (prefers-reduced-motion: reduce)</td></tr>
   </table>
   <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Then animate with a duration of zero, or set the final state directly. Listen for changes &mdash; the setting can flip while the app runs.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>React Native on Android answers from the transition scale alone — measured: animator scale 0 by itself left it false. Zero all three and every reader agrees.</aside>
 </section></div>
 <div class="slide" data-id="p3-rule"><section id="p3-rule" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:44px">
@@ -219,6 +232,7 @@
     <p style="font-size:32px; font-weight:300; line-height:1.4; color:#5A6169">The speed-up and the accessibility fix are the same line of code &mdash; and the test now exercises something users actually get.</p>
   </div>
   <p style="font-size:34px; font-weight:300; line-height:1.45; color:#5A6169; width:1560px">A test-only shortcut is a second app, and nobody tests that one.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>This is the line people should leave with if they leave with one.</aside>
 </section></div>
 <div class="slide" data-id="part4"><section id="part4" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
@@ -226,6 +240,7 @@
   <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">Proving it, and what stays</h2>
   <div style="width:180px; height:5px; background:#E0A526"></div>
   <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1400px">A setting that reads 0 is not an animation that stopped.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Section divider. Two seconds on screen. Do not read it aloud.</aside>
 </section></div>
 <div class="slide" data-id="p4-control"><section id="p4-control" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:36px">
@@ -239,6 +254,7 @@
   </table>
   <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1600px">If the control's time moves when the setting does, the measurement is measuring something else. Here it stayed inside its own spread, 2.9 to 3.4 s, both ways &mdash; so the 1.5 to 2 seconds the honoring target lost belong to the setting.</p>
   <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">iPhone 15 Plus &nbsp;·&nbsp; medians of three per client &nbsp;·&nbsp; demo/motion-cli.sh, demo/motion-mcp.py</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>The app records how long after its own Replay the tap arrived, so the tool's opinion of itself is not the evidence. Two clients, the same steps, the same answer. About 1.3 s with the motion off is the tool's own work: Replay and the tap are two calls, and the tap first confirms the target is still.</aside>
 </section></div>
 <div class="slide" data-id="p4-devices"><section id="p4-devices" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:112px 128px 150px; display:flex; flex-direction:column; justify-content:center; gap:26px">
@@ -256,6 +272,7 @@
   </table>
   <p style="font-size:28px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1640px">The case is the demo test from opening the screen to its last check: replay and tap both targets, celebrate, wait for the confetti. Every device, both clients: a quarter to nearly half of the time gone.</p>
   <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#94A0AB">Medians of three per client &nbsp;·&nbsp; 2026-10-04 &nbsp;·&nbsp; demo/motion-cli.sh, demo/motion-mcp.py</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Off means each platform's own switch: Reduce Motion on iOS, all three scales at 0 on Android, set by the test's first step. The control holds on every device. With animations on the case also waits out the falling confetti, which is animation too. On Android the honoring time with the motion off lands at about 0.25 or about 1.1 s, in both clients — that is how long Mobium's tap takes to confirm the target is still — so a median of three can fall on either; the MCP and CLI rows differ there for that reason, not because of the client.</aside>
 </section></div>
 <div class="slide" data-id="p4-stays"><section id="p4-stays" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
@@ -268,6 +285,7 @@
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#E0A526">6 &nbsp;&nbsp;# timeout</p>
   </div>
   <p style="font-size:34px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1560px">Spinners, confetti, live content. Mobium waits for every target to stop moving before it acts &mdash; and a target that never holds still is a failure with a code, not something to chase.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Chasing a moving target is how a race becomes a flake: sometimes the tap lands, sometimes it does not, and the retry hides it. A refusal fails the same way every time.</aside>
 </section></div>
 <div class="slide" data-id="demo"><section id="demo" data-transition="push" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:34px">
@@ -275,6 +293,7 @@
   <h2 style="font-size:84px; font-weight:600; line-height:1.1; letter-spacing:-1px">Demo</h2>
   <div style="width:180px; height:5px; background:#E0A526"></div>
   <p style="font-size:38px; font-weight:300; color:#BDC6CE; width:1400px">Four devices, recorded: the same steps with animations on, then off &mdash; Android first, as the theory went.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Recorded, not live: every device ran the same test file, the one on the next slide, under a screen recorder. The same steps also ran through the CLI and through MCP, three rounds each, which is where the four-device table's numbers came from. The video is cut down to the app's Motion screen — launches and Settings are not in it. On each device slide the two cases play side by side.</aside>
 </section></div>
 <div class="slide" data-id="demo-code"><section id="demo-code" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:16px">
@@ -307,6 +326,7 @@
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">&nbsp;&nbsp;}]</p>
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#EDEAE3">}</p>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>The code that ran, verbatim — its whitespace reflowed to fit the slide, the parsed test identical. Two cases from one list: each switches the platform's own Reduce Motion, opens the Motion screen, checks what the app says, taps both targets after their Replay, and waits for the confetti to say done or still. Only the device changes between the four runs.</aside>
 </section></div>
 <div class="slide" data-id="demo-clients"><section id="demo-clients" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:14px">
@@ -327,6 +347,7 @@
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#94A0AB">→&nbsp;tools/call&nbsp;app_wait_for&nbsp;{&quot;target&quot;:&nbsp;&quot;testid=reduceMotion&quot;,&nbsp;&quot;condition&quot;:&nbsp;&quot;text&quot;,&nbsp;...}</p>
   </div>
   <p style="font-size:28px; font-weight:300; line-height:1.4; color:#BDC6CE; width:1660px">demo/motion-cli.sh spells each step as a command and is checked against the test file before it runs; demo/motion-mcp.py sends the file's steps as they are. Both read the app's times &mdash; the four-device numbers came from them.</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>The first three of the test's eleven steps, each in its three forms: the test file, the CLI, and MCP — what an AI agent sends. A step in the test file already is a tool call; the CLI names the same tool as a command. Same tools underneath all three: the CLI parses flags and calls the tool by name.</aside>
 </section></div>
 <div class="slide" data-id="demo-run"><section id="demo-run" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:64px 72px; display:flex; flex-direction:column; justify-content:center; gap:16px">
@@ -353,6 +374,7 @@
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[iphone&nbsp;·&nbsp;iPhone&nbsp;15&nbsp;Plus]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;on&nbsp;(46.5s)</p>
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:24px; line-height:1.25; white-space:nowrap; color:#4C8C6A">ok&nbsp;&nbsp;&nbsp;&nbsp;[iphone&nbsp;·&nbsp;iPhone&nbsp;15&nbsp;Plus]&nbsp;motion.test.json&nbsp;›&nbsp;animations&nbsp;off&nbsp;(41.7s)</p>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Eight passes, two per device. The phones take longer than the virtual devices, and the iPhone longest: switching Reduce Motion there is a trip through the Settings app. Each run's session put the setting back when it ended, and the recording harness read it before and after to make sure.</aside>
 </section></div>
 <div class="slide" data-id="demo-emulator"><section id="demo-emulator" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 96px; display:flex; flex-direction:column; justify-content:center; gap:0px">
@@ -376,6 +398,7 @@
       <video src="deck/media/emulator-off.mp4" poster="deck/media/emulator-off.jpg" aria-label="Android emulator, animations off: 233 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Android 15 emulator. The honoring target is in place before the tap; the ignoring one — the control — still slides for two and a half seconds, because the scales do not reach an animation on the app's own clock. The confetti stays still on the right.</aside>
 </section></div>
 <div class="slide" data-id="demo-pixel"><section id="demo-pixel" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 96px; display:flex; flex-direction:column; justify-content:center; gap:0px">
@@ -399,6 +422,7 @@
       <video src="deck/media/pixel-off.mp4" poster="deck/media/pixel-off.jpg" aria-label="Real Pixel 8 Pro, animations off: 1192 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>The speaker's own phone, Android 17. Same picture as the emulator, on hardware. The status bar is Android's demo mode — 9:41, no notifications — set for the recording and put back after; the small icon by the clock is Android's screen-capture indicator.</aside>
 </section></div>
 <div class="slide" data-id="demo-simulator"><section id="demo-simulator" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 96px; display:flex; flex-direction:column; justify-content:center; gap:0px">
@@ -422,6 +446,7 @@
       <video src="deck/media/simulator-off.mp4" poster="deck/media/simulator-off.jpg" aria-label="iPhone simulator, animations off: 917 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>iPhone 17 Pro simulator, iOS 26.5. Reduce Motion is the only switch iOS has; the app asks for it and skips its slide, the control does not.</aside>
 </section></div>
 <div class="slide" data-id="demo-iphone"><section id="demo-iphone" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 96px; display:flex; flex-direction:column; justify-content:center; gap:0px">
@@ -445,6 +470,7 @@
       <video src="deck/media/iphone-off.mp4" poster="deck/media/iphone-off.jpg" aria-label="Real iPhone 15 Plus, animations off: 1282 ms" style="width:330px; height:716px; object-fit:contain; background:#0E1318; border:1px solid #2A343E; border-radius:18px" autoplay muted loop playsinline></video>
     </div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>The speaker's own iPhone, iOS 26.6.2, recorded over USB. The test switched Reduce Motion through the Settings app — about 25 seconds each way, cut from the video, since its first screen shows the owner's name — and the session put it back on after.</aside>
 </section></div>
 <div class="slide" data-id="demo-results"><section id="demo-results" data-transition="fade" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
@@ -455,6 +481,7 @@
     <div style="background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:28px 36px"><p style="font-size:34px; line-height:1.4"><b style="font-weight:600">Confetti:</b> falling with animations on, a still &ldquo;Done&rdquo; with them off &mdash; nothing left to wait out.</p></div>
     <div style="background:#FAF8F3; border:1px solid #D8D3C7; border-radius:12px; padding:28px 36px"><p style="font-size:34px; line-height:1.4"><b style="font-weight:600">One test file everywhere:</b> two platforms, real and virtual &mdash; only the device changed, and each platform's own switch did the rest.</p></div>
   </div>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Back from the videos. Read the four lines quickly; the timings behind them are on the four-device slide and in EVIDENCE.md.</aside>
 </section></div>
 <div class="slide" data-id="habits"><section id="habits" data-transition="push" style="background:#F0EDE6; color:#141A21; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:38px">
@@ -478,6 +505,7 @@
     </div>
   </div>
   <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#5A6169">The takeaway card &mdash; this is the slide people screenshot</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Do not elaborate. Read each one once and move to the close. If you are over time, this is the slide to land on and stop.</aside>
 </section></div>
 <div class="slide" data-id="close"><section id="close" data-transition="fade" style="background:#141A21; color:#EDEAE3; font-family:Rubik, Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:center; gap:40px">
@@ -490,6 +518,7 @@
     <p style="font-family:'Fira Code', 'Courier New', monospace; font-size:30px; color:#EDEAE3">github.com/mobiumdev/mobium &nbsp;·&nbsp; github.com/mobiumdev/mobium-app</p>
   </div>
   <p style="position:absolute; left:128px; bottom:64px; font-family:'Fira Code', 'Courier New', monospace; font-size:24px; color:#EDEAE3">Lana Begunova &nbsp;·&nbsp; lana-20.github.io/testguild-2027-talk</p>
+  <img src="deck/media/mobium-mark.png" alt="Mobium" style="position:absolute; right:48px; top:40px; width:63px; height:64px; object-fit:contain">
   <aside>Read the conclusion close to verbatim, then stop. Both repos are public and MIT licensed; the deck link in the footer holds the demo scripts. The live Q&A is where the scale each framework reads, iOS's missing command, and the agent belong.</aside>
 </section></div>
 </div>

@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teleprompter — Fast and Robust Mobile Tests with Mobium</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap">
+<style>
+  :root { --bg:#000; --ink:#F2EFE8; --dim:#7C8791; --cue:#E0A526; --click:#4C8C6A; --line:rgba(224,165,38,.35); --size:56px; }
+  html, body { margin:0; background:var(--bg); color:var(--ink); }
+  body { font-family:Rubik, Arial, sans-serif; overflow:hidden; }
+  #scroller { position:fixed; inset:0; overflow-y:scroll; scrollbar-width:none; }
+  #scroller::-webkit-scrollbar { display:none; }
+  #script { max-width:1500px; margin:0 auto; padding:45vh 6vw 80vh; font-size:var(--size); line-height:1.45; }
+  #script.mirror { transform:scaleX(-1); }
+  .slide { margin-bottom:1.6em; }
+  h2 { font-family:'Fira Code', monospace; font-weight:500; font-size:.42em; color:var(--dim); letter-spacing:.06em;
+       text-transform:uppercase; margin:0 0 .6em; padding-top:.6em; border-top:2px solid #222; }
+  p { margin:0 0 .75em; }
+  .cue { color:var(--cue); font-style:italic; font-size:.7em; }
+  .cueline { color:var(--cue); font-style:italic; font-size:.6em; }
+  .click { color:var(--click); font-family:'Fira Code', monospace; font-size:.45em; letter-spacing:.2em; text-transform:uppercase; }
+  .click::before { content:"▶  "; }
+  #guide { position:fixed; left:0; right:0; top:38vh; height:0; border-top:3px solid var(--line); pointer-events:none; }
+  #hud { position:fixed; left:0; right:0; bottom:0; padding:10px 16px; background:#000; border-top:1px solid #222; display:flex; flex-wrap:wrap; gap:6px 18px; font:14px 'Fira Code', monospace; color:#6A747E; }
+  #hud b { color:#C9D1D8; font-weight:500; }
+  @media (max-width:700px) { :root { --size:30px; } #hud { font-size:11px; } }
+</style>
+</head>
+<body>
+<div id="scroller"><div id="script">
+<section class="slide"><h2>1 · cover · 0:00</h2>
+<p class="cueline">No introduction yet. The logo loops on the right. Two seconds, then move on.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>2 · open-numbers · 0:05</h2>
+<p>Same screen. Same button. Same tap.</p>
+<p class="cueline">pause</p>
+<p>On a real iPhone, the app recorded this tap three point three seconds after I asked for it.</p>
+<p class="cueline">pause</p>
+<p>And this one — one point three.</p>
+<p>Nothing about the test changed. Not a line of it. One setting changed on the phone, and one line changed in the app.</p>
+<p class="cueline">pause</p>
+<p>I&#x27;m Lana Begunova. I&#x27;m an SDET in Seattle, I test mobile apps for a living, and I build an open-source mobile automation tool called Mobium. This talk is about those two numbers — where the other two seconds went, and how to get them back on every screen of every test.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>3 · premise · 1:30</h2>
+<p>Let&#x27;s start with something we all agree on. Animations are for humans.</p>
+<p>They&#x27;re how a person follows what changed on a screen. A button slides in, and your eye goes to it. A sheet rises from the bottom, and you know where it came from. That&#x27;s good design, and I&#x27;m not here to argue with designers.</p>
+<p>But a test isn&#x27;t a person. A test doesn&#x27;t need to be guided. To a test, every animation is one of two things.</p>
+<p>It&#x27;s time the test waits. Multiply that by every screen and every test, and you have a slow suite.</p>
+<p>Or it&#x27;s a race the test can lose. A tap aimed at a button that&#x27;s still moving. A read of a screen halfway through a transition. That&#x27;s a flaky suite.</p>
+<p>Those two failures look completely different. One shows up on a dashboard as minutes. The other shows up as a test that fails once in fifty runs and passes on retry. So teams rarely trace them back to the same cause. Today we trace both of them to motion — and then we turn it off.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>4 · part1 · 3:00</h2>
+<p class="cueline">Section divider — say nothing.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>5 · p1-cost · 3:05</h2>
+<p>Motion costs a test three things.</p>
+<p>The first is time, and it&#x27;s the one we can measure. A careful tool won&#x27;t touch a target while it&#x27;s moving — it waits for it to settle. So a two-second slide-in isn&#x27;t two seconds. On the iPhone it cost about three point three seconds, waiting included, and two and a half on the Android emulator. With the motion off, the same steps took one point three on the iPhone, and about a quarter of a second on the emulator.</p>
+<p>The second cost is races. A tap aimed at something still moving lands wherever the thing happens to be. A read in the middle of a transition sees half of one screen and half of another. That doesn&#x27;t show up as time. It shows up as a flake. And then a retry hides it, and nobody fixes it.</p>
+<p>The third cost is CPU. The device under test is rendering frames that nobody is watching — on an emulator that&#x27;s sharing a CI machine with everything else.</p>
+<p>Two seconds is invisible in one test. Nobody files a bug about two seconds. But across a suite, on every run, for everyone who&#x27;s waiting on the build — it&#x27;s the feedback loop.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>6 · p1-two-kinds · 4:30</h2>
+<p>Before we turn anything off, one distinction that the rest of the talk hangs on. There are two kinds of animation, and they have different switches.</p>
+<p>The system&#x27;s own. The transitions between screens and between apps — the slide when you push a new screen, the zoom when an app opens. The operating system draws those, and a device setting turns them off.</p>
+<p>And the app&#x27;s own. Anything the app animates itself: a card that slides in, a bounce, a spinner, confetti when you finish a purchase. The app&#x27;s code draws those, and only the app can turn them off.</p>
+<p>Hold on to that split. Part two is the left box — the system&#x27;s switches. Part three is the right box. And part three is where the time actually goes.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>7 · part2 · 6:30</h2>
+<p class="cueline">Section divider — say nothing.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>8 · p2-android · 6:35</h2>
+<p>Android first, because Android makes this easy.</p>
+<p>There are three animation scales. The window scale, for windows opening and closing. The transition scale, for moving between activities. And the animator scale, for animations inside apps. Set all three to zero with adb shell settings. It needs no root, and it works on an emulator or a phone.</p>
+<p>Then put them back after — and put them back as you found them. That sounds obvious, and it has a trap in it. An untouched device doesn&#x27;t report &quot;one&quot; for the animator scale. It reports &quot;not set at all.&quot; If your cleanup writes &quot;one&quot;, the device now reads differently from how you found it. So remember what was there, and if nothing was there, delete the key.</p>
+<p>Why care? Because on a phone, these settings belong to somebody. A test that leaves a person&#x27;s phone changed has a bug in it, even if every assertion passed.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>9 · p2-ios · 8:00</h2>
+<p>On iOS there&#x27;s no command at all.</p>
+<p>The switch is Reduce Motion, in Settings, under Accessibility, under Motion. Nothing outside the phone can set it. A test that wants it has to drive the Settings app — open it, walk down the pages, flip the switch, come back. On my iPhone that&#x27;s about twenty-five seconds a change. I timed it.</p>
+<p>So the rule is: once per device, in setup. Never per test. Twenty-five seconds per test would eat everything we&#x27;re trying to save.</p>
+<p>And know what you&#x27;re getting. Reduce Motion reduces — it doesn&#x27;t remove. Settings&#x27; own push transition still slides with it on. Its real power isn&#x27;t what it does to the system. It&#x27;s what it tells the app. Hold that thought for part three.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>10 · p2-rule · 9:15</h2>
+<p>With Mobium, both platforms are one call: accessibility, reduce motion, on. Underneath, that&#x27;s the three scales on Android, and a trip through Settings on an iPhone. Mobium reads the setting back to confirm it actually changed, and when the session ends, it puts back whatever it found.</p>
+<p>But read it afterwards anyway. Once, on my own iPhone, a run did not put Reduce Motion back. Two reruns afterwards did, and I still don&#x27;t know why. It&#x27;s an open lead in the tool&#x27;s roadmap. I&#x27;m telling you because it&#x27;s this talk&#x27;s own rule, applied to my own tool: a setting that says it was restored is not the same as a setting you read.</p>
+<p>A setting changed on somebody&#x27;s phone and never changed back is a defect, whoever wrote the test. So every recording in the demo reads the setting before the run and after it.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>11 · part3 · 10:30</h2>
+<p class="cueline">Section divider — say nothing.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>12 · p3-scales · 10:35</h2>
+<p>So here&#x27;s the experiment that changed how I think about this.</p>
+<p>Android emulator. All three scales at zero, the standard advice, done by the book. Every one of them read back zero.</p>
+<p>On screen, the app has two animations, identical except for one line. Both slide in over two seconds, and the app times each one itself.</p>
+<p>The first one ignores the setting. With the scales at one, it took two and a half seconds. With the scales at zero — two and a half seconds. It slid anyway, as if nothing had changed.</p>
+<p>The second one asks the platform a single question: should motion be reduced? With the scales at one, two point six seconds. At zero — under one second. It appeared at once.</p>
+<p class="cueline">pause</p>
+<p>The zeroed scales are how Android answers &quot;yes, reduce motion.&quot; The app that asked got the answer. The app that didn&#x27;t ask kept animating on its own clock.</p>
+<p>So the system switch turns off the app&#x27;s animations only when the app listens.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>13 · p3-two-fixes · 12:00</h2>
+<p>There are two ways to stop the app&#x27;s own motion.</p>
+<p>The first is a test build. You force every animation duration to zero behind a flag that&#x27;s only on in testing. It works — the animations are gone. But look at what you&#x27;re testing now: a build nobody ships, through a flag nothing tests. Your fastest path runs through code your users never execute.</p>
+<p>The second is to make the app honor Reduce Motion. When the user asks for less motion, the app skips its animations. Then the switch from part two reaches it — in the build you ship, on a path that real users take every day.</p>
+<p>Use the second one. The fast path becomes a real path. And it&#x27;s an accessibility fix your app owes its users anyway — people with vestibular disorders turn that switch on for a reason.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>14 · p3-code · 13:15</h2>
+<p>And it really is one line per framework.</p>
+<p>UIKit asks UIAccessibility whether Reduce Motion is enabled. SwiftUI reads it from the environment. Android views ask the value animator whether animators are enabled. React Native has AccessibilityInfo. And on the web, or inside a WebView, it&#x27;s a media query: prefers reduced motion.</p>
+<p>Then animate with a duration of zero, or skip straight to the final state. And listen for changes — the setting can flip while the app is running.</p>
+<p>One detail I measured: React Native on Android decides from the transition scale alone. Zero just the animator scale, and it still says motion is on. Zero all three, and every reader agrees.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>15 · p3-rule · 14:15</h2>
+<p>So the rule is: make the fast path a real path.</p>
+<p>Turn motion off through the switch your users already have, and make the app listen to it. The speed-up and the accessibility fix are the same line of code. And your test now exercises something users actually get, instead of something only your CI ever sees.</p>
+<p>A test-only shortcut is a second app. And nobody tests that one.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>16 · part4 · 15:00</h2>
+<p class="cueline">Section divider — say nothing.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>17 · p4-control · 15:05</h2>
+<p>Now, how do you prove the motion is gone? Because &quot;we turned animations off&quot; is a setting somebody changed. It isn&#x27;t a result anybody saw.</p>
+<p>Two habits. First, let the app keep the time. The app records how long after its own Replay the tap arrived. So the tool isn&#x27;t grading itself — the tool&#x27;s opinion of how fast it was isn&#x27;t the evidence.</p>
+<p>Second, keep a control: one animation that ignores the setting, on purpose. If the control&#x27;s time moves when the setting does, you&#x27;re measuring something else — the device warming up, the machine being busy, the network. The control is how you know.</p>
+<p>On the iPhone, I ran the same test through both of Mobium&#x27;s agentic clients — the command line, and MCP, which is how an AI agent drives it. Three rounds each. The honoring target dropped from about three seconds to one point three. The control stayed inside its own spread, two point nine to three point four, both ways.</p>
+<p>So the time the honoring target lost belongs to the setting.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>18 · p4-devices · 16:05</h2>
+<p>Then the same measurement everywhere. Four devices: a real iPhone, a real Pixel, the iOS simulator and the Android emulator. Two clients each, three rounds each.</p>
+<p>The column on the right is the one to read. The case is the demo test from opening the screen to its last check: replay and tap both targets, celebrate, wait for the confetti. With animations off, every device, through both clients, lost between a quarter and nearly half of that time. Twenty-three percent on the iPhone. Thirty-five on the Pixel. Up to forty-six on the emulator.</p>
+<p>Two honest notes. On Android, the honoring time with the motion off lands at one of two levels — about a quarter of a second or about a second — in both clients. That&#x27;s how long the tool takes to confirm the target is still. So a median of three can fall on either. It isn&#x27;t the client.</p>
+<p>And the control held on every device.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>19 · p4-stays · 16:50</h2>
+<p>Some motion never stops. Spinners. Live content. Confetti.</p>
+<p>You can&#x27;t turn those off, so the tool has to deal with them honestly. Mobium waits for every target to stop moving before it acts. And a target that never holds still is a failure, with a code — not something to chase.</p>
+<p>Here it&#x27;s a single falling piece of confetti. Mobium watched it for five seconds, reported where it was and where it went, and refused to tap it. Exit code six: timeout.</p>
+<p>Chasing a moving target is how a race becomes a flake. Sometimes the tap lands, sometimes it doesn&#x27;t, and the retry hides it. A refusal fails the same way, every single time. You can fix something that fails the same way every time.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>20 · demo · 17:30</h2>
+<p>Now the demo. It&#x27;s recorded, on four devices, in the order the theory went — Android first.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>21 · demo-code · 17:40</h2>
+<p>This is the code that ran. One Mobium test file — and it ran unchanged on all four devices. Only the device name changed.</p>
+<p>Two cases from one list: animations on, and animations off. Each case flips the platform&#x27;s own switch, opens the Motion screen, checks that the app actually sees the setting, taps both targets after their Replay, presses Celebrate, and waits for the confetti to say &quot;done&quot; — or &quot;still.&quot;</p>
+<p>Notice the first step. The setting is part of the test. It isn&#x27;t a manual prerequisite someone forgets.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>22 · demo-clients · 18:30</h2>
+<p>And because every step in that file is a tool call, Mobium&#x27;s agentic clients can run the same steps.</p>
+<p>Here are the first three steps, three ways. On top, the test file. In the middle, the command line — what you&#x27;d type, or what a shell script runs. At the bottom, MCP — the Model Context Protocol, exactly what an AI agent sends.</p>
+<p>They&#x27;re the same tools underneath. The command-line version is checked against the test file before it runs. The MCP version reads its steps straight from the file. So they can&#x27;t drift apart. And those two clients are where every number on the four-device slide came from.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>23 · demo-run · 19:15</h2>
+<p>The config names the four devices as projects. One command per device. Eight passes — two cases on each of four devices.</p>
+<p>The phones take longer than the virtual devices, and the iPhone takes longest. Switching Reduce Motion there is a trip through Settings, twice per run.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>24 · demo-emulator · 19:45</h2>
+<p>The Android emulator. Animations on, on the left. Animations off, on the right.</p>
+<p class="cueline">Let both clips play. Point as they run.</p>
+<p>Watch the honoring target — the top green button. On the left it slides in. On the right it&#x27;s already in place before the tap.</p>
+<p>Now the control, below it. On both sides it slides for two and a half seconds. The scales don&#x27;t reach an animation on the app&#x27;s own clock.</p>
+<p>And Celebrate. On the left the confetti falls. On the right it never starts.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>25 · demo-pixel · 21:00</h2>
+<p>My own Pixel. Same picture, on real hardware.</p>
+<p class="cueline">Let it play.</p>
+<p>Three point one seconds down to one point two. The confetti falls on the left and holds still on the right.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>26 · demo-simulator · 21:40</h2>
+<p>The iPhone simulator. Reduce Motion is the only switch iOS has.</p>
+<p class="cueline">Let it play.</p>
+<p>The app asks for it and skips its slide. The control doesn&#x27;t. Two seconds down to under one.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>27 · demo-iphone · 22:20</h2>
+<p>And my own iPhone, recorded over USB.</p>
+<p class="cueline">Let it play.</p>
+<p>Three point two seconds down to one point three. The trip through Settings happened between the two clips — I cut it out, because the first screen of Settings shows my name.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>28 · demo-results · 23:00</h2>
+<p>So, what you just watched.</p>
+<p>On every device, with the switch off, the app that listens is in place before the tap.</p>
+<p>The control never moved.</p>
+<p>The confetti fell with animations on, and stayed still with them off.</p>
+<p>And one test file did all of it. Only the device changed.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>29 · habits · 23:30</h2>
+<p>Four habits to take home.</p>
+<p>One: turn off the system&#x27;s animations once per device — and put them back as you found them.</p>
+<p>Two: make the app honor Reduce Motion. The fast path becomes a real path, in the build you ship.</p>
+<p>Three: time it with the app, and keep a control. A setting that reads zero is not an animation that stopped.</p>
+<p>Four: wait for stillness — and refuse what never stops.</p>
+<p class="click">click</p></section>
+<section class="slide"><h2>30 · close · 24:15</h2>
+<p>Turn off every animation you can — the system&#x27;s with a setting, the app&#x27;s by having it listen — and wait out the rest.</p>
+<p>You get time back. And a whole class of races leaves your suite.</p>
+<p>How much depends on your app, and how much it moves.</p>
+<p class="cueline">pause</p>
+<p>But every second you take off a test comes off the feedback loop of everyone who waits on your build.</p>
+<p class="cueline">pause</p>
+<p>The tool and the demo app are open source, at github dot com slash mobiumdev. The slides and the scripts you watched are linked at the bottom. Thank you.</p>
+<p class="cueline">End of recording. Q&amp;A follows live.</p></section>
+</div></div>
+<div id="guide"></div>
+<div id="hud"><span><b id="state">paused</b> · space</span><span>speed <b id="speed">0.6</b> · ↑ ↓</span><span>type <b id="size">56</b>px · + −</span><span>mirror · m</span><span>slide · n p</span><span>top · home</span><span id="where"></span></div>
+<script>
+(function () {
+  var sc = document.getElementById('scroller'), script = document.getElementById('script');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var running = false, speed = 0.6, size = window.innerWidth < 700 ? 30 : 56, last = null, carry = 0;
+  function store(k, v) { try { localStorage.setItem('tp-' + k, v); } catch (e) {} }
+  function load(k) { try { return localStorage.getItem('tp-' + k); } catch (e) { return null; } }
+  if (load('size')) size = +load('size');
+  if (load('speed')) speed = +load('speed');
+  if (load('mirror') === '1') script.classList.add('mirror');
+  function hud() {
+    document.getElementById('state').textContent = running ? 'running' : 'paused';
+    document.getElementById('speed').textContent = speed.toFixed(1);
+    document.getElementById('size').textContent = size;
+    document.documentElement.style.setProperty('--size', size + 'px');
+    var line = sc.scrollTop + window.innerHeight * 0.38, cur = slides[0];
+    slides.forEach(function (s) { if (s.offsetTop <= line) cur = s; });
+    document.getElementById('where').textContent = cur ? cur.querySelector('h2').textContent : '';
+  }
+  function frame(t) {
+    if (running) {
+      if (last !== null) {
+        carry += (t - last) / 1000 * 40 * speed * (size / 56);
+        var whole = Math.floor(carry); carry -= whole; sc.scrollTop += whole;
+      }
+      last = t;
+    } else { last = null; }
+    hud();
+  }
+  function go(dir) {
+    var line = sc.scrollTop + window.innerHeight * 0.38 + 2, i = 0;
+    slides.forEach(function (s, k) { if (s.offsetTop <= line) i = k; });
+    var j = Math.max(0, Math.min(slides.length - 1, i + dir));
+    sc.scrollTop = slides[j].offsetTop - window.innerHeight * 0.38 + 4;
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === ' ') { running = !running; e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { speed = Math.max(0.2, speed - 0.1); store('speed', speed); e.preventDefault(); }
+    else if (e.key === 'ArrowDown') { speed = Math.min(4, speed + 0.1); store('speed', speed); e.preventDefault(); }
+    else if (e.key === '+' || e.key === '=') { size = Math.min(120, size + 4); store('size', size); }
+    else if (e.key === '-' || e.key === '_') { size = Math.max(20, size - 4); store('size', size); }
+    else if (e.key === 'm') { script.classList.toggle('mirror'); store('mirror', script.classList.contains('mirror') ? '1' : '0'); }
+    else if (e.key === 'n') { go(1); } else if (e.key === 'p') { go(-1); }
+    else if (e.key === 'Home') { sc.scrollTop = 0; }
+  });
+  sc.addEventListener('click', function () { running = !running; });
+  // A timer, not animation frames: it scrolls the same in a visible tab, and runs where frames
+  // are not drawn — a headless check, or a window the prompter software has behind its mirror.
+  hud(); setInterval(function () { frame(performance.now()); }, 16);
+})();
+</script>
+</body>
+</html>

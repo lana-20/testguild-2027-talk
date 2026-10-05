@@ -5,6 +5,7 @@ Theory first, practice last: everything the demo shows has been explained before
 The umbrella is **fast and robust mobile tests, with Mobium**; turning off motion is the
 technique, and each part ends on what Mobium does about it.
 Slide ids in brackets match `deck/slides/<id>.html`.
+The words to say are in [`TRANSCRIPT.md`](TRANSCRIPT.md), and on a teleprompter at `teleprompter.html`.
 
 | Time | Beat | Slides |
 |---|---|---|
