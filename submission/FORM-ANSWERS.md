@@ -36,6 +36,7 @@ The standard advice is to switch animations off. This session shows, measured on
 - **Android's three animation scales at 0** read back 0 — and an app animation running on its own clock still slid for **2.5 seconds**, exactly as with the scales at 1.
 - **The same scales made an app that asks "should motion be reduced?" appear at once**: 2.6 seconds down to well under one.
 - **iOS has no programmatic switch at all.** Reduce Motion lives in Settings, and changing it from a test means driving the Settings app.
+- **With the motion off, the demo test's steps took 23–46% less time on every device** — from opening the screen to the last check — a real iPhone and Pixel, the simulator and the emulator — measured three rounds each through both of Mobium's agentic clients, the command line and MCP, with an animation that ignores the setting as the control. The control held on all four.
 
 Then the fix that makes the switch reach the app, how to prove it worked, and what to do about the motion that stays — and how Mobium, an open-source tool for driving native apps from a terminal or an AI agent, builds all of it in: one call that sets Reduce Motion on either platform and puts it back, an action that waits for its target to stop moving, and a refusal, with an error code, for a target that never does.
 
@@ -77,13 +78,13 @@ Every second shaved off a test comes off everyone's feedback loop.
 
 ## Do you work for a test tool vendor?
 
-**Yes** — I founded Mobium AI, a testing consultancy in Seattle, and I build Mobium, an open-source (MIT) mobile automation tool. Nothing is for sale. The session is built on Mobium, but it is not a tour: the techniques are platform settings and app code that work with whatever drives your tests, and Mobium is shown doing them — with the numbers it measured, on a real phone.
+**Yes** — I founded Mobium AI, a testing consultancy in Seattle, and I build Mobium, an open-source (MIT) mobile automation tool. Nothing is for sale. The session is built on Mobium, but it is not a tour: the techniques are platform settings and app code that work with whatever drives your tests, and Mobium is shown doing them — with the numbers it measured on four devices, through its command-line and MCP clients.
 
 ---
 
 ## Anything else you want to tell me?
 
-Every number in this session was measured for it, on a real iPhone 15 Plus, a real Pixel 8 Pro, an iOS simulator and an Android emulator, with the app keeping its own time rather than the test tool. Attendees get the slides, the demo scripts they watched, and the small open-source app the measurements were taken on — two identical animations, one honoring the setting and one ignoring it as the control. Both are public and MIT licensed: the tool at github.com/mobiumdev/mobium, the app at github.com/mobiumdev/mobium-app.
+Every number in this session was measured for it, on a real iPhone 15 Plus, a real Pixel 8 Pro, an iOS simulator and an Android emulator, with the app keeping its own time rather than the test tool. Attendees get the slides, the test and the scripts behind every number — the same steps run through the command line and through MCP, with the raw results — and the small open-source app the measurements were taken on — two identical animations, one honoring the setting and one ignoring it as the control. Both are public and MIT licensed: the tool at github.com/mobiumdev/mobium, the app at github.com/mobiumdev/mobium-app.
 
 ---
 
