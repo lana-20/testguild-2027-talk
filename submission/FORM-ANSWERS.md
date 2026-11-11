@@ -93,7 +93,7 @@ Every number in this session was measured for it, on a real iPhone 15 Plus, a re
 | Field | Value |
 |---|---|
 | Name | Lana Begunova |
-| Email | begunova@gmail.com |
+| Email | (given in the form, not here) |
 | Country | United States |
 | Website | daisyladybug.com |
 | LinkedIn | linkedin.com/in/lanabegunova *(confirm exact slug before submitting)* |
